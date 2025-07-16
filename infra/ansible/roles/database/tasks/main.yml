@@ -1,0 +1,235 @@
+---
+- name: Create database directory
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/database"
+    state: directory
+    mode: "0755"
+
+- name: Create PostgreSQL data directory
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/database/postgres-data"
+    state: directory
+    mode: "0755"
+
+- name: Create database init directory
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/database/init"
+    state: directory
+    mode: "0755"
+
+- name: Install required packages for Google Cloud SDK
+  ansible.builtin.apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - gnupg
+      - curl
+    state: present
+    update_cache: true
+  become: true
+
+- name: Create keyrings directory
+  ansible.builtin.file:
+    path: /usr/share/keyrings
+    state: directory
+    mode: "0755"
+  become: true
+
+- name: Download Google Cloud SDK GPG key
+  ansible.builtin.get_url:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    dest: /tmp/google-cloud-key.gpg
+    mode: "0644"
+  become: true
+
+- name: Convert and install GPG key
+  ansible.builtin.shell: |
+    gpg --dearmor < /tmp/google-cloud-key.gpg > /usr/share/keyrings/cloud.google.gpg
+    chmod 644 /usr/share/keyrings/cloud.google.gpg
+  become: true
+  args:
+    creates: /usr/share/keyrings/cloud.google.gpg
+  changed_when: false
+
+- name: Clean up temporary key file
+  ansible.builtin.file:
+    path: /tmp/google-cloud-key.gpg
+    state: absent
+  become: true
+
+- name: Add Google Cloud SDK repository
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main"
+    state: present
+    filename: google-cloud-sdk
+    update_cache: true
+  become: true
+
+- name: Install Google Cloud SDK
+  ansible.builtin.apt:
+    name: google-cloud-cli
+    state: present
+    update_cache: true
+  become: true
+
+- name: Create GCP service account key file on remote host
+  ansible.builtin.copy:
+    content: "{{ lookup('env', 'GCP_SERVICE_ACCOUNT_KEY') }}"
+    dest: /tmp/gcp-key.json
+    mode: "0600"
+  become: true
+  no_log: true
+
+# - name: Authenticate with GCP using service account
+#   ansible.builtin.shell: |
+#     gcloud auth activate-service-account --key-file=/tmp/gcp-key.json
+#   environment:
+#     GOOGLE_APPLICATION_CREDENTIALS: /tmp/gcp-key.json
+#   become: true
+#   changed_when: false
+
+# - name: Set bucket name variable
+#   ansible.builtin.set_fact:
+#     bucket_name: "{{ database_bucket_name }}"
+
+# - name: Verify dump exists in private bucket and copy to deployment bucket
+#   ansible.builtin.shell: |
+#     echo "[!!!] Checking if database dump exists in private storage..."
+
+#     # Check if dump exists in private bucket
+#     if gcloud storage ls gs://crested-primacy-461013-t6-private-dumps/database.dump 2>/dev/null; then
+#       echo "[+++] Database dump found in private storage"
+
+#       # Copy from private bucket to deployment bucket
+#       echo "[!!!] Copying database dump to deployment bucket..."
+#       gcloud storage cp gs://crested-primacy-461013-t6-private-dumps/database.dump \
+#         gs://{{ database_bucket_name }}/database.dump
+
+#       echo "[+++] Database dump copied successfully"
+#     else
+#       echo "[XXX] -> DATABASE DUMP NOT FOUND in private bucket!"
+#       echo "Expected: gs://crested-primacy-461013-t6-private-dumps/database.dump"
+#       echo "Please upload the dump to private bucket first"
+#       exit 1
+#     fi
+#   delegate_to: localhost
+#   run_once: true
+#   register: upload_result
+#   failed_when: upload_result.rc != 0
+#   changed_when: "'copied successfully' in upload_result.stdout"
+
+# - name: Verify dump exists in bucket
+#   ansible.builtin.shell: gcloud storage ls gs://{{ database_bucket_name }}/database.dump
+#   delegate_to: localhost
+#   run_once: true
+#   register: dump_verification
+#   failed_when: dump_verification.rc != 0
+#   changed_when: false
+
+- name: Download database dump from GCS bucket
+  ansible.builtin.shell: |
+    # Authenticate and download in single context
+    gcloud auth activate-service-account --key-file=/tmp/gcp-key.json
+
+    echo "-> Downloading database dump from GCS bucket..."
+    gcloud storage cp gs://{{ database_dump_bucket }}/database.dump \
+      /home/{{ ansible_user }}/database/init/database.dump
+    echo "+++ Database dump downloaded successfully"
+
+    # Fix ownership after download
+    chown {{ ansible_user }}:{{ ansible_user }} /home/{{ ansible_user }}/database/init/database.dump
+  environment:
+    GOOGLE_APPLICATION_CREDENTIALS: /tmp/gcp-key.json
+  become: true
+  register: download_result
+  failed_when: download_result.rc != 0
+  changed_when: "'downloaded successfully' in download_result.stdout"
+
+- name: Set permissions for database dump
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/database/init/database.dump"
+    mode: "0644"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+
+- name: Create PostgreSQL container
+  community.docker.docker_container:
+    name: postgres
+    image: postgres:13-alpine
+    state: started
+    restart_policy: always
+    ports:
+      - "5432:5432"
+    env:
+      POSTGRES_DB: "{{ vault_database_name }}"
+      POSTGRES_USER: "{{ vault_database_user }}"
+      POSTGRES_PASSWORD: "{{ vault_database_password }}"
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - "/home/{{ ansible_user }}/database/postgres-data:/var/lib/postgresql/data"
+      - "/home/{{ ansible_user }}/database/init:/docker-entrypoint-initdb.d"
+  become: true
+
+- name: Create Redis container
+  community.docker.docker_container:
+    name: redis
+    image: redis:7-alpine
+    state: started
+    restart_policy: always
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - "/home/{{ ansible_user }}/database/redis-data:/data"
+  become: true
+
+- name: Wait for PostgreSQL to be ready
+  ansible.builtin.wait_for:
+    port: 5432
+    host: localhost
+    delay: 10
+    timeout: 60
+
+- name: Wait for Redis to be ready
+  ansible.builtin.wait_for:
+    port: 6379
+    host: localhost
+    delay: 5
+    timeout: 30
+
+- name: Check if database dump is already restored
+  ansible.builtin.stat:
+    path: "/home/{{ ansible_user }}/database/.dump_restored"
+  register: dump_restored
+
+- name: Restore database dump
+  ansible.builtin.shell: |
+    echo ">>> Restoring database from SQL dump..."
+
+    # Use psql for SQL script format
+    docker exec postgres psql -U {{ vault_database_user }} -d {{ vault_database_name }} \
+      -f /docker-entrypoint-initdb.d/database.dump
+
+    touch /home/{{ ansible_user }}/database/.dump_restored
+    echo "+++ Database dump restored successfully"
+  when: not dump_restored.stat.exists
+  become: true
+  changed_when: true
+
+- name: Verify database restoration
+  ansible.builtin.shell: |
+    set -o pipefail
+    # Check if tables exist in database
+    docker exec postgres psql -U {{ vault_database_user }} -d {{ vault_database_name }} \
+      -c "\dt" | grep -q "schedules" && echo "+++ Database tables verified" || echo "!!! No tables found"
+  register: db_verification
+  failed_when: false
+  changed_when: false
+  args:
+    executable: /bin/bash
+
+- name: Clean up temporary files
+  ansible.builtin.file:
+    path: "/tmp/gcp-key.json"
+    state: absent
+  become: true

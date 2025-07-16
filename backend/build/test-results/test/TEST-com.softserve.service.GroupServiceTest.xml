@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.softserve.service.GroupServiceTest" tests="19" skipped="2" failures="0" errors="0" timestamp="2025-06-26T11:47:45.836Z" hostname="MacBook-Air-Ivan.local" time="0.062">
+  <properties/>
+  <testcase name="getDisabled" classname="com.softserve.service.GroupServiceTest" time="0.04"/>
+  <testcase name="throwFieldAlreadyExistsExceptionIfTitleAlreadyExistsOnSave" classname="com.softserve.service.GroupServiceTest" time="0.006"/>
+  <testcase name="getGroupById" classname="com.softserve.service.GroupServiceTest" time="0.001"/>
+  <testcase name="getByTeacherId" classname="com.softserve.service.GroupServiceTest" time="0.001"/>
+  <testcase name="getAllBySortOrder" classname="com.softserve.service.GroupServiceTest" time="0.0"/>
+  <testcase name="getAll" classname="com.softserve.service.GroupServiceTest" time="0.001"/>
+  <testcase name="deleteGroup" classname="com.softserve.service.GroupServiceTest" time="0.001"/>
+  <testcase name="getGroupsByGroupIds" classname="com.softserve.service.GroupServiceTest" time="0.0"/>
+  <testcase name="updateGroup" classname="com.softserve.service.GroupServiceTest" time="0.002"/>
+  <testcase name="getGroupsBySemesterId" classname="com.softserve.service.GroupServiceTest" time="0.001"/>
+  <testcase name="saveAfterOrder" classname="com.softserve.service.GroupServiceTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="updateGroupOrder" classname="com.softserve.service.GroupServiceTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="saveGroup" classname="com.softserve.service.GroupServiceTest" time="0.001"/>
+  <testcase name="isExistsGroupById" classname="com.softserve.service.GroupServiceTest" time="0.002"/>
+  <testcase name="getGroupsForDefaultSemester" classname="com.softserve.service.GroupServiceTest" time="0.0"/>
+  <testcase name="getGroupsForCurrentSemester" classname="com.softserve.service.GroupServiceTest" time="0.001"/>
+  <testcase name="getGroupWithStudentsById" classname="com.softserve.service.GroupServiceTest" time="0.001"/>
+  <testcase name="throwEntityNotFoundExceptionIfGroupNotFoundedById" classname="com.softserve.service.GroupServiceTest" time="0.001"/>
+  <testcase name="throwEntityNotFoundExceptionIfGroupWithStudentsNotFoundedById" classname="com.softserve.service.GroupServiceTest" time="0.001"/>
+  <system-out><![CDATA[[INFO ] 2025-06-26 14:47:45.876 [Test worker] c.s.s.i.GroupServiceImpl - Enter into getAll of getDisabled
+[INFO ] 2025-06-26 14:47:45.878 [Test worker] c.s.s.i.GroupServiceImpl - In save(entity = [Group(id=1, title=some group, disable=false, sortOrder=null)]
+[INFO ] 2025-06-26 14:47:45.885 [Test worker] c.s.s.i.GroupServiceImpl - In getById(id = [1])
+[INFO ] 2025-06-26 14:47:45.886 [Test worker] c.s.s.i.GroupServiceImpl - In service getByTeacherId(id = [1])
+[INFO ] 2025-06-26 14:47:45.887 [Test worker] c.s.s.i.GroupServiceImpl - In getAll()
+[INFO ] 2025-06-26 14:47:45.888 [Test worker] c.s.s.i.GroupServiceImpl - In delete(entity = [Group(id=1, title=some group, disable=false, sortOrder=null)])
+[INFO ] 2025-06-26 14:47:45.889 [Test worker] c.s.s.i.GroupServiceImpl - Enter into getGroupsByGroupIds
+[INFO ] 2025-06-26 14:47:45.890 [Test worker] c.s.s.i.GroupServiceImpl - In update(entity = [Group(id=1, title=some group, disable=false, sortOrder=null)]
+[INFO ] 2025-06-26 14:47:45.891 [Test worker] c.s.s.i.GroupServiceImpl - Enter into getGroupsBySemesterId
+[INFO ] 2025-06-26 14:47:45.892 [Test worker] c.s.s.i.GroupServiceImpl - In save(entity = [Group(id=1, title=some group, disable=false, sortOrder=null)]
+[INFO ] 2025-06-26 14:47:45.893 [Test worker] c.s.s.i.GroupServiceImpl - In isExistsById(id = [1])
+[INFO ] 2025-06-26 14:47:45.895 [Test worker] c.s.s.i.GroupServiceImpl - Enter into getGroupsByCurrentSemester
+[INFO ] 2025-06-26 14:47:45.896 [Test worker] c.s.s.i.GroupServiceImpl - Enter into getGroupsByCurrentSemester
+[INFO ] 2025-06-26 14:47:45.896 [Test worker] c.s.s.i.GroupServiceImpl - In getById(id = [1])
+[INFO ] 2025-06-26 14:47:45.898 [Test worker] c.s.s.i.GroupServiceImpl - In getById(id = [1])
+[INFO ] 2025-06-26 14:47:45.898 [Test worker] c.s.s.i.GroupServiceImpl - In getWithStudentsById(id = [1])
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

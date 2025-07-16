@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - Class com.softserve.service.ScheduleServiceTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>Class com.softserve.service.ScheduleServiceTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.softserve.service.html">com.softserve.service</a> &gt; ScheduleServiceTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">8</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.450s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a href="#">Tests</a>
+</li>
+<li>
+<a href="#">Standard output</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">getAllOrderedByRoomsDaysPeriodsTest</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">getById</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">save</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">scheduleForGroupedLessons</td>
+<td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">sendScheduleToTeacher</td>
+<td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">sendScheduleToTeachers</td>
+<td class="success">0.427s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throwEntityNotFoundExceptionIfScheduleNotFounded</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">update</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>[INFO ] 2025-06-26 14:47:46.089 [Test worker] c.s.s.i.ScheduleServiceImpl - Enter into sendScheduleToTeachers of TeacherServiceImpl
+[INFO ] 2025-06-26 14:47:46.090 [Test worker] c.s.s.i.ScheduleServiceImpl - Enter into sendScheduleToTeacher of TeacherServiceImpl
+[INFO ] 2025-06-26 14:47:46.090 [Test worker] c.s.s.i.ScheduleServiceImpl - In getScheduleForTeacher(semesterId = [4], teacherId[10])
+[INFO ] 2025-06-26 14:47:46.092 [Test worker] c.s.u.PdfReportGenerator - Enter into teacherScheduleReport method with schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=4, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@38b80f73, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))])
+[INFO ] 2025-06-26 14:47:46.340 [Test worker] c.s.u.TeacherTableBuilder - Enter into createTeacherTable method with schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=4, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@38b80f73, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))]) and language en
+[INFO ] 2025-06-26 14:47:46.357 [Test worker] c.s.u.TeacherTableBuilder - Enter into createTableTitleCell method with tableWidth 3 and schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=4, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@38b80f73, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))]) and language en
+[INFO ] 2025-06-26 14:47:46.367 [Test worker] c.s.u.TeacherTableBuilder - Enter into getAllPeriods method with schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=4, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@38b80f73, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))])
+[INFO ] 2025-06-26 14:47:46.417 [Test worker] c.s.s.i.ScheduleServiceImpl - Enter into sendScheduleToTeacher of TeacherServiceImpl
+[INFO ] 2025-06-26 14:47:46.418 [Test worker] c.s.s.i.ScheduleServiceImpl - In getScheduleForTeacher(semesterId = [4], teacherId[10])
+[INFO ] 2025-06-26 14:47:46.419 [Test worker] c.s.u.PdfReportGenerator - Enter into teacherScheduleReport method with schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=4, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@38b80f73, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))])
+[INFO ] 2025-06-26 14:47:46.419 [Test worker] c.s.u.TeacherTableBuilder - Enter into createTeacherTable method with schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=4, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@38b80f73, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))]) and language en
+[INFO ] 2025-06-26 14:47:46.419 [Test worker] c.s.u.TeacherTableBuilder - Enter into createTableTitleCell method with tableWidth 3 and schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=4, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@38b80f73, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))]) and language en
+[INFO ] 2025-06-26 14:47:46.419 [Test worker] c.s.u.TeacherTableBuilder - Enter into getAllPeriods method with schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=4, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@38b80f73, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))])
+[INFO ] 2025-06-26 14:47:46.435 [Test worker] c.s.s.i.ScheduleServiceImpl - Enter into sendScheduleToTeacher of TeacherServiceImpl
+[INFO ] 2025-06-26 14:47:46.435 [Test worker] c.s.s.i.ScheduleServiceImpl - In getScheduleForTeacher(semesterId = [4], teacherId[10])
+[INFO ] 2025-06-26 14:47:46.435 [Test worker] c.s.u.PdfReportGenerator - Enter into teacherScheduleReport method with schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=4, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@38b80f73, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))])
+[INFO ] 2025-06-26 14:47:46.436 [Test worker] c.s.u.TeacherTableBuilder - Enter into createTeacherTable method with schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=4, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@38b80f73, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))]) and language en
+[INFO ] 2025-06-26 14:47:46.436 [Test worker] c.s.u.TeacherTableBuilder - Enter into createTableTitleCell method with tableWidth 3 and schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=4, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@38b80f73, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))]) and language en
+[INFO ] 2025-06-26 14:47:46.437 [Test worker] c.s.u.TeacherTableBuilder - Enter into getAllPeriods method with schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=4, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@38b80f73, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))])
+[INFO ] 2025-06-26 14:47:46.444 [Test worker] c.s.s.i.ScheduleServiceImpl - Enter into sendScheduleToTeacher of TeacherServiceImpl
+[INFO ] 2025-06-26 14:47:46.445 [Test worker] c.s.s.i.ScheduleServiceImpl - In getScheduleForTeacher(semesterId = [4], teacherId[10])
+[INFO ] 2025-06-26 14:47:46.445 [Test worker] c.s.u.PdfReportGenerator - Enter into teacherScheduleReport method with schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=4, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@38b80f73, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))])
+[INFO ] 2025-06-26 14:47:46.446 [Test worker] c.s.u.TeacherTableBuilder - Enter into createTeacherTable method with schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=4, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@38b80f73, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))]) and language en
+[INFO ] 2025-06-26 14:47:46.446 [Test worker] c.s.u.TeacherTableBuilder - Enter into createTableTitleCell method with tableWidth 3 and schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=4, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@38b80f73, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))]) and language en
+[INFO ] 2025-06-26 14:47:46.446 [Test worker] c.s.u.TeacherTableBuilder - Enter into getAllPeriods method with schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=4, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@38b80f73, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))])
+[INFO ] 2025-06-26 14:47:46.454 [Test worker] c.s.s.i.ScheduleServiceImpl - In schedulesForGroupedLessons(schedule = [Schedule(id=1, dayOfWeek=MONDAY, evenOdd=ODD, room=com.softserve.entity.Room@3c1, period=Period(id=null, startTime=null, endTime=null, name=null), lesson=Lesson(id=1, hours=0, linkToMeeting=null, subjectForSite=null, lessonType=null, teacher=null, subject=null, group=Group(id=null, title=null, disable=false, sortOrder=null), semester=Semester(id=null, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, groups=null, disable=false), grouped=true))]
+[INFO ] 2025-06-26 14:47:46.463 [Test worker] c.s.s.i.ScheduleServiceImpl - In getById(id = [2])
+[INFO ] 2025-06-26 14:47:46.464 [Test worker] c.s.s.i.ScheduleServiceImpl - In update(entity = [Schedule(id=1, dayOfWeek=MONDAY, evenOdd=EVEN, room=com.softserve.entity.Room@3c1, period=Period(id=null, startTime=null, endTime=null, name=null), lesson=Lesson(id=null, hours=0, linkToMeeting=null, subjectForSite=null, lessonType=null, teacher=null, subject=null, group=Group(id=null, title=null, disable=false, sortOrder=null), semester=Semester(id=null, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, groups=null, disable=false), grouped=false))]
+[INFO ] 2025-06-26 14:47:46.464 [Test worker] c.s.s.i.ScheduleServiceImpl - In isConflictForGroupInSchedule(semesterId = [null], dayOfWeek = [MONDAY], evenOdd = [EVEN], classId = [null], lessonId = [null])
+[INFO ] 2025-06-26 14:47:46.466 [Test worker] c.s.s.i.ScheduleServiceImpl - Enter into sendScheduleToTeacher of TeacherServiceImpl
+[INFO ] 2025-06-26 14:47:46.466 [Test worker] c.s.s.i.ScheduleServiceImpl - In getScheduleForTeacher(semesterId = [1], teacherId[1])
+[INFO ] 2025-06-26 14:47:46.466 [Test worker] c.s.u.PdfReportGenerator - Enter into teacherScheduleReport method with schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=1, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@37830fe9, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))])
+[INFO ] 2025-06-26 14:47:46.467 [Test worker] c.s.u.TeacherTableBuilder - Enter into createTeacherTable method with schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=1, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@37830fe9, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))]) and language en
+[INFO ] 2025-06-26 14:47:46.467 [Test worker] c.s.u.TeacherTableBuilder - Enter into createTableTitleCell method with tableWidth 3 and schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=1, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@37830fe9, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))]) and language en
+[INFO ] 2025-06-26 14:47:46.467 [Test worker] c.s.u.TeacherTableBuilder - Enter into getAllPeriods method with schedule ScheduleForTeacherDTO(semester=SemesterDTO(id=1, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, disable=false), teacher=com.softserve.dto.TeacherDTO@37830fe9, days=[DaysOfWeekWithClassesForTeacherDTO(day=MONDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[])), DaysOfWeekWithClassesForTeacherDTO(day=TUESDAY, evenWeek=ClassesInScheduleForTeacherDTO(periods=[]), oddWeek=ClassesInScheduleForTeacherDTO(periods=[]))])
+[INFO ] 2025-06-26 14:47:46.474 [Test worker] c.s.s.i.ScheduleServiceImpl - In getById(id = [1])
+[INFO ] 2025-06-26 14:47:46.475 [Test worker] c.s.s.i.ScheduleServiceImpl - In save(entity = [Schedule(id=1, dayOfWeek=MONDAY, evenOdd=ODD, room=com.softserve.entity.Room@3c1, period=Period(id=null, startTime=null, endTime=null, name=null), lesson=Lesson(id=1, hours=0, linkToMeeting=null, subjectForSite=null, lessonType=null, teacher=null, subject=null, group=Group(id=null, title=null, disable=false, sortOrder=null), semester=Semester(id=null, description=null, year=0, startDay=null, endDay=null, currentSemester=false, defaultSemester=false, daysOfWeek=null, periods=null, groups=null, disable=false), grouped=false))]
+[INFO ] 2025-06-26 14:47:46.475 [Test worker] c.s.s.i.ScheduleServiceImpl - In isConflictForGroupInSchedule(semesterId = [null], dayOfWeek = [MONDAY], evenOdd = [ODD], classId = [null], lessonId = [1])
+[INFO ] 2025-06-26 14:47:46.476 [Test worker] c.s.s.i.ScheduleServiceImpl - Entered getAllOrdered(1)
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="https://www.gradle.org">Gradle 8.14.2</a> at 26 черв. 2025 р., 14:47:47</p>
+</div>
+</div>
+</body>
+</html>

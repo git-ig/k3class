@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.softserve.service.StudentServiceTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2025-06-26T11:47:46.510Z" hostname="MacBook-Air-Ivan.local" time="0.176">
+  <properties/>
+  <testcase name="throwFieldAlreadyExistsExceptionWhenSave" classname="com.softserve.service.StudentServiceTest" time="0.036"/>
+  <testcase name="delete" classname="com.softserve.service.StudentServiceTest" time="0.004"/>
+  <testcase name="throwFieldNullExceptionWhenUpdate" classname="com.softserve.service.StudentServiceTest" time="0.002"/>
+  <testcase name="getAll" classname="com.softserve.service.StudentServiceTest" time="0.0"/>
+  <testcase name="update" classname="com.softserve.service.StudentServiceTest" time="0.001"/>
+  <testcase name="throwFieldNullExceptionWhenSave" classname="com.softserve.service.StudentServiceTest" time="0.001"/>
+  <testcase name="getById" classname="com.softserve.service.StudentServiceTest" time="0.001"/>
+  <testcase name="save" classname="com.softserve.service.StudentServiceTest" time="0.001"/>
+  <testcase name="throwEntityNotFoundExceptionWhenGetById" classname="com.softserve.service.StudentServiceTest" time="0.0"/>
+  <testcase name="throwEntityNotFoundExceptionWhenUpdate" classname="com.softserve.service.StudentServiceTest" time="0.001"/>
+  <testcase name="[0] MockMultipartFile (importStudentsFromFile)" classname="com.softserve.service.StudentServiceTest" time="0.11"/>
+  <testcase name="[1] MockMultipartFile (importStudentsFromFile)" classname="com.softserve.service.StudentServiceTest" time="0.018"/>
+  <system-out><![CDATA[[INFO ] 2025-06-26 14:47:46.545 [Test worker] c.s.s.i.StudentServiceImpl - Enter into save method with studentDTO:com.softserve.dto.StudentDTO@3f1ef988
+[INFO ] 2025-06-26 14:47:46.547 [Test worker] c.s.s.i.StudentServiceImpl - Enter into delete method with entity:Student(id=null, name=Name, surname=Surname, patronymic=Patronymic, user=User(id=1, email=userWithId1L@test.com, password=12345@testAa, role=ROLE_STUDENT, token=null), group=null)
+[INFO ] 2025-06-26 14:47:46.552 [Test worker] c.s.s.i.StudentServiceImpl - Enter into update method with studentDTO:com.softserve.dto.StudentDTO@1911033e
+[INFO ] 2025-06-26 14:47:46.554 [Test worker] c.s.s.i.StudentServiceImpl - Enter into getAll method with no input params
+[INFO ] 2025-06-26 14:47:46.554 [Test worker] c.s.s.i.StudentServiceImpl - Enter into update method with entity:Student(id=null, name=Name, surname=Surname, patronymic=Patronymic, user=User(id=1, email=userWithId1L@test.com, password=12345@testAa, role=ROLE_STUDENT, token=null), group=null)
+[INFO ] 2025-06-26 14:47:46.555 [Test worker] c.s.s.i.StudentServiceImpl - Enter into save method with studentDTO:com.softserve.dto.StudentDTO@7b7a4290
+[INFO ] 2025-06-26 14:47:46.556 [Test worker] c.s.s.i.StudentServiceImpl - Enter into getById method with id null
+[INFO ] 2025-06-26 14:47:46.557 [Test worker] c.s.s.i.StudentServiceImpl - Enter into save method with entity:Student(id=null, name=Name, surname=Surname, patronymic=Patronymic, user=User(id=1, email=userWithId1L@test.com, password=12345@testAa, role=ROLE_STUDENT, token=null), group=null)
+[INFO ] 2025-06-26 14:47:46.558 [Test worker] c.s.s.i.StudentServiceImpl - Enter into getById method with id 1
+[INFO ] 2025-06-26 14:47:46.558 [Test worker] c.s.s.i.StudentServiceImpl - Enter into update method with studentDTO:com.softserve.dto.StudentDTO@2d15c1be
+[INFO ] 2025-06-26 14:47:46.560 [Test worker] c.s.s.i.StudentServiceImpl - Enter into save method with studentDTO:com.softserve.dto.StudentDTO@6bfd9965
+[INFO ] 2025-06-26 14:47:46.560 [Test worker] c.s.s.i.StudentServiceImpl - Enter into registerStudent method with student Student(id=null, name=Hanna, surname=Romaniuk, patronymic=Stepanivna, user=null, group=null) and email:romaniuk@gmail.com
+[INFO ] 2025-06-26 14:47:46.560 [Test worker] c.s.s.i.StudentServiceImpl - Enter into save method with entity:Student(id=null, name=Hanna, surname=Romaniuk, patronymic=Stepanivna, user=User(id=1, email=romaniuk@gmail.com, password=12345@testAa, role=ROLE_STUDENT, token=null), group=null)
+[INFO ] 2025-06-26 14:47:46.560 [Test worker] c.s.s.i.StudentServiceImpl - Enter into save method with studentDTO:com.softserve.dto.StudentDTO@6fa2f685
+[INFO ] 2025-06-26 14:47:46.560 [Test worker] c.s.s.i.StudentServiceImpl - Enter into registerStudent method with student Student(id=null, name=Viktor, surname=Hanushchak, patronymic=Mykolaiovych, user=null, group=null) and email:hanushchak@bigmir.net
+[INFO ] 2025-06-26 14:47:46.560 [Test worker] c.s.s.i.StudentServiceImpl - Enter into save method with entity:Student(id=null, name=Viktor, surname=Hanushchak, patronymic=Mykolaiovych, user=User(id=2, email=hanushchak@bigmir.net, password=12345@testAa, role=ROLE_STUDENT, token=null), group=null)
+[INFO ] 2025-06-26 14:47:46.561 [Test worker] c.s.s.i.StudentServiceImpl - Enter into saveFromFile of StudentServiceImpl with groupId 4
+[INFO ] 2025-06-26 14:47:46.665 [Test worker] c.s.s.i.StudentServiceImpl - Enter into registerStudent method with student Student(id=null, name=Hanna, surname=Romaniuk, patronymic=Stepanivna, user=User(id=1, email=romaniuk@gmail.com, password=12345@testAa, role=ROLE_STUDENT, token=null), group=null) and email:romaniuk@gmail.com
+[ERROR] 2025-06-26 14:47:46.665 [Test worker] c.s.s.i.StudentServiceImpl - Empty or null email: 
+[INFO ] 2025-06-26 14:47:46.666 [Test worker] c.s.s.i.StudentServiceImpl - Enter into registerStudent method with student Student(id=null, name=Viktor, surname=Hanushchak, patronymic=Mykolaiovych, user=User(id=2, email=hanushchak@bigmir.net, password=12345@testAa, role=ROLE_STUDENT, token=null), group=null) and email:hanushchak@bigmir.net
+[INFO ] 2025-06-26 14:47:46.670 [Test worker] c.s.s.i.StudentServiceImpl - Enter into save method with studentDTO:com.softserve.dto.StudentDTO@76d592d8
+[INFO ] 2025-06-26 14:47:46.670 [Test worker] c.s.s.i.StudentServiceImpl - Enter into registerStudent method with student Student(id=null, name=Hanna, surname=Romaniuk, patronymic=Stepanivna, user=null, group=null) and email:romaniuk@gmail.com
+[INFO ] 2025-06-26 14:47:46.670 [Test worker] c.s.s.i.StudentServiceImpl - Enter into save method with entity:Student(id=null, name=Hanna, surname=Romaniuk, patronymic=Stepanivna, user=User(id=1, email=romaniuk@gmail.com, password=12345@testAa, role=ROLE_STUDENT, token=null), group=null)
+[INFO ] 2025-06-26 14:47:46.670 [Test worker] c.s.s.i.StudentServiceImpl - Enter into save method with studentDTO:com.softserve.dto.StudentDTO@7acc0990
+[INFO ] 2025-06-26 14:47:46.670 [Test worker] c.s.s.i.StudentServiceImpl - Enter into registerStudent method with student Student(id=null, name=Viktor, surname=Hanushchak, patronymic=Mykolaiovych, user=null, group=null) and email:hanushchak@bigmir.net
+[INFO ] 2025-06-26 14:47:46.670 [Test worker] c.s.s.i.StudentServiceImpl - Enter into save method with entity:Student(id=null, name=Viktor, surname=Hanushchak, patronymic=Mykolaiovych, user=User(id=2, email=hanushchak@bigmir.net, password=12345@testAa, role=ROLE_STUDENT, token=null), group=null)
+[INFO ] 2025-06-26 14:47:46.671 [Test worker] c.s.s.i.StudentServiceImpl - Enter into saveFromFile of StudentServiceImpl with groupId 4
+[INFO ] 2025-06-26 14:47:46.685 [Test worker] c.s.s.i.StudentServiceImpl - Enter into registerStudent method with student Student(id=null, name=Hanna, surname=Romaniuk, patronymic=Stepanivna, user=User(id=1, email=romaniuk@gmail.com, password=12345@testAa, role=ROLE_STUDENT, token=null), group=null) and email:romaniuk@gmail.com
+[ERROR] 2025-06-26 14:47:46.686 [Test worker] c.s.s.i.StudentServiceImpl - Empty or null email: 
+[INFO ] 2025-06-26 14:47:46.686 [Test worker] c.s.s.i.StudentServiceImpl - Enter into registerStudent method with student Student(id=null, name=Viktor, surname=Hanushchak, patronymic=Mykolaiovych, user=User(id=2, email=hanushchak@bigmir.net, password=12345@testAa, role=ROLE_STUDENT, token=null), group=null) and email:hanushchak@bigmir.net
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

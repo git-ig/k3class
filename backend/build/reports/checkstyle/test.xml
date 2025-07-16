@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="10.0">
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/util/PasswordGeneratingUtilTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/util/TranslatorTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/config/MailConfig.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/config/WebMvcConfig.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/config/SecurityConfig.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/config/SecurityWebApplicationInitializer.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/config/DBConfigTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/mapper/TeacherMapperTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/assertions/CustomMockMvcAssertions.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/controller/RoomControllerTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/controller/ScheduleControllerTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/controller/SemesterControllerTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/controller/IntegrationTestCategory.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/controller/GroupControllerTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/controller/UserControllerTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/controller/SubjectControllerTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/controller/StudentControllerTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/controller/LessonsControllerTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/controller/TeacherControllerTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/controller/DepartmentControllerTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/controller/RoomTypeControllerTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/controller/PeriodControllerTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/service/RoomTypeServiceTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/service/SubjectServiceTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/service/UnitTestCategory.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/service/GroupServiceTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/service/TeacherServiceTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/service/SemesterServiceTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/service/PeriodServiceTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/service/ScheduleServiceTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/service/RoomServiceTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/service/DepartmentServiceTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/service/LessonServiceTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/service/UserServiceTest.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/test/java/com/softserve/service/StudentServiceTest.java">
+</file>
+</checkstyle>

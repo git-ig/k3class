@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.softserve.service.DepartmentServiceTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2025-06-26T11:47:45.779Z" hostname="MacBook-Air-Ivan.local" time="0.055">
+  <properties/>
+  <testcase name="throwFieldAlreadyExistsExceptionForNameOnUpdate" classname="com.softserve.service.DepartmentServiceTest" time="0.031"/>
+  <testcase name="testSave" classname="com.softserve.service.DepartmentServiceTest" time="0.006"/>
+  <testcase name="update" classname="com.softserve.service.DepartmentServiceTest" time="0.001"/>
+  <testcase name="testGetById" classname="com.softserve.service.DepartmentServiceTest" time="0.002"/>
+  <testcase name="throwFieldAlreadyExistsExceptionForNameOnSave" classname="com.softserve.service.DepartmentServiceTest" time="0.001"/>
+  <testcase name="testGetAllTeachers" classname="com.softserve.service.DepartmentServiceTest" time="0.01"/>
+  <testcase name="testDelete" classname="com.softserve.service.DepartmentServiceTest" time="0.001"/>
+  <testcase name="testGetAll" classname="com.softserve.service.DepartmentServiceTest" time="0.001"/>
+  <testcase name="testGetDisabled" classname="com.softserve.service.DepartmentServiceTest" time="0.0"/>
+  <testcase name="throwEntityNotFoundExceptionIfDepartmentNotFoundedById" classname="com.softserve.service.DepartmentServiceTest" time="0.002"/>
+  <system-out><![CDATA[14:47:45,792 |-INFO in c.q.l.co.rolling.helper.RenameUtil - Renaming file [schedule_logs/log.log] to [schedule_logs/log.log424244749373708.tmp]
+14:47:45,795 |-INFO in ch.qos.logback.core.rolling.helper.SizeAndTimeBasedArchiveRemover@1643a546 - first clean up after appender initialization
+14:47:45,795 |-INFO in ch.qos.logback.core.rolling.helper.Compressor - ZIP compressing [schedule_logs/log.log424244749373708.tmp] as [schedule_logs/logArchiveAll/roll.2025-06-22.0.log.zip]
+14:47:45,796 |-INFO in ch.qos.logback.core.rolling.helper.SizeAndTimeBasedArchiveRemover@1643a546 - periodsElapsed = 64
+[INFO ] 2025-06-26 14:47:45.792 [Test worker] c.s.s.i.DepartmentServiceImpl - In update(entity = [Department(id=1, name=some department, disable=false)]
+[INFO ] 2025-06-26 14:47:45.812 [Test worker] c.s.s.i.DepartmentServiceImpl - In save(entity = [Department(id=1, name=some department, disable=false)]
+[INFO ] 2025-06-26 14:47:45.817 [Test worker] c.s.s.i.DepartmentServiceImpl - In update(entity = [Department(id=1, name=some department, disable=false)]
+[INFO ] 2025-06-26 14:47:45.819 [Test worker] c.s.s.i.DepartmentServiceImpl - In getById(id = [1])
+[INFO ] 2025-06-26 14:47:45.820 [Test worker] c.s.s.i.DepartmentServiceImpl - In save(entity = [Department(id=1, name=some department, disable=false)]
+[INFO ] 2025-06-26 14:47:45.821 [Test worker] c.s.s.i.DepartmentServiceImpl - Enter into getAllTeachers with department id 3
+[INFO ] 2025-06-26 14:47:45.831 [Test worker] c.s.s.i.DepartmentServiceImpl - In delete(entity = [Department(id=1, name=some department, disable=false)])
+[INFO ] 2025-06-26 14:47:45.832 [Test worker] c.s.s.i.DepartmentServiceImpl - In getAll()
+[INFO ] 2025-06-26 14:47:45.833 [Test worker] c.s.s.i.DepartmentServiceImpl - Enter into getAll of getDisabled
+[INFO ] 2025-06-26 14:47:45.833 [Test worker] c.s.s.i.DepartmentServiceImpl - In getById(id = [2])
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

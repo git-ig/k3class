@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.softserve.service.TeacherServiceTest" tests="19" skipped="0" failures="0" errors="0" timestamp="2025-06-26T11:47:46.706Z" hostname="MacBook-Air-Ivan.local" time="0.044">
+  <properties/>
+  <testcase name="getDisabled" classname="com.softserve.service.TeacherServiceTest" time="0.008"/>
+  <testcase name="delete" classname="com.softserve.service.TeacherServiceTest" time="0.002"/>
+  <testcase name="getAll" classname="com.softserve.service.TeacherServiceTest" time="0.001"/>
+  <testcase name="throwEntityNotFoundExceptionIfTeacherNotFoundedById" classname="com.softserve.service.TeacherServiceTest" time="0.0"/>
+  <testcase name="saveTeacher" classname="com.softserve.service.TeacherServiceTest" time="0.0"/>
+  <testcase name="getTeachersWithoutUsers" classname="com.softserve.service.TeacherServiceTest" time="0.001"/>
+  <testcase name="joinTeacherWithUserIfUserIdFromTeacherIsNullAndUserRoleFromUserIsNotTeacher" classname="com.softserve.service.TeacherServiceTest" time="0.006"/>
+  <testcase name="getById" classname="com.softserve.service.TeacherServiceTest" time="0.001"/>
+  <testcase name="throwEntityNotFoundExceptionIfTeacherNotFoundedByUserId" classname="com.softserve.service.TeacherServiceTest" time="0.001"/>
+  <testcase name="[0] null (updateDTOIfEmailNotExist)" classname="com.softserve.service.TeacherServiceTest" time="0.005"/>
+  <testcase name="[1]  (updateDTOIfEmailNotExist)" classname="com.softserve.service.TeacherServiceTest" time="0.002"/>
+  <testcase name="[0] null (saveDTOIfEmailNotExist)" classname="com.softserve.service.TeacherServiceTest" time="0.001"/>
+  <testcase name="[1]  (saveDTOIfEmailNotExist)" classname="com.softserve.service.TeacherServiceTest" time="0.001"/>
+  <testcase name="throwEntityAlreadyExistsExceptionIfUserIdFromTeacherAlreadyExists" classname="com.softserve.service.TeacherServiceTest" time="0.001"/>
+  <testcase name="throwEntityAlreadyExistsExceptionIfUserRoleFromUserIsTeacher" classname="com.softserve.service.TeacherServiceTest" time="0.0"/>
+  <testcase name="saveDTOIfEmailExists" classname="com.softserve.service.TeacherServiceTest" time="0.001"/>
+  <testcase name="getTeacherByUserId" classname="com.softserve.service.TeacherServiceTest" time="0.001"/>
+  <testcase name="updateDTOIfEmailExistsAndUserIdNotExist" classname="com.softserve.service.TeacherServiceTest" time="0.003"/>
+  <testcase name="updateDTOIfEmailAndUserIdExist" classname="com.softserve.service.TeacherServiceTest" time="0.003"/>
+  <system-out><![CDATA[[INFO ] 2025-06-26 14:47:46.715 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into getAll of getDisabled
+[INFO ] 2025-06-26 14:47:46.716 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into delete method with entity:Teacher(id=1, name=Name1, surname=Surname1, patronymic=Patronymic1, position=Position1, userId=null, department=null, disable=false)
+[INFO ] 2025-06-26 14:47:46.717 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into getAll()
+[INFO ] 2025-06-26 14:47:46.718 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into getById of TeacherServiceImpl with id 1
+[INFO ] 2025-06-26 14:47:46.719 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into save method with entity:Teacher(id=1, name=Name1, surname=Surname1, patronymic=Patronymic1, position=Position1, userId=null, department=null, disable=false)
+[INFO ] 2025-06-26 14:47:46.720 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into getAllTeacherWithoutUser of TeacherServiceImpl
+[INFO ] 2025-06-26 14:47:46.720 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into joinTeacherWithUser method with teacherId 1 and userId:1
+[INFO ] 2025-06-26 14:47:46.721 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into getById of TeacherServiceImpl with id 1
+[INFO ] 2025-06-26 14:47:46.721 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into update method with entity:Teacher(id=1, name=Ivan, surname=Ivanov, patronymic=Ivanovych, position=docent, userId=1, department=null, disable=false)
+[INFO ] 2025-06-26 14:47:46.726 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into getById of TeacherServiceImpl with id 1
+[INFO ] 2025-06-26 14:47:46.727 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into getByUserId with userId 1
+[INFO ] 2025-06-26 14:47:46.732 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into update method with dto:com.softserve.dto.TeacherForUpdateDTO@4e019a5a
+[INFO ] 2025-06-26 14:47:46.732 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into update method with entity:Teacher(id=1, name=Name1, surname=Surname1, patronymic=Patronymic1, position=Position1, userId=1, department=null, disable=false)
+[INFO ] 2025-06-26 14:47:46.736 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into update method with dto:com.softserve.dto.TeacherForUpdateDTO@223ca7af
+[INFO ] 2025-06-26 14:47:46.737 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into update method with entity:Teacher(id=1, name=Name1, surname=Surname1, patronymic=Patronymic1, position=Position1, userId=1, department=null, disable=false)
+[INFO ] 2025-06-26 14:47:46.738 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into save method with dto:com.softserve.dto.TeacherDTO@17772ac3
+[INFO ] 2025-06-26 14:47:46.738 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into save method with entity:Teacher(id=1, name=Name1, surname=Surname1, patronymic=Patronymic1, position=Position1, userId=null, department=null, disable=false)
+[INFO ] 2025-06-26 14:47:46.740 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into save method with dto:com.softserve.dto.TeacherDTO@55c8258e
+[INFO ] 2025-06-26 14:47:46.740 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into save method with entity:Teacher(id=1, name=Name1, surname=Surname1, patronymic=Patronymic1, position=Position1, userId=null, department=null, disable=false)
+[INFO ] 2025-06-26 14:47:46.741 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into joinTeacherWithUser method with teacherId 1 and userId:1
+[INFO ] 2025-06-26 14:47:46.741 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into getById of TeacherServiceImpl with id 1
+[INFO ] 2025-06-26 14:47:46.742 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into joinTeacherWithUser method with teacherId 1 and userId:1
+[INFO ] 2025-06-26 14:47:46.742 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into getById of TeacherServiceImpl with id 1
+[INFO ] 2025-06-26 14:47:46.743 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into save method with dto:com.softserve.dto.TeacherDTO@75217179
+[INFO ] 2025-06-26 14:47:46.743 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into registerTeacher method with teacher Teacher(id=null, name=Name1, surname=Surname1, patronymic=Patronymic1, position=Position1, userId=null, department=null, disable=false) and email:teacher@gmail.com
+[INFO ] 2025-06-26 14:47:46.743 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into save method with entity:Teacher(id=null, name=Name1, surname=Surname1, patronymic=Patronymic1, position=Position1, userId=1, department=null, disable=false)
+[INFO ] 2025-06-26 14:47:46.745 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into getByUserId with userId 1
+[INFO ] 2025-06-26 14:47:46.746 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into update method with dto:com.softserve.dto.TeacherForUpdateDTO@4bcbadc9
+[INFO ] 2025-06-26 14:47:46.746 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into getById of TeacherServiceImpl with id 1
+[INFO ] 2025-06-26 14:47:46.746 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into registerTeacher method with teacher Teacher(id=1, name=Name1, surname=Surname1, patronymic=Patronymic1, position=Position1, userId=null, department=null, disable=false) and email:teacher@gmail.com
+[INFO ] 2025-06-26 14:47:46.746 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into update method with entity:Teacher(id=1, name=Name1, surname=Surname1, patronymic=Patronymic1, position=Position1, userId=1, department=null, disable=false)
+[INFO ] 2025-06-26 14:47:46.749 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into update method with dto:com.softserve.dto.TeacherForUpdateDTO@6cd33862
+[INFO ] 2025-06-26 14:47:46.749 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into getById of TeacherServiceImpl with id 1
+[INFO ] 2025-06-26 14:47:46.749 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into updateEmailInUserForTeacher method with email teacher@gmail.com and userId:1
+[INFO ] 2025-06-26 14:47:46.750 [Test worker] c.s.s.i.TeacherServiceImpl - Enter into update method with entity:Teacher(id=1, name=Name1, surname=Surname1, patronymic=Patronymic1, position=Position1, userId=1, department=null, disable=false)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

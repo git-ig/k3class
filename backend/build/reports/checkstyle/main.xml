@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="10.0">
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/AuthenticationResponseDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/ScheduleForTeacherDateRangeDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/ScheduleForTemporaryDateRangeDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/ScheduleTemporaryTeacherDateRangeDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/StudentImportDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/ScheduleForRoomDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/JoinTeacherWithUserDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/UserDataDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/LessonsListInRoomScheduleDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/DepartmentDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/LessonForTeacherScheduleDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/AuthenticationRequestDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/TeacherDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/GroupWithLessonIdDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/ScheduleForGroupDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/ScheduleForCopyDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/TeacherWithUserDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/GroupOrderDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/LessonInScheduleByWeekDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/GroupDTOInRoomSchedule.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/SubjectNameWithTypesDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/TemporaryScheduleSaveRangeDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/ScheduleForTeacherDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/RoomClassesInScheduleDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/enums/ImportSaveStatus.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/LessonDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/RoomForScheduleDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/SchedulesInRoomDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/LessonsInScheduleDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/RoomDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/CreateScheduleInfoDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/TeacherImportDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/LessonsTeacherDateRangeDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/ScheduleForTemporaryTeacherDateRangeDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/AddPeriodDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/TemporaryAddedMessagesDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/LessonTeacherDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/LessonForGroupsDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/GroupForUpdateDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/DaysOfWeekWithClassesForGroupDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/MessageDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/ClassesInScheduleForTeacherDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/RoomForScheduleInfoDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/DaysOfWeekWithClassesForTeacherDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/LessonWithLinkDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/TeacherForUpdateDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/SchedulesAtDayOfWeek.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/GroupedLessonDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/GroupWithStudentsDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/TemporaryScheduleDTOForDashboard.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/ClassesInScheduleForGroupDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/GroupDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/RegistrationRequestDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/SubjectDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/ScheduleDateRangeFullDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/ScheduleFullForArchiveDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/UserDataForChangeDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/TemporaryScheduleForArchiveDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/SemesterWithGroupsDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/StudentDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/ScheduleSaveDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/UserCreateDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/ScheduleWithoutSemesterDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/SubjectWithTypeDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/ScheduleFullDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/EmailMessageDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/LessonInfoDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/SemesterDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/UserDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/DaysOfWeekWithClassesForRoomDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/LessonsInRoomScheduleDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/LessonTemporaryTeacherDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/TemporaryScheduleDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/TemporaryScheduleSaveDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/ClassForTeacherScheduleDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/RegistrationResponseDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/RoomTypeDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/ScheduleDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/LessonBaseDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/PeriodDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/TeacherNameDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/dto/StudentWithoutGroupDTO.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/SemesterRepository.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/impl/DepartmentRepositoryImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/impl/ArchiveRepositoryImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/impl/TeacherRepositoryImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/impl/PeriodRepositoryImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/impl/RoomTypeRepositoryImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/impl/SubjectRepositoryImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/impl/TemporaryScheduleRepositoryImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/impl/StudentRepositoryImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/impl/GroupRepositoryImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/impl/LessonRepositoryImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/impl/BasicRepositoryImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/impl/UserRepositoryImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/impl/ScheduleRepositoryImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/impl/RoomRepositoryImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/impl/SemesterRepositoryImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/RoomRepository.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/TemporaryScheduleRepository.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/DepartmentRepository.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/StudentRepository.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/BasicRepository.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/ArchiveRepository.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/SubjectRepository.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/RoomTypeRepository.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/ScheduleRepository.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/PeriodRepository.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/GroupRepository.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/UserRepository.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/TeacherRepository.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/LessonRepository.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/repository/SortOrderRepository.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/util/BaseTableBuilder.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/util/NullAwareBeanUtils.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/util/TeacherTableBuilder.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/util/PdfReportGenerator.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/util/Translator.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/util/GroupTableBuilder.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/util/Style.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/util/temporary_notification/DeletePeriodVacationNotify.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/util/temporary_notification/DeleteVacationNotify.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/util/temporary_notification/DeleteTeacherVacationNotify.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/util/temporary_notification/AbstractTemporaryNotification.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/util/PasswordGeneratingUtil.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/util/CsvFileParser.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/util/Constants.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/config/MailConfig.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/config/WebMvcConfig.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/config/SecurityConfig.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/config/SecurityWebApplicationInitializer.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/config/DBConfig.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/config/MyWebAppInitializer.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/config/MongoConfig.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/config/CacheConfiguration.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/config/CorsConfiguration.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/config/SwaggerConfig.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/security/jwt/JwtConfigurer.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/security/jwt/JwtUser.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/security/jwt/JwtTokenFilter.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/security/jwt/JwtUserFactory.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/security/jwt/JwtTokenProvider.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/security/JwtUserDetailsService.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/entity/RoomType.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/entity/Room.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/entity/CurrentUser.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/entity/Lesson.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/entity/Group.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/entity/Subject.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/entity/Schedule.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/entity/Department.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/entity/enums/LessonType.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/entity/enums/Role.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/entity/enums/EvenOdd.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/entity/User.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/entity/TemporarySchedule.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/entity/Student.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/entity/Semester.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/entity/Teacher.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/entity/Period.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/entity/interfaces/SortableOrder.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/TemporaryScheduleMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/RoomForScheduleMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/GroupMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/LessonForTeacherScheduleMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/TeacherMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/ScheduleMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/TemporaryScheduleMapperForArchive.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/LessonsInScheduleMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/ScheduleFullMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/SemesterMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/ToRoomDto.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/ToEven.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/RoomTypeMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/DepartmentMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/PeriodMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/RoomMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/StudentMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/ScheduleSaveMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/ScheduleWithoutSemesterMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/RoomForScheduleInfoMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/UserMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/ToOdd.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/ConverterToSchedulesInRoom.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/SubjectMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/LessonInfoMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/ToGroupInRoom.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/TeacherNameMapper.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/mapper/ToList.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/controller/AuthenticationController.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/controller/TemporaryScheduleController.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/controller/StudentController.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/controller/DepartmentController.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/controller/SemesterController.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/controller/RoomController.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/controller/SubjectController.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/controller/ArchiveController.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/controller/DownloadFileController.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/controller/PeriodController.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/controller/ScheduleController.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/controller/RoomTypeController.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/controller/LessonController.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/controller/FrontendController.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/controller/GroupController.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/controller/ManagerController.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/controller/UserController.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/controller/TeacherController.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/impl/SubjectServiceImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/impl/RoomTypeServiceImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/impl/GroupServiceImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/impl/TeacherServiceImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/impl/SemesterServiceImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/impl/PeriodServiceImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/impl/ScheduleServiceImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/impl/MailServiceImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/impl/TemporaryScheduleServiceImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/impl/DepartmentServiceImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/impl/RoomServiceImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/impl/UserServiceImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/impl/StudentServiceImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/impl/ArchiveServiceImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/impl/LessonServiceImpl.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/TeacherService.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/StudentService.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/SemesterService.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/RoomService.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/TemporaryScheduleService.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/UserService.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/MailService.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/ScheduleService.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/RoomTypeService.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/GroupService.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/LessonService.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/SortService.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/PeriodService.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/BasicService.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/SubjectService.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/ArchiveService.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/service/DepartmentService.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/handler/GlobalExceptionHandler.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/IncorrectPasswordException.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/FieldNullException.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/apierror/ApiSubError.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/apierror/ApiError.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/apierror/ApiValidationError.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/EntityNotFoundException.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/UsedEntityException.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/FileDownloadException.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/IncorrectTimeException.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/EntityAlreadyExistsException.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/SortOrderNotExistsException.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/MessageNotSendException.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/ScheduleConflictException.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/DeleteDisabledException.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/SocialClientRegistrationException.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/ImportRoleConflictException.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/ParseFileException.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/PeriodConflictException.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/FieldAlreadyExistsException.java">
+</file>
+<file name="/Users/ivangorbatok/Dev/lab/internship_project/src/main/java/com/softserve/exception/IncorrectEmailException.java">
+</file>
+</checkstyle>

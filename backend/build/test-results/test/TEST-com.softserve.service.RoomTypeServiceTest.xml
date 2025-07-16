@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.softserve.service.RoomTypeServiceTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2025-06-26T11:47:46.008Z" hostname="MacBook-Air-Ivan.local" time="0.015">
+  <properties/>
+  <testcase name="throwFieldAlreadyExistsExceptionIfSavedDescriptionAlreadyExists" classname="com.softserve.service.RoomTypeServiceTest" time="0.01"/>
+  <testcase name="throwEntityNotFoundExceptionIfRoomTypeNotExists" classname="com.softserve.service.RoomTypeServiceTest" time="0.001"/>
+  <testcase name="updateWhenRoomTypeNotFound" classname="com.softserve.service.RoomTypeServiceTest" time="0.001"/>
+  <testcase name="throwFieldAlreadyExistsExceptionIfUpdatedDescriptionAlreadyExists" classname="com.softserve.service.RoomTypeServiceTest" time="0.0"/>
+  <testcase name="getRoomTypeById" classname="com.softserve.service.RoomTypeServiceTest" time="0.001"/>
+  <testcase name="saveRoomTypeIfDescriptionDoesNotExists" classname="com.softserve.service.RoomTypeServiceTest" time="0.001"/>
+  <testcase name="updateRoomTypeIfDescriptionDoesNotExists" classname="com.softserve.service.RoomTypeServiceTest" time="0.001"/>
+  <system-out><![CDATA[[INFO ] 2025-06-26 14:47:46.016 [Test worker] c.s.s.i.RoomTypeServiceImpl - In save(entity = [RoomType(id=1, description=1 roomType)]
+[INFO ] 2025-06-26 14:47:46.019 [Test worker] c.s.s.i.RoomTypeServiceImpl - In isRoomTypeExistsWithDescription(description = [1 roomType])
+[INFO ] 2025-06-26 14:47:46.019 [Test worker] c.s.s.i.RoomTypeServiceImpl - In getById(id = [2])
+[INFO ] 2025-06-26 14:47:46.020 [Test worker] c.s.s.i.RoomTypeServiceImpl - In update(entity = [RoomType(id=1, description=1 roomType)]
+[INFO ] 2025-06-26 14:47:46.020 [Test worker] c.s.s.i.RoomTypeServiceImpl - In isExistsWithId(id = [1])
+[INFO ] 2025-06-26 14:47:46.021 [Test worker] c.s.s.i.RoomTypeServiceImpl - In update(entity = [RoomType(id=1, description=1 roomType)]
+[INFO ] 2025-06-26 14:47:46.021 [Test worker] c.s.s.i.RoomTypeServiceImpl - In isExistsWithId(id = [1])
+[INFO ] 2025-06-26 14:47:46.021 [Test worker] c.s.s.i.RoomTypeServiceImpl - In isRoomTypeExistsWithDescription(description = [1 roomType])
+[ERROR] 2025-06-26 14:47:46.021 [Test worker] c.s.s.i.RoomTypeServiceImpl - RoomType with Description [1 roomType] already exists
+[INFO ] 2025-06-26 14:47:46.021 [Test worker] c.s.s.i.RoomTypeServiceImpl - In getById(id = [1])
+[INFO ] 2025-06-26 14:47:46.022 [Test worker] c.s.s.i.RoomTypeServiceImpl - In save(entity = [RoomType(id=1, description=1 roomType)]
+[INFO ] 2025-06-26 14:47:46.022 [Test worker] c.s.s.i.RoomTypeServiceImpl - In isRoomTypeExistsWithDescription(description = [1 roomType])
+[INFO ] 2025-06-26 14:47:46.023 [Test worker] c.s.s.i.RoomTypeServiceImpl - In update(entity = [RoomType(id=1, description=updated roomType)]
+[INFO ] 2025-06-26 14:47:46.023 [Test worker] c.s.s.i.RoomTypeServiceImpl - In isExistsWithId(id = [1])
+[INFO ] 2025-06-26 14:47:46.023 [Test worker] c.s.s.i.RoomTypeServiceImpl - In isRoomTypeExistsWithDescription(description = [updated roomType])
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

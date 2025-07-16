@@ -1,0 +1,88 @@
+name: Build and Analyze
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+  workflow_dispatch:
+
+jobs:
+  build-and-analyze:
+    name: Build and Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: "11"
+          distribution: "temurin"
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('''**/*.gradle*''', '''**/gradle-wrapper.properties''') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Grant execute permission for gradlew
+        working-directory: ./backend
+        run: chmod +x ./gradlew
+
+      - name: Build with Gradle (skip tests)
+        working-directory: ./backend
+        run: ./gradlew build -x test --info
+
+      - name: Find and rename artifact
+        working-directory: ./backend
+        run: |
+          artifact_path=$(find build/libs -name "*.war" | head -n 1)
+          if [ -z "$artifact_path" ]; then
+            echo "::error::WAR file not found!"
+            exit 1
+          fi
+          mv "$artifact_path" "build/libs/ROOT.war"
+          echo "Artifact renamed to ROOT.war"
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: true
+          tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
+
+      - name: Run tests and SonarQube analysis
+        working-directory: ./backend
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew test sonar --info

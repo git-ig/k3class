@@ -1,0 +1,43 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Node Exporter on monitoring server
+  - job_name: 'node-exporter-local'
+    static_configs:
+      - targets: ['localhost:9100']
+
+  # Node Exporter on other servers
+  - job_name: 'node-exporter-remote'
+    static_configs:
+      - targets:
+          - '{{ hostvars["frontend_host"]["ansible_host"] }}:9100'
+          - '{{ hostvars["backend_host"]["ansible_host"] }}:9100'
+          - '{{ hostvars["database_host"]["ansible_host"] }}:9100'
+          - '{{ hostvars["bastion_host"]["ansible_host"] }}:9100'
+
+  # Docker containers monitoring on monitoring server
+  - job_name: 'cadvisor-local'
+    static_configs:
+      - targets: ['localhost:8081']
+
+  # Docker containers on other servers
+  - job_name: 'cadvisor-remote'
+    static_configs:
+      - targets:
+          - '{{ hostvars["frontend_host"]["ansible_host"] }}:8081'
+          - '{{ hostvars["backend_host"]["ansible_host"] }}:8081'
+          - '{{ hostvars["database_host"]["ansible_host"] }}:8081'
+
+  # Backend application metrics (if Spring Boot Actuator enabled)
+  - job_name: 'backend-app'
+    static_configs:
+      - targets: ['{{ hostvars["backend_host"]["ansible_host"] }}:8080']
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 30s

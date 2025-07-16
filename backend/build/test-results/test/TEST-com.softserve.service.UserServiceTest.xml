@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.softserve.service.UserServiceTest" tests="16" skipped="2" failures="0" errors="0" timestamp="2025-06-26T11:47:46.752Z" hostname="MacBook-Air-Ivan.local" time="0.055">
+  <properties/>
+  <testcase name="throwIncorrectPasswordExceptionIfEnteredPasswordIsIncorrect" classname="com.softserve.service.UserServiceTest" time="0.037"/>
+  <testcase name="throwEntityNotFoundExceptionIfUserNotFounded" classname="com.softserve.service.UserServiceTest" time="0.003"/>
+  <testcase name="getUserByEmail" classname="com.softserve.service.UserServiceTest" time="0.001"/>
+  <testcase name="getUserByToken" classname="com.softserve.service.UserServiceTest" time="0.0"/>
+  <testcase name="updateUserIfEmailDoesNotExist" classname="com.softserve.service.UserServiceTest" time="0.001"/>
+  <testcase name="throwFieldAlreadyExistsExceptionIfUpdatedEmailAlreadyExists" classname="com.softserve.service.UserServiceTest" time="0.0"/>
+  <testcase name="throwEntityNotFoundExceptionIfEmailNotFounded" classname="com.softserve.service.UserServiceTest" time="0.0"/>
+  <testcase name="getAllUsersWithRoleUser" classname="com.softserve.service.UserServiceTest" time="0.0"/>
+  <testcase name="throwFieldAlreadyExistsExceptionIfEmailAlreadyExists" classname="com.softserve.service.UserServiceTest" time="0.001"/>
+  <testcase name="saveUserIfEmailDoesNotExist" classname="com.softserve.service.UserServiceTest" time="0.001"/>
+  <testcase name="registrationUser" classname="com.softserve.service.UserServiceTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="resetPasswordAndSendNewOnEmail" classname="com.softserve.service.UserServiceTest" time="0.007"/>
+  <testcase name="automaticRegistration" classname="com.softserve.service.UserServiceTest" time="0.0">
+    <skipped/>
+  </testcase>
+  <testcase name="throwEntityNotFoundExceptionIfTokenNotFounded" classname="com.softserve.service.UserServiceTest" time="0.0"/>
+  <testcase name="throwIncorrectEmailExceptionIfEnteredEmailIsIncorrect" classname="com.softserve.service.UserServiceTest" time="0.001"/>
+  <testcase name="getUserById" classname="com.softserve.service.UserServiceTest" time="0.001"/>
+  <system-out><![CDATA[[INFO ] 2025-06-26 14:47:46.789 [Test worker] c.s.s.i.UserServiceImpl - Enter into registration method  with email:some@mail.com
+[INFO ] 2025-06-26 14:47:46.789 [Test worker] c.s.s.i.UserServiceImpl - Enter into isPasswordValid method with password:qwert
+[INFO ] 2025-06-26 14:47:46.790 [Test worker] c.s.s.i.UserServiceImpl - Enter into getById method with id 2
+[INFO ] 2025-06-26 14:47:46.793 [Test worker] c.s.s.i.UserServiceImpl - Enter into findByEmail method with email:test@email.com
+[INFO ] 2025-06-26 14:47:46.794 [Test worker] c.s.s.i.UserServiceImpl - Enter into findByToken method with token:qwerty123!@#
+[INFO ] 2025-06-26 14:47:46.795 [Test worker] c.s.s.i.UserServiceImpl - Enter into update method with entity:User(id=1, email=update@mail.com, password=updatePassword, role=ROLE_USER, token=null)
+[INFO ] 2025-06-26 14:47:46.795 [Test worker] c.s.s.i.UserServiceImpl - Enter into getById method with id 1
+[INFO ] 2025-06-26 14:47:46.796 [Test worker] c.s.s.i.UserServiceImpl - Enter into update method with entity:User(id=1, email=email@mail.com, password=oldPassword, role=ROLE_USER, token=null)
+[INFO ] 2025-06-26 14:47:46.796 [Test worker] c.s.s.i.UserServiceImpl - Enter into getById method with id 1
+[INFO ] 2025-06-26 14:47:46.796 [Test worker] c.s.s.i.UserServiceImpl - Enter into findByEmail method with email:some@email.com
+[INFO ] 2025-06-26 14:47:46.797 [Test worker] c.s.s.i.UserServiceImpl - Enter into getAllUsersWithRoleUser of UserServiceImpl
+[INFO ] 2025-06-26 14:47:46.797 [Test worker] c.s.s.i.UserServiceImpl - Enter into save method with entity:User(id=null, email=test@email.com, password=password, role=ROLE_USER, token=null)
+[INFO ] 2025-06-26 14:47:46.798 [Test worker] c.s.s.i.UserServiceImpl - Enter into emailExists method with email:test@email.com
+[INFO ] 2025-06-26 14:47:46.798 [Test worker] c.s.s.i.UserServiceImpl - Enter into save method with entity:User(id=null, email=mail@email.com, password=Qwerty1!, role=ROLE_USER, token=null)
+[INFO ] 2025-06-26 14:47:46.798 [Test worker] c.s.s.i.UserServiceImpl - Enter into emailExists method with email:mail@email.com
+[INFO ] 2025-06-26 14:47:46.799 [Test worker] c.s.s.i.UserServiceImpl - Enter into resetPassword method  with email:some@mail.com
+[INFO ] 2025-06-26 14:47:46.806 [Test worker] c.s.s.i.UserServiceImpl - Enter into findByToken method with token:qflkwrgn
+[INFO ] 2025-06-26 14:47:46.806 [Test worker] c.s.s.i.UserServiceImpl - Enter into resetPassword method  with email:afvadf
+[INFO ] 2025-06-26 14:47:46.807 [Test worker] c.s.s.i.UserServiceImpl - Enter into getById method with id 1
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

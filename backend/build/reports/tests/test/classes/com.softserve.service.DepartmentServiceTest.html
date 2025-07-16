@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - Class com.softserve.service.DepartmentServiceTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>Class com.softserve.service.DepartmentServiceTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.softserve.service.html">com.softserve.service</a> &gt; DepartmentServiceTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">10</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.055s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a href="#">Tests</a>
+</li>
+<li>
+<a href="#">Standard output</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">testDelete</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testGetAll</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testGetAllTeachers</td>
+<td class="success">0.010s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testGetById</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testGetDisabled</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">testSave</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throwEntityNotFoundExceptionIfDepartmentNotFoundedById</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throwFieldAlreadyExistsExceptionForNameOnSave</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throwFieldAlreadyExistsExceptionForNameOnUpdate</td>
+<td class="success">0.031s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">update</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>14:47:45,792 |-INFO in c.q.l.co.rolling.helper.RenameUtil - Renaming file [schedule_logs/log.log] to [schedule_logs/log.log424244749373708.tmp]
+14:47:45,795 |-INFO in ch.qos.logback.core.rolling.helper.SizeAndTimeBasedArchiveRemover@1643a546 - first clean up after appender initialization
+14:47:45,795 |-INFO in ch.qos.logback.core.rolling.helper.Compressor - ZIP compressing [schedule_logs/log.log424244749373708.tmp] as [schedule_logs/logArchiveAll/roll.2025-06-22.0.log.zip]
+14:47:45,796 |-INFO in ch.qos.logback.core.rolling.helper.SizeAndTimeBasedArchiveRemover@1643a546 - periodsElapsed = 64
+[INFO ] 2025-06-26 14:47:45.792 [Test worker] c.s.s.i.DepartmentServiceImpl - In update(entity = [Department(id=1, name=some department, disable=false)]
+[INFO ] 2025-06-26 14:47:45.812 [Test worker] c.s.s.i.DepartmentServiceImpl - In save(entity = [Department(id=1, name=some department, disable=false)]
+[INFO ] 2025-06-26 14:47:45.817 [Test worker] c.s.s.i.DepartmentServiceImpl - In update(entity = [Department(id=1, name=some department, disable=false)]
+[INFO ] 2025-06-26 14:47:45.819 [Test worker] c.s.s.i.DepartmentServiceImpl - In getById(id = [1])
+[INFO ] 2025-06-26 14:47:45.820 [Test worker] c.s.s.i.DepartmentServiceImpl - In save(entity = [Department(id=1, name=some department, disable=false)]
+[INFO ] 2025-06-26 14:47:45.821 [Test worker] c.s.s.i.DepartmentServiceImpl - Enter into getAllTeachers with department id 3
+[INFO ] 2025-06-26 14:47:45.831 [Test worker] c.s.s.i.DepartmentServiceImpl - In delete(entity = [Department(id=1, name=some department, disable=false)])
+[INFO ] 2025-06-26 14:47:45.832 [Test worker] c.s.s.i.DepartmentServiceImpl - In getAll()
+[INFO ] 2025-06-26 14:47:45.833 [Test worker] c.s.s.i.DepartmentServiceImpl - Enter into getAll of getDisabled
+[INFO ] 2025-06-26 14:47:45.833 [Test worker] c.s.s.i.DepartmentServiceImpl - In getById(id = [2])
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="https://www.gradle.org">Gradle 8.14.2</a> at 26 черв. 2025 р., 14:47:47</p>
+</div>
+</div>
+</body>
+</html>

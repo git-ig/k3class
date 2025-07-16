@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.softserve.util.TranslatorTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-06-26T11:47:46.815Z" hostname="MacBook-Air-Ivan.local" time="0.073">
+  <properties/>
+  <testcase name="getTranslateTest" classname="com.softserve.util.TranslatorTest" time="0.071"/>
+  <testcase name="getTranslateIfLanguageNotExistsTest" classname="com.softserve.util.TranslatorTest" time="0.001"/>
+  <testcase name="getTranslateIfWordNotExistsTest" classname="com.softserve.util.TranslatorTest" time="0.001"/>
+  <system-out><![CDATA[[WARN ] 2025-06-26 14:47:46.888 [Test worker] c.s.u.Translator - There is no translation of the word = word
+[WARN ] 2025-06-26 14:47:46.889 [Test worker] c.s.u.Translator - There is no translation of the word = java
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

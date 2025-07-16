@@ -1,0 +1,5 @@
+project_id          = "gcp-project-id-here"
+region              = "us-central-or-other-region-us"
+zone                = "your-gcp-zone-here"
+ssh_user            = "your-ssh-user-here"
+ssh_public_key_path = "/Path/to/your/.ssh/id_rsa.pub"

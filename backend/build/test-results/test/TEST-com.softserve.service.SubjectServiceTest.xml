@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.softserve.service.SubjectServiceTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2025-06-26T11:47:46.687Z" hostname="MacBook-Air-Ivan.local" time="0.016">
+  <properties/>
+  <testcase name="getSubjectsWithTypes" classname="com.softserve.service.SubjectServiceTest" time="0.01"/>
+  <testcase name="getSubjectById" classname="com.softserve.service.SubjectServiceTest" time="0.001"/>
+  <testcase name="throwEntityNotFoundExceptionIfSubjectNotFounded" classname="com.softserve.service.SubjectServiceTest" time="0.0"/>
+  <testcase name="saveSubjectIfNameDoesNotExists" classname="com.softserve.service.SubjectServiceTest" time="0.001"/>
+  <testcase name="throwEntityNotFoundExceptionIfUpdatedSubjectNotFounded" classname="com.softserve.service.SubjectServiceTest" time="0.001"/>
+  <testcase name="throwFieldAlreadyExistsExceptionIfNameAlreadyExists" classname="com.softserve.service.SubjectServiceTest" time="0.0"/>
+  <testcase name="throwFieldAlreadyExistsExceptionIfUpdatedNameAlreadyExists" classname="com.softserve.service.SubjectServiceTest" time="0.001"/>
+  <testcase name="updateSubjectIfNameDoesNotExists" classname="com.softserve.service.SubjectServiceTest" time="0.001"/>
+  <system-out><![CDATA[[INFO ] 2025-06-26 14:47:46.698 [Test worker] c.s.s.i.SubjectServiceImpl - In service getSubjects(semesterId = [1], teacherId = [3])
+[INFO ] 2025-06-26 14:47:46.699 [Test worker] c.s.s.i.SubjectServiceImpl - In getById(id = [1])
+[INFO ] 2025-06-26 14:47:46.700 [Test worker] c.s.s.i.SubjectServiceImpl - In getById(id = [2])
+[INFO ] 2025-06-26 14:47:46.700 [Test worker] c.s.s.i.SubjectServiceImpl - In save(entity = [com.softserve.entity.Subject@13140525]
+[INFO ] 2025-06-26 14:47:46.701 [Test worker] c.s.s.i.SubjectServiceImpl - In isSubjectExistsWithName(name = [some subject])
+[INFO ] 2025-06-26 14:47:46.701 [Test worker] c.s.s.i.SubjectServiceImpl - In update(entity = [com.softserve.entity.Subject@1313fb77]
+[INFO ] 2025-06-26 14:47:46.701 [Test worker] c.s.s.i.SubjectServiceImpl - In isExistsWithId(id = [1])
+[INFO ] 2025-06-26 14:47:46.702 [Test worker] c.s.s.i.SubjectServiceImpl - In save(entity = [com.softserve.entity.Subject@13140525]
+[INFO ] 2025-06-26 14:47:46.702 [Test worker] c.s.s.i.SubjectServiceImpl - In isSubjectExistsWithName(name = [some subject])
+[ERROR] 2025-06-26 14:47:46.702 [Test worker] c.s.s.i.SubjectServiceImpl - Subject with name some subject already exists
+[INFO ] 2025-06-26 14:47:46.702 [Test worker] c.s.s.i.SubjectServiceImpl - In update(entity = [com.softserve.entity.Subject@e05e1047]
+[INFO ] 2025-06-26 14:47:46.702 [Test worker] c.s.s.i.SubjectServiceImpl - In isExistsWithId(id = [1])
+[INFO ] 2025-06-26 14:47:46.702 [Test worker] c.s.s.i.SubjectServiceImpl - In isSubjectExistsWithNameAndIgnoreWithId(id = [1], name = [updated name])
+[ERROR] 2025-06-26 14:47:46.702 [Test worker] c.s.s.i.SubjectServiceImpl - Subject with name [updated name] already exists
+[INFO ] 2025-06-26 14:47:46.703 [Test worker] c.s.s.i.SubjectServiceImpl - In update(entity = [com.softserve.entity.Subject@e05e1047]
+[INFO ] 2025-06-26 14:47:46.703 [Test worker] c.s.s.i.SubjectServiceImpl - In isExistsWithId(id = [1])
+[INFO ] 2025-06-26 14:47:46.703 [Test worker] c.s.s.i.SubjectServiceImpl - In isSubjectExistsWithNameAndIgnoreWithId(id = [1], name = [updated name])
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

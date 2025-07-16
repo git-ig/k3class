@@ -1,0 +1,14 @@
+---
+- name: Restart prometheus
+  community.docker.docker_container:
+    name: prometheus
+    state: started
+    restart: true
+  become: true
+
+- name: Restart grafana
+  community.docker.docker_container:
+    name: grafana
+    state: started
+    restart: true
+  become: true

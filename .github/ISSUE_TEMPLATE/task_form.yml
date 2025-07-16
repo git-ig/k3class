@@ -1,0 +1,56 @@
+name: Task Form
+description: Use this form to create a new task and track its progress
+title: "[TASK] "
+labels:
+  - task
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out the following fields to describe the task clearly and fully.
+
+  - type: input
+    id: task_description
+    attributes:
+      label: Task Description
+      placeholder: Provide a clear description of the task
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: Acceptance Criteria
+      description: Define what constitutes a completed task
+      placeholder: "- [ ] Criterion 1"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Task Priority
+      options:
+        - High
+        - Medium
+        - Low
+    validations:
+      required: true
+
+  - type: input
+    id: estimated_time
+    attributes:
+      label: Estimated Time
+      placeholder: How much time do you estimate for this task (in hours)?
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional_information
+    attributes:
+      label: Additional Information
+      placeholder: Any extra details or context that could help
+    validations:
+      required: false

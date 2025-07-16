@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.softserve.service.RoomServiceTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2025-06-26T11:47:45.991Z" hostname="MacBook-Air-Ivan.local" time="0.016">
+  <properties/>
+  <testcase name="saveRoomIfNameAndTypeAreNotExist" classname="com.softserve.service.RoomServiceTest" time="0.01"/>
+  <testcase name="updateRoomIfNameAndTypeAreNotExist" classname="com.softserve.service.RoomServiceTest" time="0.002"/>
+  <testcase name="throwEntityNotFoundExceptionIfRoomNotFounded" classname="com.softserve.service.RoomServiceTest" time="0.0"/>
+  <testcase name="saveAfterOrder_WhenSaveAfterNotExistRoom_ShouldThrowSortOrderNotExistsException" classname="com.softserve.service.RoomServiceTest" time="0.001"/>
+  <testcase name="saveAfterOrder_WhenSaveAfterNotExistRoom_ShouldThrowSortOrderNotExistsException2" classname="com.softserve.service.RoomServiceTest" time="0.0"/>
+  <testcase name="throwEntityAlreadyExistsExceptionIfUpdatedNameAndTypeAlreadyExist" classname="com.softserve.service.RoomServiceTest" time="0.001"/>
+  <testcase name="throwEntityAlreadyExistsExceptionIfSavedRoomAlreadyExists" classname="com.softserve.service.RoomServiceTest" time="0.0"/>
+  <testcase name="getRoomById" classname="com.softserve.service.RoomServiceTest" time="0.001"/>
+  <system-out><![CDATA[[INFO ] 2025-06-26 14:47:46.001 [Test worker] c.s.s.i.RoomServiceImpl - Enter into save of RoomServiceImpl with entity:com.softserve.entity.Room@b098b79f
+[INFO ] 2025-06-26 14:47:46.003 [Test worker] c.s.s.i.RoomServiceImpl - Enter into update of RoomServiceImpl with entity:com.softserve.entity.Room@e9bdb864
+[INFO ] 2025-06-26 14:47:46.004 [Test worker] c.s.s.i.RoomServiceImpl - Enter into getById of RoomServiceImpl with id 2
+[INFO ] 2025-06-26 14:47:46.006 [Test worker] c.s.s.i.RoomServiceImpl - Enter into update of RoomServiceImpl with entity:com.softserve.entity.Room@dd9a85b1
+[INFO ] 2025-06-26 14:47:46.007 [Test worker] c.s.s.i.RoomServiceImpl - Enter into save of RoomServiceImpl with entity:com.softserve.entity.Room@b098b79f
+[INFO ] 2025-06-26 14:47:46.007 [Test worker] c.s.s.i.RoomServiceImpl - Enter into getById of RoomServiceImpl with id 1
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

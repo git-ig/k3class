@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - Class com.softserve.service.PeriodServiceTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>Class com.softserve.service.PeriodServiceTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.softserve.service.html">com.softserve.service</a> &gt; PeriodServiceTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">13</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.021s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="tab-container">
+<ul class="tabLinks">
+<li>
+<a href="#">Tests</a>
+</li>
+<li>
+<a href="#">Standard output</a>
+</li>
+</ul>
+<div class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">getPeriodById</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">saveListOfPeriodsIfAllPeriodsHaveCorrectTimeNotIntersectWithOtherPeriodsAndNamesAreNotExist</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">savePeriodIfItHasCorrectTimeAndNotIntersectsWithOtherPeriodsAndNameIsNotExist</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throwEntityNotFoundExceptionIfPeriodNotFoundedById</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throwFieldAlreadyExistsExceptionIfSavePeriodWithExistName</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throwIncorrectTimeExceptionIfSaveListOfPeriodsAndOneOfThemHasIncorrectTime</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throwIncorrectTimeExceptionIfSavePeriodBeginsAfterHisEnd</td>
+<td class="success">0s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throwIncorrectTimeExceptionIfUpdatedPeriodBeginsAfterHisEnd</td>
+<td class="success">0.009s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throwPeriodConflictExceptionIfSaveListOfPeriodsAndOneOfThemIntersectsWithOtherPeriod</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throwPeriodConflictExceptionIfSavedPeriodIntersectsWithOtherPeriods</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throwPeriodConflictExceptionIfUpdatedPeriodIntersectsWithOther</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">throwPeriodConflictExceptionIfUpdatedPeriodsNameAlreadyExist</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">updatePeriodIfItHasCorrectTimeAndNotIntersectsWithOtherPeriodsAndNameIsNotExist</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>[INFO ] 2025-06-26 14:47:45.977 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into update of PeriodServiceImpl with entity:Period(id=1, startTime=05:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.977 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isTimeInvalid of PeriodServiceImpl with entity: Period(id=1, startTime=05:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.979 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into update of PeriodServiceImpl with entity:Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.979 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isTimeInvalid of PeriodServiceImpl with entity: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.979 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into getAll of PeriodServiceImpl
+[INFO ] 2025-06-26 14:47:45.979 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodFree of PeriodServiceImpl with entities oldPeriods: [Period(id=2, startTime=06:00, endTime=07:00, name=Another period)] and newPeriod: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.979 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsGlued of PeriodServiceImpl with entities oldPeriods: Period(id=2, startTime=06:00, endTime=07:00, name=Another period), newPeriods: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.979 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsIntersect of PeriodServiceImpl with entities oldPeriod: Period(id=2, startTime=06:00, endTime=07:00, name=Another period), newPeriod: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.980 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into getById of PeriodServiceImpl with id 1
+[INFO ] 2025-06-26 14:47:45.981 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into update of PeriodServiceImpl with entity:Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.981 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isTimeInvalid of PeriodServiceImpl with entity: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.981 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into getAll of PeriodServiceImpl
+[INFO ] 2025-06-26 14:47:45.981 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodFree of PeriodServiceImpl with entities oldPeriods: [Period(id=2, startTime=06:00, endTime=07:00, name=Another period)] and newPeriod: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.981 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsGlued of PeriodServiceImpl with entities oldPeriods: Period(id=2, startTime=06:00, endTime=07:00, name=Another period), newPeriods: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.981 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsIntersect of PeriodServiceImpl with entities oldPeriod: Period(id=2, startTime=06:00, endTime=07:00, name=Another period), newPeriod: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.981 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into getById of PeriodServiceImpl with id 1
+[INFO ] 2025-06-26 14:47:45.982 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into update of PeriodServiceImpl with entity:Period(id=1, startTime=02:00, endTime=03:30, name=Some period)
+[INFO ] 2025-06-26 14:47:45.982 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isTimeInvalid of PeriodServiceImpl with entity: Period(id=1, startTime=02:00, endTime=03:30, name=Some period)
+[INFO ] 2025-06-26 14:47:45.982 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into getAll of PeriodServiceImpl
+[INFO ] 2025-06-26 14:47:45.982 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodFree of PeriodServiceImpl with entities oldPeriods: [Period(id=2, startTime=03:00, endTime=04:00, name=Another period)] and newPeriod: Period(id=1, startTime=02:00, endTime=03:30, name=Some period)
+[INFO ] 2025-06-26 14:47:45.982 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsGlued of PeriodServiceImpl with entities oldPeriods: Period(id=2, startTime=03:00, endTime=04:00, name=Another period), newPeriods: Period(id=1, startTime=02:00, endTime=03:30, name=Some period)
+[INFO ] 2025-06-26 14:47:45.982 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsIntersect of PeriodServiceImpl with entities oldPeriod: Period(id=2, startTime=03:00, endTime=04:00, name=Another period), newPeriod: Period(id=1, startTime=02:00, endTime=03:30, name=Some period)
+[INFO ] 2025-06-26 14:47:45.983 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into save of PeriodServiceImpl with entity: Period(id=1, startTime=01:00, endTime=02:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.983 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isTimeInvalid of PeriodServiceImpl with entity: Period(id=1, startTime=01:00, endTime=02:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.983 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into getAll of PeriodServiceImpl
+[INFO ] 2025-06-26 14:47:45.983 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodFree of PeriodServiceImpl with entities oldPeriods: [Period(id=2, startTime=03:00, endTime=04:00, name=Some period)] and newPeriod: Period(id=1, startTime=01:00, endTime=02:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.983 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsGlued of PeriodServiceImpl with entities oldPeriods: Period(id=2, startTime=03:00, endTime=04:00, name=Some period), newPeriods: Period(id=1, startTime=01:00, endTime=02:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.983 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsIntersect of PeriodServiceImpl with entities oldPeriod: Period(id=2, startTime=03:00, endTime=04:00, name=Some period), newPeriod: Period(id=1, startTime=01:00, endTime=02:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.983 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into nameExists method with name:Some period
+[INFO ] 2025-06-26 14:47:45.984 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into save of PeriodServiceImpl with entity: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.984 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isTimeInvalid of PeriodServiceImpl with entity: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.984 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into getAll of PeriodServiceImpl
+[INFO ] 2025-06-26 14:47:45.984 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodFree of PeriodServiceImpl with entities oldPeriods: [Period(id=2, startTime=05:00, endTime=06:00, name=Another period)] and newPeriod: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.984 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsGlued of PeriodServiceImpl with entities oldPeriods: Period(id=2, startTime=05:00, endTime=06:00, name=Another period), newPeriods: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.984 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsIntersect of PeriodServiceImpl with entities oldPeriod: Period(id=2, startTime=05:00, endTime=06:00, name=Another period), newPeriod: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.984 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into nameExists method with name:Some period
+[INFO ] 2025-06-26 14:47:45.985 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into save of PeriodServiceImpl with entities:[Period(id=1, startTime=05:00, endTime=04:00, name=Some period)]
+[INFO ] 2025-06-26 14:47:45.985 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isTimeInvalid of PeriodServiceImpl with entity: Period(id=1, startTime=05:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.985 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into save of PeriodServiceImpl with entities:[Period(id=1, startTime=02:00, endTime=03:00, name=Some period)]
+[INFO ] 2025-06-26 14:47:45.985 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isTimeInvalid of PeriodServiceImpl with entity: Period(id=1, startTime=02:00, endTime=03:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.985 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into getAll of PeriodServiceImpl
+[INFO ] 2025-06-26 14:47:45.986 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isListOfPeriodsFree of PeriodServiceImpl with entities oldPeriods: [Period(id=2, startTime=03:00, endTime=04:00, name=Some period)], newPeriods: [Period(id=1, startTime=02:00, endTime=03:00, name=Some period)]
+[INFO ] 2025-06-26 14:47:45.986 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodFree of PeriodServiceImpl with entities oldPeriods: [Period(id=1, startTime=02:00, endTime=03:00, name=Some period)] and newPeriod: Period(id=1, startTime=02:00, endTime=03:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.986 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsGlued of PeriodServiceImpl with entities oldPeriods: Period(id=1, startTime=02:00, endTime=03:00, name=Some period), newPeriods: Period(id=1, startTime=02:00, endTime=03:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.986 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsIntersect of PeriodServiceImpl with entities oldPeriod: Period(id=1, startTime=02:00, endTime=03:00, name=Some period), newPeriod: Period(id=1, startTime=02:00, endTime=03:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.986 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodFree of PeriodServiceImpl with entities oldPeriods: [Period(id=2, startTime=03:00, endTime=04:00, name=Some period)] and newPeriod: Period(id=1, startTime=02:00, endTime=03:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.986 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsGlued of PeriodServiceImpl with entities oldPeriods: Period(id=2, startTime=03:00, endTime=04:00, name=Some period), newPeriods: Period(id=1, startTime=02:00, endTime=03:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.986 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into save of PeriodServiceImpl with entity: Period(id=1, startTime=01:00, endTime=02:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.986 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isTimeInvalid of PeriodServiceImpl with entity: Period(id=1, startTime=01:00, endTime=02:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.986 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into getAll of PeriodServiceImpl
+[INFO ] 2025-06-26 14:47:45.987 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodFree of PeriodServiceImpl with entities oldPeriods: [Period(id=2, startTime=02:00, endTime=03:00, name=Some period)] and newPeriod: Period(id=1, startTime=01:00, endTime=02:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.987 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsGlued of PeriodServiceImpl with entities oldPeriods: Period(id=2, startTime=02:00, endTime=03:00, name=Some period), newPeriods: Period(id=1, startTime=01:00, endTime=02:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.987 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into getById of PeriodServiceImpl with id 1
+[INFO ] 2025-06-26 14:47:45.988 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into getById of PeriodServiceImpl with id 2
+[INFO ] 2025-06-26 14:47:45.988 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into save of PeriodServiceImpl with entity: Period(id=1, startTime=05:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.988 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isTimeInvalid of PeriodServiceImpl with entity: Period(id=1, startTime=05:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.989 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into save of PeriodServiceImpl with entities:[Period(id=1, startTime=03:00, endTime=04:00, name=Some period)]
+[INFO ] 2025-06-26 14:47:45.989 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isTimeInvalid of PeriodServiceImpl with entity: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.989 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into getAll of PeriodServiceImpl
+[INFO ] 2025-06-26 14:47:45.989 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isListOfPeriodsFree of PeriodServiceImpl with entities oldPeriods: [Period(id=2, startTime=01:00, endTime=02:00, name=another period), Period(id=1, startTime=03:00, endTime=04:00, name=Some period)], newPeriods: [Period(id=1, startTime=03:00, endTime=04:00, name=Some period)]
+[INFO ] 2025-06-26 14:47:45.989 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodFree of PeriodServiceImpl with entities oldPeriods: [Period(id=1, startTime=03:00, endTime=04:00, name=Some period)] and newPeriod: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.989 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsGlued of PeriodServiceImpl with entities oldPeriods: Period(id=1, startTime=03:00, endTime=04:00, name=Some period), newPeriods: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.989 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsIntersect of PeriodServiceImpl with entities oldPeriod: Period(id=1, startTime=03:00, endTime=04:00, name=Some period), newPeriod: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.989 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodFree of PeriodServiceImpl with entities oldPeriods: [Period(id=2, startTime=01:00, endTime=02:00, name=another period), Period(id=1, startTime=03:00, endTime=04:00, name=Some period)] and newPeriod: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.989 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsGlued of PeriodServiceImpl with entities oldPeriods: Period(id=2, startTime=01:00, endTime=02:00, name=another period), newPeriods: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.989 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsIntersect of PeriodServiceImpl with entities oldPeriod: Period(id=2, startTime=01:00, endTime=02:00, name=another period), newPeriod: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.989 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsGlued of PeriodServiceImpl with entities oldPeriods: Period(id=1, startTime=03:00, endTime=04:00, name=Some period), newPeriods: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+[INFO ] 2025-06-26 14:47:45.989 [Test worker] c.s.s.i.PeriodServiceImpl - Enter into isPeriodsIntersect of PeriodServiceImpl with entities oldPeriod: Period(id=1, startTime=03:00, endTime=04:00, name=Some period), newPeriod: Period(id=1, startTime=03:00, endTime=04:00, name=Some period)
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="https://www.gradle.org">Gradle 8.14.2</a> at 26 черв. 2025 р., 14:47:47</p>
+</div>
+</div>
+</body>
+</html>

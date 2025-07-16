@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.softserve.mapper.TeacherMapperTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2025-06-26T11:47:45.492Z" hostname="MacBook-Air-Ivan.local" time="0.285">
+  <properties/>
+  <testcase name="teacherDTOToTeacherForSiteTest" classname="com.softserve.mapper.TeacherMapperTest" time="0.199"/>
+  <testcase name="testUserIdToEmailInTeacherToTeacherDTOIfUserIdNotExist" classname="com.softserve.mapper.TeacherMapperTest" time="0.064"/>
+  <testcase name="testUserIdToEmailInTeacherToTeacherDTOIfUserIdExists" classname="com.softserve.mapper.TeacherMapperTest" time="0.02"/>
+  <testcase name="testUserIdToEmailInTeacherToTeacherForUpdateDTOIfUserIdExists" classname="com.softserve.mapper.TeacherMapperTest" time="0.001"/>
+  <testcase name="testUserIdToEmailInTeacherToTeacherForUpdateDTOIfUserIdNotExist" classname="com.softserve.mapper.TeacherMapperTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
