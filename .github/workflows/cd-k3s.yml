@@ -164,6 +164,7 @@ jobs:
           region                   = "${{ secrets.GCP_REGION }}"
           zone                     = "${{ secrets.GCP_ZONE }}"
           ssh_user                 = "${{ secrets.GCP_SSH_USER }}"  # Keep if needed for other purposes, but not used for keys
+          ssh_public_key_content   = "${{ secrets.GCP_SSH_PUBLIC_KEY }}"
           bucket_name              = "${{ secrets.GCS_BUCKET_NAME }}"
           service_account_email    = "${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}"
           cloudflare_api_token     = "${{ secrets.CLOUDFLARE_API_TOKEN }}"
