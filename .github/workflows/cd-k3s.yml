@@ -108,9 +108,20 @@ jobs:
         env:
           GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS_JSON }}
         run: |
-          echo "$GCP_CREDENTIALS" > /tmp/gcp-credentials.json
-          export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp-credentials.json
-          gcloud auth application-default login
+              # Write the service account key to a temporary file
+              echo "$GCP_CREDENTIALS" > /tmp/gcp-credentials.json
+              
+              # Activate the service account (non-interactive)
+              gcloud auth activate-service-account --key-file=/tmp/gcp-credentials.json --quiet
+              
+              # Set the application default credentials (for tools that use ADC)
+              gcloud auth application-default login --no-launch-browser --quiet
+              
+              # Optional: Verify authentication
+              gcloud auth list || echo "Authentication failed"
+              
+              # Clean up the key file for security
+              rm -f /tmp/gcp-credentials.json
 
       - name: Setup terraform.tfvars
         run: |
