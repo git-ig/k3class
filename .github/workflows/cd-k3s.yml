@@ -80,10 +80,18 @@ jobs:
           WORKER_IPS=$(terraform output -json k3s_worker_private_ips | jq -r '.[]')
 
           # Wait for cluster to be ready (installation via startup scripts in Terraform)
-          sleep 180  # Adjust based on boot time; increase if needed
+          sleep 300  # Increased for reliability; adjust based on tests
 
-          # Download kubeconfig from GCS (uploaded by control plane startup script)
-          gcloud storage cp gs://${{ secrets.GCS_BUCKET_NAME }}/k3s-kubeconfig ~/.kube/config
+          # Download kubeconfig from GCS with retry
+          for i in {1..5}; do
+            gcloud storage cp gs://${{ secrets.GCS_BUCKET_NAME }}/k3s-kubeconfig ~/.kube/config && break
+            echo "Kubeconfig not found, retrying in 30s..."
+            sleep 30
+          done
+          if [ ! -f ~/.kube/config ]; then
+            echo "Error: Failed to download kubeconfig"
+            exit 1
+          fi
           sed -i "s/127.0.0.1/$CONTROL_PLANE_IP/g" ~/.kube/config
 
           # Verify cluster
@@ -112,10 +120,10 @@ jobs:
             --values environments/$ENV/database-values.yaml \
             --wait
 
-          # Deploy backend
+          # Deploy backend (fixed values path)
           helm upgrade --install backend ./helm/backend \
             --namespace $NAMESPACE \
-            --values environments/$ENV/database-values.yaml \
+            --values environments/$ENV/backend-values.yaml \
             --wait
 
           # Deploy frontend

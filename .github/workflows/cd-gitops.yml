@@ -2,7 +2,7 @@ name: GitOps Deploy
 
 on:
   workflow_run:
-    workflows: ["Frontend CI", "Build and Analyze", "Deploy to k3s Cluster"]
+    workflows: ["Deploy to k3s Cluster"]
     types: [completed]
     branches: [main, dev]
   workflow_dispatch:

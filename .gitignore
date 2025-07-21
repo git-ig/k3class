@@ -28,3 +28,6 @@ infra/ansible/roles/*/files/*.dump
 infra/ansible/roles/*/files/*.sql
 *.tmp
 debug-local.sh
+
+.github/workflows/._cd-gitops.yml
+.github/workflows/._cd-k3s.yml
