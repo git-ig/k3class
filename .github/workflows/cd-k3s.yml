@@ -70,24 +70,38 @@ jobs:
           fi
 
       - name: Install Google Cloud SDK
-        timeout-minutes: 5  # Prevent infinite hangs
+        timeout-minutes: 10  # Increased to handle potential network delays
         run: |
-          # Install prerequisites if needed
-          sudo apt-get update -qq
-          sudo apt-get install -y apt-transport-https ca-certificates gnupg
-          
-          # Add Google Cloud SDK apt repository (updated method)
-          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-          
-          # Download and dearmor the key (replaces deprecated apt-key)
-          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
-          
-          # Update and install non-interactively using apt
-          sudo apt update -qq
-          sudo apt install -y --no-install-recommends google-cloud-cli
-          
-          # Verify installation
-          gcloud --version || echo "Installation failed"
+            if command -v gcloud &> /dev/null; then
+              echo "Google Cloud CLI is already installed, skipping installation."
+            else
+              echo "Google Cloud CLI not found, proceeding with installation."
+              
+              # Clean up any existing Google Cloud SDK installations and repo files to avoid duplicates
+              sudo apt remove -y google-cloud-sdk google-cloud-cli || true
+              sudo rm -f /etc/apt/sources.list.d/google-cloud-sdk.list
+              sudo rm -f /usr/share/keyrings/cloud.google.gpg
+              
+              # Install prerequisites
+              sudo apt-get update -qq
+              sudo apt-get install -y apt-transport-https ca-certificates gnupg curl
+              
+              # Add Google Cloud SDK apt repository
+              echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+              
+              # Download and dearmor the key
+              curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+              
+              # Update and install with added verbosity for debugging
+              echo "Starting apt update..."
+              sudo apt update
+              echo "Starting apt install..."
+              sudo apt install -y --no-install-recommends google-cloud-cli
+            fi
+            
+            # Verify installation (always run)
+            gcloud --version || echo "Installation failed or verification error"
+        
         
         
       - name: Authenticate to Google Cloud with JSON
