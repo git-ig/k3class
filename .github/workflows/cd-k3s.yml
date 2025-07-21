@@ -68,8 +68,21 @@ jobs:
           else
             echo "Helm is already installed, skipping."
           fi
-        
 
+      - name: Install Google Cloud SDK
+        run: |
+          # Add Google Cloud SDK apt repository (official method)
+          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+          
+          # Update and install non-interactively
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends google-cloud-sdk
+          
+          # Verify installation
+          gcloud --version || echo "Installation failed"
+
+        
       - name: Authenticate to Google Cloud with JSON
         env:
           GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS_JSON }}
