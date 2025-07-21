@@ -101,7 +101,8 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.GCP_WORKLOAD_IDENTITY_CONFIG }}
+          credentials_json: ${{ secrets.GCP_CREDENTIALS_JSON }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
       
       - name: Set up Google Cloud CLI with Authentication
         uses: google-github-actions/setup-gcloud@v2
@@ -119,7 +120,7 @@ jobs:
           gcloud auth list
           
           # Перевірити IAM політики для сервіс-акаунта
-          gcloud projects get-iam-policy ${{ secrets.GCP_PROJECT_ID }} --filter="bindings.members:serviceAccount:${{ secrets.GCP_SERVICE_ACCOUNT }}"
+          gcloud projects get-iam-policy ${{ secrets.GCP_PROJECT_ID }} --filter="bindings.members:serviceAccount:${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}"
           
           # Тест на дозвіл створення бакета (спроба створення тестового, потім видалення)
           TEST_BUCKET="test-bucket-$(date +%s)"
@@ -146,7 +147,7 @@ jobs:
               
               # Add IAM for service account
               gcloud storage buckets add-iam-policy-binding gs://$BUCKET_NAME \
-                --member=serviceAccount:${{ secrets.GCP_SERVICE_ACCOUNT }} \
+                --member=serviceAccount:${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }} \
                 --role=roles/storage.objectAdmin
             fi
             
