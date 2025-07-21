@@ -78,7 +78,7 @@ jobs:
           
           # Update and install non-interactively using apt
           sudo apt update -qq
-          sudo apt install -y --no-install-recommends google-cloud-sdk
+          sudo apt install -y --no-install-recommends google-cloud-cli
           
           # Verify installation
           gcloud --version || echo "Installation failed"
