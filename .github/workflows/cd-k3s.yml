@@ -36,10 +36,27 @@ jobs:
 
       - name: Set up tools
         run: |
+          # Update package list
           sudo apt-get update
-          sudo apt-get install -y kubectl curl
-          # Install Helm
-          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+          
+          # Install curl if not present
+          if ! command -v curl &> /dev/null; then
+            sudo apt-get install -y curl
+          fi
+          
+          # Install kubectl if not present
+          if ! command -v kubectl &> /dev/null; then
+            sudo apt-get install -y kubectl
+          else
+            echo "kubectl is already installed, skipping."
+          fi
+          
+          # Install Helm if not present
+          if ! command -v helm &> /dev/null; then
+            curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+          else
+            echo "Helm is already installed, skipping."
+          fi
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
