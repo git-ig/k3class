@@ -29,9 +29,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: 1.5.0
+          terraform_version: 1.9.2
           terraform_wrapper: false
 
       - name: Set up tools
@@ -62,7 +62,7 @@ jobs:
             echo "Helm is already installed, skipping."
           fi
 
-      - name: Install Google Cloud SDK
+      - name: Install Google Cloud CLI
         timeout-minutes: 10  # Increased to handle potential network delays
         run: |
             if command -v gcloud &> /dev/null; then
@@ -116,27 +116,46 @@ jobs:
           gcloud auth list || echo "Authentication failed"
           gcloud config set project ${{ secrets.GCP_PROJECT_ID }}  # Optional: Set project if not already configured
   
+      - name: Debug Permissions
+        run: |
+          # Показати активний акаунт
+          gcloud auth list
+          
+          # Перевірити IAM політики для сервіс-акаунта
+          gcloud projects get-iam-policy ${{ secrets.GCP_PROJECT_ID }} --filter="bindings.members:serviceAccount:${{ secrets.GCP_SERVICE_ACCOUNT }}"
+          
+          # Тест на дозвіл створення бакета (спроба створення тестового, потім видалення)
+          TEST_BUCKET="test-bucket-$(date +%s)"
+          gcloud storage buckets create gs://$TEST_BUCKET --location=${{ secrets.GCP_REGION }} && gcloud storage buckets delete gs://$TEST_BUCKET --force || echo "Failed to create test bucket - permission issue"
+
       - name: Create or Verify GCS State Bucket
         run: |
             BUCKET_NAME="${{ secrets.GCS_BUCKET_NAME }}"
-            REGION="${{ secrets.GCP_REGION }}"  # Або вкажи свій регіон, якщо не в секретах
-            
-            # if bucket exists
-            if gsutil ls gs://$BUCKET_NAME/ &> /dev/null; then
+            REGION="${{ secrets.GCP_REGION }}"
+        
+            # Debug: Show current auth and permissions
+            gcloud auth list
+            gcloud projects get-iam-policy ${{ secrets.GCP_PROJECT_ID }} --filter="bindings.role:roles/storage.admin"
+        
+            # Check if bucket exists
+            if gcloud storage buckets describe gs://$BUCKET_NAME &> /dev/null; then
               echo "Bucket $BUCKET_NAME already exists, skipping creation."
             else
               echo "Creating bucket $BUCKET_NAME..."
-              gsutil mb -l $REGION gs://$BUCKET_NAME/
+              gcloud storage buckets create gs://$BUCKET_NAME --location=$REGION --uniform-bucket-level-access
               
-              # enable versioning (for Terraform state)
-              gsutil versioning set on gs://$BUCKET_NAME/
+              # Enable versioning
+              gcloud storage buckets update gs://$BUCKET_NAME --versioning
               
-              # adding IAM rights
-              gsutil iam ch serviceAccount:${{ secrets.GCP_SERVICE_ACCOUNT }}:roles/storage.objectAdmin gs://$BUCKET_NAME/
+              # Add IAM for service account
+              gcloud storage buckets add-iam-policy-binding gs://$BUCKET_NAME \
+                --member=serviceAccount:${{ secrets.GCP_SERVICE_ACCOUNT }} \
+                --role=roles/storage.objectAdmin
             fi
             
-            # access verification
-            gsutil ls gs://$BUCKET_NAME/ || echo "Failed to access bucket after creation - check IAM"
+            # Verify access
+            gcloud storage ls gs://$BUCKET_NAME/ || echo "Failed to access bucket - check logs"
+        
 
       - name: Setup terraform.tfvars
         run: |
