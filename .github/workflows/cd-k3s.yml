@@ -36,27 +36,39 @@ jobs:
 
       - name: Set up tools
         run: |
-          # Update package list
-          sudo apt-get update
-          
-          # Install curl if not present
+          # Check and install curl if not present (direct download)
           if ! command -v curl &> /dev/null; then
-            sudo apt-get install -y curl
+            echo "Installing curl..."
+            wget -qO /usr/local/bin/curl https://curl.se/download/curl-8.9.1.tar.gz  # Latest stable; adjust version if needed
+            tar -xzf curl-8.9.1.tar.gz
+            cd curl-8.9.1
+            ./configure --prefix=/usr/local
+            make
+            sudo make install
+            cd ..
+            rm -rf curl-8.9.1 curl-8.9.1.tar.gz
+          else
+            echo "curl is already installed, skipping."
           fi
           
-          # Install kubectl if not present
+          # Check and install kubectl if not present (direct download)
           if ! command -v kubectl &> /dev/null; then
-            sudo apt-get install -y kubectl
+            echo "Installing kubectl..."
+            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+            chmod +x kubectl
+            sudo mv kubectl /usr/local/bin/
           else
             echo "kubectl is already installed, skipping."
           fi
           
-          # Install Helm if not present
+          # Check and install Helm if not present
           if ! command -v helm &> /dev/null; then
+            echo "Installing Helm..."
             curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
           else
             echo "Helm is already installed, skipping."
           fi
+        
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
