@@ -72,9 +72,15 @@ jobs:
       - name: Install Google Cloud SDK
         timeout-minutes: 5  # Prevent infinite hangs
         run: |
-          # Add Google Cloud SDK apt repository (official method)
+          # Install prerequisites if needed
+          sudo apt-get update -qq
+          sudo apt-get install -y apt-transport-https ca-certificates gnupg
+          
+          # Add Google Cloud SDK apt repository (updated method)
           echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+          
+          # Download and dearmor the key (replaces deprecated apt-key)
+          curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
           
           # Update and install non-interactively using apt
           sudo apt update -qq
@@ -83,8 +89,6 @@ jobs:
           # Verify installation
           gcloud --version || echo "Installation failed"
         
-        
-
         
       - name: Authenticate to Google Cloud with JSON
         env:
