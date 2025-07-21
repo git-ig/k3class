@@ -1,0 +1,31 @@
+# Default values for database
+replicaCount: 1
+
+image:
+  repository: postgres
+  pullPolicy: IfNotPresent
+  tag: "13"
+
+service:
+  type: ClusterIP
+  port: 5432
+  targetPort: 5432
+
+# PostgreSQL configuration
+postgresql:
+  database: "" # Set by CI/CD from GitHub Secrets
+  username: "" # Set by CI/CD from GitHub Secrets
+  password: "" # Set by CI/CD from GitHub Secrets
+
+persistence:
+  enabled: true
+  size: 8Gi
+  storageClass: "standard"
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi

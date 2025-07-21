@@ -1,0 +1,33 @@
+# Frontend values for prod
+namespace: prod
+
+image:
+  repository: ghcr.io/${{ github.repository }}-frontend
+  tag: "${{ env.IMAGE_TAG }}"
+  pullPolicy: IfNotPresent
+
+replicaCount: 2
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+env:
+  REACT_APP_API_BASE_URL: "http://localhost:8080"
+  NODE_ENV: prod
+
+ingress:
+  enabled: true
+  hosts:
+    - host: dock.ink
+      paths:
+        - path: /
+          pathType: Prefix
+    - host: www.dock.ink
+      paths:
+        - path: /
+          pathType: Prefix

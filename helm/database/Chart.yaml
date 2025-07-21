@@ -1,0 +1,9 @@
+apiVersion: v2
+name: database
+description: PostgreSQL database for schedule app
+type: application
+version: 0.1.0
+appVersion: "13"
+
+maintainers:
+  - name: Developer Team

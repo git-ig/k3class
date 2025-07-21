@@ -1,0 +1,156 @@
+name: Deploy to k3s Cluster
+
+on:
+  workflow_run:
+    workflows: ["Frontend CI", "Build and Analyze"]
+    types: [completed]
+    branches: [main, dev]
+  push:
+    branches: [main, dev]
+    paths:
+      - 'infra/**'
+  workflow_dispatch:
+
+concurrency:
+  group: k3s-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy-k3s:
+    name: Deploy to k3s
+    runs-on: self-hosted
+    permissions:
+      contents: read
+      id-token: write
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' || github.event_name == 'push' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.0
+          terraform_wrapper: false
+
+      - name: Set up tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y kubectl curl
+          # Install Helm
+          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
+
+      - name: Setup terraform.tfvars
+        run: |
+          # Create terraform.tfvars (no SSH keys needed)
+          cat > infra/terraform/gcp/terraform.tfvars << EOF
+          project_id               = "${{ secrets.GCP_PROJECT_ID }}"
+          region                   = "${{ secrets.GCP_REGION }}"
+          zone                     = "${{ secrets.GCP_ZONE }}"
+          ssh_user                 = "${{ secrets.GCP_SSH_USER }}"  # Keep if needed for other purposes, but not used for keys
+          bucket_name              = "${{ secrets.GCS_BUCKET_NAME }}"
+          service_account_email    = "${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}"
+          cloudflare_api_token     = "${{ secrets.CLOUDFLARE_API_TOKEN }}"
+          cloudflare_zone_id       = "${{ secrets.CLOUDFLARE_ZONE_ID }}"
+          EOF
+
+      - name: Deploy Infrastructure
+        working-directory: infra/terraform/gcp
+        run: |
+          # Create backend config
+          echo "bucket = \"${{ secrets.GCS_BUCKET_NAME }}\"" > backend.conf
+          echo "prefix = \"terraform/state\"" >> backend.conf
+
+          # Initialize and apply
+          terraform init -backend-config=backend.conf
+          terraform apply -auto-approve -var-file="terraform.tfvars"
+
+      - name: Setup k3s cluster
+        run: |
+          # Get IPs from Terraform
+          cd infra/terraform/gcp
+          CONTROL_PLANE_IP=$(terraform output -raw k3s_control_plane_public_ip)
+          WORKER_IPS=$(terraform output -json k3s_worker_private_ips | jq -r '.[]')
+
+          # Wait for cluster to be ready (installation via startup scripts in Terraform)
+          sleep 180  # Adjust based on boot time; increase if needed
+
+          # Download kubeconfig from GCS (uploaded by control plane startup script)
+          gcloud storage cp gs://${{ secrets.GCS_BUCKET_NAME }}/k3s-kubeconfig ~/.kube/config
+          sed -i "s/127.0.0.1/$CONTROL_PLANE_IP/g" ~/.kube/config
+
+          # Verify cluster
+          kubectl get nodes
+
+      - name: Deploy applications with Helm
+        env:
+          FRONTEND_IMAGE: "ghcr.io/${{ github.repository }}-frontend:${{ github.event.workflow_run.head_sha || github.sha }}"
+          BACKEND_IMAGE: "ghcr.io/${{ github.repository }}:${{ github.event.workflow_run.head_sha || github.sha }}"
+        run: |
+          # Set environment based on branch
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            NAMESPACE="prod"
+            ENV="prod"
+          else
+            NAMESPACE="dev"
+            ENV="dev"
+          fi
+
+          # Create namespace
+          kubectl create namespace $NAMESPACE --dry-run=client -o yaml | kubectl apply -f -
+
+          # Deploy database
+          helm upgrade --install database ./helm/database \
+            --namespace $NAMESPACE \
+            --values environments/$ENV/database-values.yaml \
+            --wait
+
+          # Deploy backend
+          helm upgrade --install backend ./helm/backend \
+            --namespace $NAMESPACE \
+            --values environments/$ENV/database-values.yaml \
+            --wait
+
+          # Deploy frontend
+          helm upgrade --install frontend ./helm/frontend \
+            --namespace $NAMESPACE \
+            --values environments/$ENV/frontend-values.yaml \
+            --wait
+
+          # Verify deployments
+          kubectl get all -n $NAMESPACE
+          kubectl get ingress -n $NAMESPACE
+
+      - name: Setup ArgoCD
+        run: |
+          # Install ArgoCD for GitOps
+          kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
+          kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+          # Wait for ArgoCD to be ready
+          kubectl wait --for=condition=available --timeout=300s deployment/argocd-server -n argocd
+
+          # Get initial admin password
+          ARGOCD_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
+          echo "ArgoCD admin password: $ARGOCD_PASSWORD"
+          
+      - name: Trigger GitOps Workflow
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const ref = process.env.GITHUB_REF || '${{ github.ref }}';
+            const response = await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'cd-gitops.yml',
+              ref: ref
+            });
+            console.log(`Triggered cd-gitops.yml workflow for ref: ${ref}`);

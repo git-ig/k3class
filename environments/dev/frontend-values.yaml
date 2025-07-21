@@ -1,0 +1,33 @@
+# Frontend values for dev
+namespace: dev
+
+image:
+  repository: ghcr.io/${{ github.repository }}-frontend
+  tag: "${{ env.IMAGE_TAG }}"
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+
+env:
+  REACT_APP_API_BASE_URL: "http://localhost:8080"
+  NODE_ENV: dev
+
+ingress:
+  enabled: true
+  hosts:
+    - host: dev.dock.ink
+      paths:
+        - path: /
+          pathType: Prefix
+    - host: www.dev.dock.ink
+      paths:
+        - path: /
+          pathType: Prefix

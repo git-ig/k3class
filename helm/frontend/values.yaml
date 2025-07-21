@@ -1,0 +1,49 @@
+# Default values for frontend
+replicaCount: 2
+
+image:
+  repository: "" # Will be set by CI/CD pipeline
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 80
+
+ingress:
+  enabled: true
+  className: "traefik"
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  hosts:
+    - host: dock.ink
+      paths:
+        - path: /
+          pathType: Prefix
+    - host: www.dock.ink
+      paths:
+        - path: /
+          pathType: Prefix
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# React app environment variables
+env:
+  REACT_APP_API_BASE_URL: "http://localhost:8080"
+  NODE_ENV: "prod"
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

@@ -1,0 +1,290 @@
+name: GitOps Deploy
+
+on:
+  workflow_run:
+    workflows: ["Frontend CI", "Build and Analyze", "Deploy to k3s Cluster"]
+    types: [completed]
+    branches: [main, dev]
+  workflow_dispatch:
+
+concurrency:
+  group: gitops-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  update-image-tags:
+    name: Update Image Tags
+    runs-on: self-hosted
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          
+      - name: Set environment variables
+        run: |
+          # Set namespace based on branch
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "NAMESPACE=prod" >> $GITHUB_ENV
+            echo "ENVIRONMENT=prod" >> $GITHUB_ENV
+          else
+            echo "NAMESPACE=dev" >> $GITHUB_ENV  
+            echo "ENVIRONMENT=dev" >> $GITHUB_ENV
+          fi
+          
+          # Set image tag
+          echo "IMAGE_TAG=${{ github.event.workflow_run.head_sha || github.sha }}" >> $GITHUB_ENV
+          
+      - name: Create environment values directory
+        run: |
+          # Create environments directory structure
+          mkdir -p environments/${{ env.ENVIRONMENT }}
+          
+      - name: Update backend values for prod
+        if: env.ENVIRONMENT == 'prod'
+        run: |
+          cat > environments/prod/backend-values.yaml << 'EOF'
+          # Backend values for prod
+          namespace: prod
+          
+          image:
+            repository: ghcr.io/${{ github.repository }}
+            tag: "${{ env.IMAGE_TAG }}"
+            pullPolicy: IfNotPresent
+            
+          replicaCount: 3
+          
+          resources:
+            limits:
+              cpu: 300m
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+              
+          database:
+            host: database-service
+            port: 5432
+            name: ${{ secrets.DATABASE_NAME }}
+            username: ${{ secrets.DATABASE_USERNAME }}
+            password: ${{ secrets.DATABASE_PASSWORD }}
+            
+          spring:
+            profiles:
+              active: prod
+              
+          ingress:
+            enabled: true
+            hosts:
+              - host: api.dock.ink
+                paths:
+                  - path: /api
+                    pathType: Prefix
+          EOF
+          
+      - name: Update backend values for dev
+        if: env.ENVIRONMENT == 'dev'
+        run: |
+          cat > environments/dev/backend-values.yaml << 'EOF'
+          # Backend values for dev
+          namespace: dev
+          
+          image:
+            repository: ghcr.io/${{ github.repository }}
+            tag: "${{ env.IMAGE_TAG }}"
+            pullPolicy: IfNotPresent
+            
+          replicaCount: 1
+          
+          resources:
+            limits:
+              cpu: 300m
+              memory: 512Mi
+            requests:
+              cpu: 150m
+              memory: 256Mi
+              
+          database:
+            host: database-service
+            port: 5432
+            name: ${{ secrets.DATABASE_NAME }}
+            username: ${{ secrets.DATABASE_USERNAME }}
+            password: ${{ secrets.DATABASE_PASSWORD }}
+            
+          spring:
+            profiles:
+              active: dev
+              
+          ingress:
+            enabled: true
+            hosts:
+              - host: dev-api.dock.ink
+                paths:
+                  - path: /api
+                    pathType: Prefix
+          EOF
+          
+      - name: Update frontend values for prod
+        if: env.ENVIRONMENT == 'prod'
+        run: |
+          cat > environments/prod/frontend-values.yaml << 'EOF'
+          # Frontend values for prod
+          namespace: prod
+          
+          image:
+            repository: ghcr.io/${{ github.repository }}-frontend
+            tag: "${{ env.IMAGE_TAG }}"
+            pullPolicy: IfNotPresent
+            
+          replicaCount: 2
+          
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+              
+          env:
+            REACT_APP_API_BASE_URL: "http://localhost:8080"
+            NODE_ENV: prod
+            
+          ingress:
+            enabled: true
+            hosts:
+              - host: dock.ink
+                paths:
+                  - path: /
+                    pathType: Prefix
+              - host: www.dock.ink
+                paths:
+                  - path: /
+                    pathType: Prefix
+          EOF
+          
+      - name: Update frontend values for dev
+        if: env.ENVIRONMENT == 'dev'
+        run: |
+          cat > environments/dev/frontend-values.yaml << 'EOF'
+          # Frontend values for dev
+          namespace: dev
+          
+          image:
+            repository: ghcr.io/${{ github.repository }}-frontend
+            tag: "${{ env.IMAGE_TAG }}"
+            pullPolicy: IfNotPresent
+            
+          replicaCount: 1
+          
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi
+              
+          env:
+            REACT_APP_API_BASE_URL: "http://localhost:8080"
+            NODE_ENV: dev
+            
+          ingress:
+            enabled: true
+            hosts:
+              - host: dev.dock.ink
+                paths:
+                  - path: /
+                    pathType: Prefix
+              - host: www.dev.dock.ink
+                paths:
+                  - path: /
+                    pathType: Prefix
+          EOF
+          
+      - name: Update database values for prod
+        if: env.ENVIRONMENT == 'prod'
+        run: |
+          cat > environments/prod/database-values.yaml << 'EOF'
+          # Database values for prod
+          namespace: prod
+          
+          image:
+            repository: postgres
+            tag: "13-alpine"
+            pullPolicy: IfNotPresent
+            
+          replicaCount: 1
+          
+          resources:
+            limits:
+              cpu: 300m  # 0.3 CPU
+              memory: 256Mi
+            requests:
+              cpu: 150m  # 50% от limits
+              memory: 128Mi  # 50% от limits
+              
+          postgresql:
+            database: ${{ secrets.DATABASE_NAME }}
+            username: ${{ secrets.DATABASE_USERNAME }}
+            password: ${{ secrets.DATABASE_PASSWORD }}
+            
+          persistence:
+            enabled: true
+            size: 1Gi
+            storageClass: "standard"
+          EOF
+          
+      - name: Update database values for dev
+        if: env.ENVIRONMENT == 'dev'
+        run: |
+          cat > environments/dev/database-values.yaml << 'EOF'
+          # Database values for dev
+          namespace: dev
+          
+          image:
+            repository: postgres
+            tag: "13-alpine"
+            pullPolicy: IfNotPresent
+            
+          replicaCount: 1
+          
+          resources:
+            limits:
+              cpu: 250m  # 0.25 CPU
+              memory: 256Mi
+            requests:
+              cpu: 125m  # 50% от limits
+              memory: 128Mi  # 50% от limits
+              
+          postgresql:
+            database: ${{ secrets.DATABASE_NAME }}
+            username: ${{ secrets.DATABASE_USERNAME }}
+            password: ${{ secrets.DATABASE_PASSWORD }}
+            
+          persistence:
+            enabled: true
+            size: 1Gi
+            storageClass: "standard"
+          EOF
+          
+      - name: Commit and push changes
+        run: |
+          # Configure git
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Add changes
+          git add environments/
+          
+          # Commit changes
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update ${{ env.ENVIRONMENT }} image tags to ${{ env.IMAGE_TAG }}"
+            git push
+            echo "Changes committed and pushed"
+          fi

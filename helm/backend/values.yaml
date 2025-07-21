@@ -1,0 +1,46 @@
+# Default values for backend
+replicaCount: 2
+
+image:
+  repository: "" # Set by CI/CD
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+
+# Add ingress configuration
+ingress:
+  enabled: true
+  className: "traefik"
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+  hosts:
+    - host: api.dock.ink
+      paths:
+        - path: /api
+          pathType: Prefix
+
+# Database configuration
+database:
+  host: database-service
+  port: 5432
+  name: ""
+  username: ""
+  password: ""
+
+spring:
+  profiles:
+    active: production
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi

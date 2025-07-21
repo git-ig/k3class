@@ -1,0 +1,27 @@
+# Database values for prod
+namespace: prod
+
+image:
+  repository: postgres
+  tag: "13-alpine"
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+resources:
+  limits:
+    cpu: 300m  # 0.3 CPU
+    memory: 256Mi
+  requests:
+    cpu: 150m  # 50% limits
+    memory: 128Mi  # 50% limits
+
+postgresql:
+  database: ${{ secrets.DATABASE_NAME }}
+  username: ${{ secrets.DATABASE_USERNAME }}
+  password: ${{ secrets.DATABASE_PASSWORD }}
+
+persistence:
+  enabled: true
+  size: 1Gi
+  storageClass: "standard"
