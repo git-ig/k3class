@@ -38,3 +38,9 @@ variable "ssh_public_key_content" {
   type        = string
   sensitive   = true
 }
+
+variable "bucket_name" {
+  description = "The GCS bucket name for storing k3s kubeconfig and tokens."
+  type        = string
+}
+
