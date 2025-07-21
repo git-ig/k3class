@@ -49,6 +49,7 @@ module "compute" {
   vm_image               = var.vm_image
   ssh_user               = var.ssh_user
   ssh_public_key_content = var.ssh_public_key_content
+  bucket_name            = var.bucket_name
 }
 
 # Create GCS bucket for database backups
