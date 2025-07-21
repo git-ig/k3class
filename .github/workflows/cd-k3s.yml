@@ -115,7 +115,28 @@ jobs:
         run: |
           gcloud auth list || echo "Authentication failed"
           gcloud config set project ${{ secrets.GCP_PROJECT_ID }}  # Optional: Set project if not already configured
-          
+  
+      - name: Create or Verify GCS State Bucket
+        run: |
+            BUCKET_NAME="${{ secrets.GCS_BUCKET_NAME }}"
+            REGION="${{ secrets.GCP_REGION }}"  # Або вкажи свій регіон, якщо не в секретах
+            
+            # if bucket exists
+            if gsutil ls gs://$BUCKET_NAME/ &> /dev/null; then
+              echo "Bucket $BUCKET_NAME already exists, skipping creation."
+            else
+              echo "Creating bucket $BUCKET_NAME..."
+              gsutil mb -l $REGION gs://$BUCKET_NAME/
+              
+              # enable versioning (for Terraform state)
+              gsutil versioning set on gs://$BUCKET_NAME/
+              
+              # adding IAM rights
+              gsutil iam ch serviceAccount:${{ secrets.GCP_SERVICE_ACCOUNT }}:roles/storage.objectAdmin gs://$BUCKET_NAME/
+            fi
+            
+            # access verification
+            gsutil ls gs://$BUCKET_NAME/ || echo "Failed to access bucket after creation - check IAM"
 
       - name: Setup terraform.tfvars
         run: |
