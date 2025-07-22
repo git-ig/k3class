@@ -13,7 +13,6 @@ resource "google_compute_instance" "k3s_control_plane" {
     }
   }
 
-  # Service account for GCS access
   service_account {
     email  = var.service_account_email
     scopes = ["https://www.googleapis.com/auth/cloud-platform"]
@@ -23,35 +22,33 @@ resource "google_compute_instance" "k3s_control_plane" {
     ssh-keys = "${var.ssh_user}:${var.ssh_public_key_content}"
   }
 
-  # Improved startup script with error handling and logging
   metadata_startup_script = <<-EOF
 #!/bin/bash
 set -e
+export DEBIAN_FRONTEND=noninteractive
 
 # Setup logging
 exec > >(tee -a /var/log/k3s-startup.log) 2>&1
 echo "Starting k3s installation at $(date)"
 
-# Install Google Cloud CLI with proper sudo
-echo "Installing Google Cloud CLI..."
-sudo apt-get update -qq
-sudo apt-get install -y apt-transport-https ca-certificates gnupg curl
+# Install Google Cloud CLI (no sudo needed, script runs as root)
+echo "Installing Google Cloud CLI prerequisites..."
+apt-get update -y
+apt-get install -y apt-transport-https ca-certificates gnupg curl
 
 # Add Google Cloud SDK repository
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
-echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+echo "Adding Google Cloud SDK repository..."
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee /etc/apt/sources.list.d/google-cloud-sdk.list > /dev/null
 
 # Install gcloud
-sudo apt-get update -qq
-sudo apt-get install -y google-cloud-cli
+echo "Installing Google Cloud CLI..."
+apt-get update -y
+apt-get install -y google-cloud-cli
 
 # Verify installation
 echo "Verifying gcloud installation..."
 gcloud --version
-
-# Test GCS access
-echo "Testing GCS access..."
-gcloud storage ls gs://${var.bucket_name}/ || echo "Cannot list bucket contents"
 
 # Install k3s on control plane
 echo "Installing k3s..."
@@ -69,7 +66,7 @@ while [ ! -f /var/lib/rancher/k3s/server/node-token ]; do
   sleep 5
 done
 
-TOKEN=$(sudo cat /var/lib/rancher/k3s/server/node-token)
+TOKEN=$(cat /var/lib/rancher/k3s/server/node-token)
 
 # Get public IP from metadata server and update kubeconfig before uploading
 echo "Updating kubeconfig with the public IP..."
@@ -90,13 +87,11 @@ EOF
   network_interface {
     network    = var.network_name
     subnetwork = var.public_subnet_name
-    access_config {
-      // Ephemeral public IP
-    }
+    access_config {}
   }
 }
 
-# k3s Worker Nodes - private IP only, no SSH keys
+# k3s Worker Nodes
 resource "google_compute_instance" "k3s_worker" {
   count        = 3
   name         = "k3s-worker-${count.index + 1}"
@@ -112,44 +107,38 @@ resource "google_compute_instance" "k3s_worker" {
     }
   }
 
-  # Service account for GCS access
   service_account {
     email  = var.service_account_email
     scopes = ["https://www.googleapis.com/auth/cloud-platform"]
   }
 
-  # No SSH keys on workers for security
   metadata = {}
 
-  # Improved startup script with consistent gcloud commands
-metadata_startup_script = <<-EOF
+  # ИСПРАВЛЕННЫЙ БЛОК: СКРИПТ ВНУТРИ РЕСУРСА
+  metadata_startup_script = <<-EOF
 #!/bin/bash
 set -e
+export DEBIAN_FRONTEND=noninteractive
 
 # Setup logging
-exec > >(tee -a /var/log/k3s-startup.log) 2>&1
-echo "Starting k3s installation at $(date)"
+exec > >(tee -a /var/log/k3s-worker-startup.log) 2>&1
+echo "Starting k3s worker installation at $(date)"
 
-# Install Google Cloud CLI with proper sudo
+# Install Google Cloud CLI (no sudo needed)
 echo "Installing Google Cloud CLI..."
-sudo apt-get update -qq
-sudo apt-get install -y apt-transport-https ca-certificates gnupg curl
+apt-get update -y
+apt-get install -y apt-transport-https ca-certificates gnupg curl
 
 # Add Google Cloud SDK repository
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
-echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee /etc/apt/sources.list.d/google-cloud-sdk.list > /dev/null
 
 # Install gcloud
-sudo apt-get update -qq
-sudo apt-get install -y google-cloud-cli
+apt-get update -y
+apt-get install -y google-cloud-cli
 
 # Verify installation
-echo "Verifying gcloud installation..."
 gcloud --version
-
-# Test GCS access
-echo "Testing GCS access..."
-gcloud storage ls gs://${var.bucket_name}/ || echo "Cannot list bucket contents"
 
 # Wait for token from control plane
 echo "Waiting for token from control plane..."
@@ -169,7 +158,6 @@ EOF
   network_interface {
     network    = var.network_name
     subnetwork = var.private_subnet_name
-    # No access_config - private IP only
   }
 
   depends_on = [google_compute_instance.k3s_control_plane]
