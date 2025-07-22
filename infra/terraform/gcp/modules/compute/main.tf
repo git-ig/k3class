@@ -13,7 +13,7 @@ resource "google_compute_instance" "k3s_control_plane" {
     }
   }
 
-  # Service account for GCS access - CRITICAL FIX
+  # Service account for GCS access
   service_account {
     email  = var.service_account_email
     scopes = ["https://www.googleapis.com/auth/cloud-platform"]
