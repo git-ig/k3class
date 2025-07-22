@@ -26,44 +26,34 @@ resource "google_compute_instance" "k3s_control_plane" {
     metadata_startup_script = <<-EOF
 #!/bin/bash
 set -ex
-
 exec > >(tee -a /var/log/startup-script.log) 2>&1
+
 echo "--- K3s Control Plane Setup Started ---"
-date
+PUBLIC_IP=$(curl -s -H "Metadata-Flavor: Google" \
+  "http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip")
 
-# STEP 1: Install k3s (kubectl буде симлінком /usr/local/bin/kubectl)
-curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
+# 1. install K3S • adding --tls-san
+curl -sfL https://get.k3s.io \
+  | INSTALL_K3S_EXEC="--tls-san ${PUBLIC_IP}" \
+    sh -s - --write-kubeconfig-mode 644
 
-# STEP 2: Wait for k3s service and node token
+# 2. waiting token і prepare portable kubeconfig
 while ! systemctl is-active --quiet k3s || [ ! -f /var/lib/rancher/k3s/server/node-token ]; do
-  echo "Waiting for k3s service and node-token..."
-  sleep 5
+  echo "Waiting for k3s & token…"; sleep 5
 done
 TOKEN=$(cat /var/lib/rancher/k3s/server/node-token)
 
-# STEP 3: Prepare portable kubeconfig w/ public IP
-echo "--- Preparing portable kubeconfig ---"
-PUBLIC_IP=$(curl -s -H "Metadata-Flavor: Google" \
-  http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip || true)
+# 3. patch endpoint (certificate with PUBLIC_IP)
+KUBECONFIG=/etc/rancher/k3s/k3s.yaml \
+  kubectl config set-cluster default --server="https://${PUBLIC_IP}:6443"
 
-if [ -z "$PUBLIC_IP" ]; then
-  echo "!! Failed to get PUBLIC_IP from metadata; using internal address"
-  PUBLIC_IP=$(hostname -I | awk '{print $1}')
-fi
-
-# Patch server endpoint
-KUBECONFIG=/etc/rancher/k3s/k3s.yaml kubectl config set-cluster default --server="https://$${PUBLIC_IP}:6443"
-
-# Flatten to portable file (embeds certs)
-KUBECONFIG=/etc/rancher/k3s/k3s.yaml kubectl config view --flatten > /tmp/kubeconfig-portable.yaml
-
-# STEP 4: Upload artifacts to GCS
-echo "--- Uploading kubeconfig & token to GCS ---"
+# 4. Flatten → GCS
+KUBECONFIG=/etc/rancher/k3s/k3s.yaml \
+  kubectl config view --flatten > /tmp/kubeconfig-portable.yaml
 gcloud storage cp /tmp/kubeconfig-portable.yaml gs://${var.bucket_name}/k3s-kubeconfig
 echo "$TOKEN" | gcloud storage cp - gs://${var.bucket_name}/k3s-token
 
 echo "--- K3s Control Plane Setup Finished ---"
-date
 EOF
 
   network_interface {
