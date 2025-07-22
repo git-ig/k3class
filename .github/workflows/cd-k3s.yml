@@ -190,7 +190,6 @@ jobs:
           terraform apply -auto-approve -var-file="terraform.tfvars"
 
       - name: Setup k3s cluster
-        working-directory: .
         run: |
         
           # Clean up any previous kubeconfig to ensure a fresh state

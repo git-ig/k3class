@@ -32,14 +32,6 @@ set -e
 exec > >(tee -a /var/log/k3s-startup.log) 2>&1
 echo "Starting k3s installation at $(date)"
 
-metadata_startup_script = <<-EOF
-#!/bin/bash
-set -e
-
-# Setup logging
-exec > >(tee -a /var/log/k3s-startup.log) 2>&1
-echo "Starting k3s installation at $(date)"
-
 # Install Google Cloud CLI with proper sudo
 echo "Installing Google Cloud CLI..."
 sudo apt-get update -qq
@@ -130,14 +122,6 @@ resource "google_compute_instance" "k3s_worker" {
   metadata = {}
 
   # Improved startup script with consistent gcloud commands
-  metadata_startup_script = <<-EOF
-#!/bin/bash
-set -e
-
-# Setup logging
-exec > >(tee -a /var/log/k3s-worker-startup.log) 2>&1
-echo "Starting k3s worker installation at $(date)"
-
 metadata_startup_script = <<-EOF
 #!/bin/bash
 set -e
