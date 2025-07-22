@@ -23,56 +23,39 @@ resource "google_compute_instance" "k3s_control_plane" {
   }
 
   # metadata_startup_script for k3s-control-plane
-  metadata_startup_script = <<-EOF
+    metadata_startup_script = <<-EOF
 #!/bin/bash
-set -ex # Enable debug mode
+set -ex
 
 # Log everything
 exec > >(tee -a /var/log/startup-script.log) 2>&1
 
-echo "--- SCRIPT START ---"
-date
+echo "--- K3s Control Plane Setup Started ---"
 
-# Set non-interactive mode for apt
-export DEBIAN_FRONTEND=noninteractive
-
-# --- DIAGNOSTIC STEP 1: TEST METADATA SERVER ACCESS ---
-echo "--- TESTING METADATA SERVER ACCESS ---"
-# This command gets an auth token. If it fails, the VM has a fundamental problem.
-curl -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token > /dev/null || echo "FATAL: Metadata server access failed!"
-
-# --- DIAGNOSTIC STEP 2: TEST GCLOUD AND GCS ACCESS ---
-# First, ensure gcloud is installed. This whole block is our suspect.
-echo "--- INSTALLING GCLOUD ---"
-apt-get update -y
-apt-get install -y apt-transport-https ca-certificates gnupg curl
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
-echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee /etc/apt/sources.list.d/google-cloud-sdk.list > /dev/null
-apt-get update -y
-apt-get install -y google-cloud-cli
-echo "--- GCLOUD INSTALLED ---"
-
-# Now, test if the installed gcloud can access the bucket
-echo "--- TESTING GCS BUCKET ACCESS ---"
-# This command will use the VM's service account automatically.
-gcloud storage ls gs://${var.bucket_name}/ || echo "FATAL: GCS bucket access failed!"
-
-# --- REGULAR SCRIPT CONTINUES ---
-echo "--- INSTALLING K3S ---"
+# STEP 1: Install k3s
 curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
 
-echo "--- WAITING FOR K3S ---"
+# STEP 2: Wait for k3s service and node token
 while ! systemctl is-active --quiet k3s || [ ! -f /var/lib/rancher/k3s/server/node-token ]; do
   echo "Waiting for k3s service and node-token..."
   sleep 5
 done
 TOKEN=$(cat /var/lib/rancher/k3s/server/node-token)
 
-echo "--- UPLOADING ARTIFACTS ---"
-gcloud storage cp /etc/rancher/k3s/k3s.yaml gs://${var.bucket_name}/k3s-kubeconfig
+# --- NEW STEP 3: CREATE A PORTABLE/FLATTENED KUBECONFIG ---
+# The default kubeconfig uses file paths for certs, which doesn't work remotely.
+# 'kubectl config view --flatten' embeds the certs and keys into the file itself.
+echo "--- Creating a portable kubeconfig ---"
+KUBECONFIG=/etc/rancher/k3s/k3s.yaml kubectl config view --flatten > /tmp/kubeconfig-flat.yaml
+
+# STEP 4: Upload artifacts to GCS
+echo "--- Uploading artifacts to GCS ---"
+# Upload the new, flattened kubeconfig
+gcloud storage cp /tmp/kubeconfig-flat.yaml gs://${var.bucket_name}/k3s-kubeconfig
+# Upload the token for workers
 echo "$TOKEN" | gcloud storage cp - gs://${var.bucket_name}/k3s-token
 
-echo "--- SCRIPT FINISHED SUCCESSFULLY ---"
+echo "--- K3s Control Plane Setup Finished ---"
 EOF
 
   network_interface {
