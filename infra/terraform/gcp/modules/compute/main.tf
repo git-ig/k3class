@@ -23,18 +23,15 @@ resource "google_compute_instance" "k3s_control_plane" {
   }
 
   # metadata_startup_script for k3s-control-plane
-  metadata_startup_script = <<-EOF
+    metadata_startup_script = <<-EOF
 #!/bin/bash
-set -ex # Enable debug mode
+set -ex
 
-# Log everything
 exec > >(tee -a /var/log/startup-script.log) 2>&1
-
 echo "--- K3s Control Plane Setup Started ---"
 date
 
-# STEP 1: Install k3s
-# This creates the default /etc/rancher/k3s/k3s.yaml with file paths
+# STEP 1: Install k3s (kubectl буде симлінком /usr/local/bin/kubectl)
 curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
 
 # STEP 2: Wait for k3s service and node token
@@ -44,18 +41,25 @@ while ! systemctl is-active --quiet k3s || [ ! -f /var/lib/rancher/k3s/server/no
 done
 TOKEN=$(cat /var/lib/rancher/k3s/server/node-token)
 
-# --- STEP 3: CREATE A PORTABLE/FLATTENED KUBECONFIG ---
-# The default kubeconfig uses file paths for certs, which doesn't work remotely.
-# 'kubectl config view --flatten' embeds the certs and keys into the file itself.
-# This is the most critical step.
-echo "--- Creating a portable kubeconfig ---"
-sudo KUBECONFIG=/etc/rancher/k3s/k3s.yaml kubectl config view --flatten > /tmp/kubeconfig-portable.yaml
+# STEP 3: Prepare portable kubeconfig w/ public IP
+echo "--- Preparing portable kubeconfig ---"
+PUBLIC_IP=$(curl -s -H "Metadata-Flavor: Google" \
+  http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip || true)
+
+if [ -z "$PUBLIC_IP" ]; then
+  echo "!! Failed to get PUBLIC_IP from metadata; using internal address"
+  PUBLIC_IP=$(hostname -I | awk '{print $1}')
+fi
+
+# Patch server endpoint
+KUBECONFIG=/etc/rancher/k3s/k3s.yaml kubectl config set-cluster default --server="https://$${PUBLIC_IP}:6443"
+
+# Flatten to portable file (embeds certs)
+KUBECONFIG=/etc/rancher/k3s/k3s.yaml kubectl config view --flatten > /tmp/kubeconfig-portable.yaml
 
 # STEP 4: Upload artifacts to GCS
-echo "--- Uploading artifacts to GCS ---"
-# We upload the new, portable kubeconfig, not the default one
+echo "--- Uploading kubeconfig & token to GCS ---"
 gcloud storage cp /tmp/kubeconfig-portable.yaml gs://${var.bucket_name}/k3s-kubeconfig
-# Upload the token for workers
 echo "$TOKEN" | gcloud storage cp - gs://${var.bucket_name}/k3s-token
 
 echo "--- K3s Control Plane Setup Finished ---"

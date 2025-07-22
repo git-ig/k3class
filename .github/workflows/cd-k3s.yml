@@ -196,7 +196,7 @@ jobs:
 
       - name: Setup k3s cluster
         working-directory: infra/terraform/gcp
-        timeout-minutes: 15 # Увеличим и общий таймаут шага
+        timeout-minutes: 15
         run: |
           # 1. Clean up any previous kubeconfig to ensure a fresh state
           rm -f ~/.kube/config
