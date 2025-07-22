@@ -191,6 +191,13 @@ jobs:
 
       - name: Setup k3s cluster
         run: |
+          # Clean up any previous kubeconfig to ensure a fresh state
+          rm -f ~/.kube/config
+          # --------------------
+
+          # Get IPs from Terraform
+          cd infra/terraform/gcp
+          CONTROL_PLANE_IP=$(terraform output -raw k3s_control_plane_public_ip)
           # Get IPs from Terraform
           cd infra/terraform/gcp
           CONTROL_PLANE_IP=$(terraform output -raw k3s_control_plane_public_ip)
