@@ -192,57 +192,39 @@ jobs:
       - name: Setup k3s cluster
         working-directory: infra/terraform/gcp
         run: |
-          # set working dir
-          TERRAFORM_DIR="${{ github.workspace }}/infra/terraform/gcp"
-          echo "Terraform directory is set to: $TERRAFORM_DIR"
-
-          # check if directory exists
-          if [ ! -d "$TERRAFORM_DIR" ]; then
-            echo "::error::Terraform directory not found at $TERRAFORM_DIR"
-            echo "Current directory is $(pwd)"
-            echo "Workspace contents:"
-            ls -la ${{ github.workspace }}
-            exit 1
-          fi
-        
-          # # Clean up any previous kubeconfig to ensure a fresh state
-          # rm -f ~/.kube/config
-          # # --------------------
-
-          # Get IPs from Terraform
-          cd infra/terraform/gcp
-          CONTROL_PLANE_IP=$(terraform output -raw k3s_control_plane_public_ip)
-          # Get IPs from Terraform
-          cd infra/terraform/gcp
-          CONTROL_PLANE_IP=$(terraform output -raw k3s_control_plane_public_ip)
-          
-          echo "Waiting for the new kubeconfig file to be uploaded by the control plane..."
-          # Download kubeconfig from GCS with a robust retry loop
-          for i in {1..10}; do
-            if gcloud storage cp gs://${{ secrets.GCS_BUCKET_NAME }}/k3s-kubeconfig ~/.kube/config; then
-              echo "Kubeconfig downloaded successfully."
-              break
+            # 1. delete old kubeconfig
+            rm -f ~/.kube/config
+            
+            # 2. 
+            CONTROL_PLANE_IP=$(terraform output -raw k3s_control_plane_public_ip)
+            
+            # 3. download new kubeconfig.
+            echo "Waiting for the new kubeconfig file to be uploaded by the control plane..."
+            for i in {1..15}; do # Увеличим время ожидания до 5 минут на всякий случай
+              if gcloud storage cp gs://${{ secrets.GCS_BUCKET_NAME }}/k3s-kubeconfig ~/.kube/config; then
+                echo "Kubeconfig downloaded successfully."
+                break
+              fi
+              echo "Kubeconfig not yet available. Retrying in 20 seconds... (Attempt $i/15)"
+              sleep 20
+            done
+  
+            # 4. check kubeconfig 
+            if [ ! -f ~/.kube/config ]; then
+              echo "::error::Failed to download kubeconfig after multiple retries."
+              echo "This likely means the startup script on the k3s-control-plane VM failed."
+              echo "::group::Serial Port Logs for k3s-control-plane"
+              gcloud compute instances get-serial-port-output k3s-control-plane --zone ${{ secrets.GCP_ZONE }}
+              echo "::endgroup::"
+              exit 1
             fi
-            echo "Kubeconfig not yet available. Retrying in 20 seconds... (Attempt $i/10)"
-            sleep 20
-          done
-
-          if [ ! -f ~/.kube/config ]; then
-            echo "::error::Failed to download kubeconfig after multiple retries."
-            # extra VM logs for debug 
-            # gcloud compute instances get-serial-port-output k3s-control-plane --zone ${{ secrets.GCP_ZONE }}
-            exit 1
-          fi
-
-          echo "Updating kubeconfig with public IP: $CONTROL_PLANE_IP"
-          sed -i "s/127.0.0.1/$CONTROL_PLANE_IP/g" ~/.kube/config
-          
-          # time for cluster start properly
-          sleep 15 
-          
-          echo "Verifying cluster connection..."
-          kubectl get nodes
-
+            
+            # 5. wait for API & check cluster.
+            echo "Waiting a bit for the cluster API to stabilize..."
+            sleep 15 
+            
+            echo "Verifying cluster connection..."
+            kubectl get nodes
       - name: Deploy applications with Helm
         env:
           FRONTEND_IMAGE: "ghcr.io/${{ github.repository }}-frontend:${{ github.event.workflow_run.head_sha || github.sha }}"
