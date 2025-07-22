@@ -32,6 +32,22 @@ set -e
 exec > >(tee -a /var/log/k3s-startup.log) 2>&1
 echo "Starting k3s installation at $(date)"
 
+# Install Google Cloud CLI
+echo "Installing Google Cloud CLI..."
+apt update -qq
+apt install -y apt-transport-https ca-certificates gnupg curl
+
+# Add Google Cloud SDK repository
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+
+# Install gcloud
+apt update -qq
+apt install -y google-cloud-cli
+
+# Verify installation
+gcloud --version
+
 # Install k3s on control plane
 echo "Installing k3s..."
 curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
@@ -108,6 +124,22 @@ set -e
 # Setup logging
 exec > >(tee -a /var/log/k3s-worker-startup.log) 2>&1
 echo "Starting k3s worker installation at $(date)"
+
+# Install Google Cloud CLI
+echo "Installing Google Cloud CLI..."
+apt update -qq
+apt install -y apt-transport-https ca-certificates gnupg curl
+
+# Add Google Cloud SDK repository
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+
+# Install gcloud
+apt update -qq
+apt install -y google-cloud-cli
+
+# Verify installation
+gcloud --version
 
 # Wait for token from control plane
 echo "Waiting for token from control plane..."
