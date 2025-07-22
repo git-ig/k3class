@@ -67,15 +67,14 @@ done
 echo "--- STEP 4 COMPLETE ---"
 TOKEN=$(cat /var/lib/rancher/k3s/server/node-token)
 
-# Update kubeconfig
-echo "--- STEP 5: UPDATING KUBECONFIG ---"
-PUBLIC_IP=$(curl -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip)
-sed -i "s/127.0.0.1/$PUBLIC_IP/g" /etc/rancher/k3s/k3s.yaml
-echo "--- STEP 5 COMPLETE ---"
+# # Update kubeconfig
+# echo "--- STEP 5: UPDATING KUBECONFIG ---"
+# PUBLIC_IP=$(curl -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip)
+# sed -i "s/127.0.0.1/$PUBLIC_IP/g" /etc/rancher/k3s/k3s.yaml
+# echo "--- STEP 5 COMPLETE ---"
 
 # Upload to GCS
-echo "--- STEP 6: UPLOADING TO GCS ---"
-echo "Attempting to upload kubeconfig to gs://${var.bucket_name}/k3s-kubeconfig"
+echo "--- STEP 6: UPLOADING RAW KUBECONFIG TO GCS ---"
 gcloud storage cp /etc/rancher/k3s/k3s.yaml gs://${var.bucket_name}/k3s-kubeconfig
 echo "Kubeconfig uploaded."
 

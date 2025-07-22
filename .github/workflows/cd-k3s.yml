@@ -231,6 +231,9 @@ jobs:
               
               exit 1
             fi
+
+            echo "Updating kubeconfig with public IP: $CONTROL_PLANE_IP"
+            sed -i "s/127.0.0.1/$CONTROL_PLANE_IP/g" ~/.kube/config
             
             # 5. Wait for the API to stabilize and verify the cluster
             echo "Waiting a bit for the cluster API to stabilize..."
