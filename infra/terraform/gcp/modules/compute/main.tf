@@ -22,69 +22,57 @@ resource "google_compute_instance" "k3s_control_plane" {
     ssh-keys = "${var.ssh_user}:${var.ssh_public_key_content}"
   }
 
+  # metadata_startup_script for k3s-control-plane
   metadata_startup_script = <<-EOF
 #!/bin/bash
-set -ex # --- ENABLE DEBUG MODE (echo all commands) ---
+set -ex # Enable debug mode
 
-# Setup logging
-exec > >(tee -a /var/log/k3s-startup.log) 2>&1
+# Log everything
+exec > >(tee -a /var/log/startup-script.log) 2>&1
+
 echo "--- SCRIPT START ---"
 date
 
 # Set non-interactive mode for apt
 export DEBIAN_FRONTEND=noninteractive
 
-# Install Google Cloud CLI
-echo "--- STEP 1: INSTALLING GCLOUD ---"
+# --- DIAGNOSTIC STEP 1: TEST METADATA SERVER ACCESS ---
+echo "--- TESTING METADATA SERVER ACCESS ---"
+# This command gets an auth token. If it fails, the VM has a fundamental problem.
+curl -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token > /dev/null || echo "FATAL: Metadata server access failed!"
+
+# --- DIAGNOSTIC STEP 2: TEST GCLOUD AND GCS ACCESS ---
+# First, ensure gcloud is installed. This whole block is our suspect.
+echo "--- INSTALLING GCLOUD ---"
 apt-get update -y
 apt-get install -y apt-transport-https ca-certificates gnupg curl
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
 echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | tee /etc/apt/sources.list.d/google-cloud-sdk.list > /dev/null
 apt-get update -y
 apt-get install -y google-cloud-cli
-echo "--- STEP 1 COMPLETE ---"
-gcloud --version
+echo "--- GCLOUD INSTALLED ---"
 
-# Install k3s
-echo "--- STEP 2: INSTALLING K3S ---"
+# Now, test if the installed gcloud can access the bucket
+echo "--- TESTING GCS BUCKET ACCESS ---"
+# This command will use the VM's service account automatically.
+gcloud storage ls gs://${var.bucket_name}/ || echo "FATAL: GCS bucket access failed!"
+
+# --- REGULAR SCRIPT CONTINUES ---
+echo "--- INSTALLING K3S ---"
 curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
-echo "--- STEP 2 COMPLETE ---"
 
-# Wait for k3s service
-echo "--- STEP 3: WAITING FOR K3S SERVICE ---"
-while ! systemctl is-active --quiet k3s; do
-  echo "k3s service is not active yet, waiting 5s..."
+echo "--- WAITING FOR K3S ---"
+while ! systemctl is-active --quiet k3s || [ ! -f /var/lib/rancher/k3s/server/node-token ]; do
+  echo "Waiting for k3s service and node-token..."
   sleep 5
 done
-echo "--- STEP 3 COMPLETE ---"
-
-# Wait for node-token
-echo "--- STEP 4: WAITING FOR NODE TOKEN ---"
-while [ ! -f /var/lib/rancher/k3s/server/node-token ]; do
-  echo "node-token not found yet, waiting 5s..."
-  sleep 5
-done
-echo "--- STEP 4 COMPLETE ---"
 TOKEN=$(cat /var/lib/rancher/k3s/server/node-token)
 
-# # Update kubeconfig
-# echo "--- STEP 5: UPDATING KUBECONFIG ---"
-# PUBLIC_IP=$(curl -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip)
-# sed -i "s/127.0.0.1/$PUBLIC_IP/g" /etc/rancher/k3s/k3s.yaml
-# echo "--- STEP 5 COMPLETE ---"
-
-# Upload to GCS
-echo "--- STEP 6: UPLOADING RAW KUBECONFIG TO GCS ---"
+echo "--- UPLOADING ARTIFACTS ---"
 gcloud storage cp /etc/rancher/k3s/k3s.yaml gs://${var.bucket_name}/k3s-kubeconfig
-echo "Kubeconfig uploaded."
-
-echo "Attempting to upload token to gs://${var.bucket_name}/k3s-token"
 echo "$TOKEN" | gcloud storage cp - gs://${var.bucket_name}/k3s-token
-echo "Token uploaded."
-echo "--- STEP 6 COMPLETE ---"
 
 echo "--- SCRIPT FINISHED SUCCESSFULLY ---"
-date
 EOF
 
   network_interface {
