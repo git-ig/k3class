@@ -1,7 +1,7 @@
 # k3s Control Plane - public IP for external access
 resource "google_compute_instance" "k3s_control_plane" {
   name         = "k3s-control-plane"
-  machine_type = "e2-small"
+  machine_type = "e2-medium"
   zone         = var.zone
   tags         = ["k3s-control-plane", "http-server", "https-server"]
 

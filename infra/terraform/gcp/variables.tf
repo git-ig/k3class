@@ -16,7 +16,7 @@ variable "zone" {
 variable "vm_image" {
   description = "The OS image for all VMs."
   type        = string
-  default     = "ubuntu-minimal-2404-noble-amd64-v20250701"
+  default     = "ubuntu-os-cloud/global/images/family/ubuntu-2404-lts"
 }
 
 variable "ssh_user" {
