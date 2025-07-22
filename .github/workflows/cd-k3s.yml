@@ -171,6 +171,13 @@ jobs:
           cloudflare_zone_id       = "${{ secrets.CLOUDFLARE_ZONE_ID }}"
           EOF
 
+      - name: Clean Up Old Cluster Artifacts
+        working-directory: infra/terraform/gcp
+        run: |
+          echo "Deleting old k3s artifacts from GCS to prevent race conditions..."
+          gcloud storage rm gs://${{ secrets.GCS_BUCKET_NAME }}/k3s-kubeconfig || echo "k3s-kubeconfig not found, skipping."
+          gcloud storage rm gs://${{ secrets.GCS_BUCKET_NAME }}/k3s-token || echo "k3s-token not found, skipping."
+
       - name: Deploy Infrastructure
         working-directory: infra/terraform/gcp
         run: |
@@ -187,24 +194,32 @@ jobs:
           # Get IPs from Terraform
           cd infra/terraform/gcp
           CONTROL_PLANE_IP=$(terraform output -raw k3s_control_plane_public_ip)
-          WORKER_IPS=$(terraform output -json k3s_worker_private_ips | jq -r '.[]')
-
-          # Wait for cluster to be ready (installation via startup scripts in Terraform)
-          sleep 90  # Increased for reliability; adjust based on tests
-
-          # Download kubeconfig from GCS with retry
-          for i in {1..5}; do
-            gcloud storage cp gs://${{ secrets.GCS_BUCKET_NAME }}/k3s-kubeconfig ~/.kube/config && break
-            echo "Kubeconfig not found, retrying in 30s..."
-            sleep 30
+          
+          echo "Waiting for the new kubeconfig file to be uploaded by the control plane..."
+          # Download kubeconfig from GCS with a robust retry loop
+          for i in {1..10}; do
+            if gcloud storage cp gs://${{ secrets.GCS_BUCKET_NAME }}/k3s-kubeconfig ~/.kube/config; then
+              echo "Kubeconfig downloaded successfully."
+              break
+            fi
+            echo "Kubeconfig not yet available. Retrying in 20 seconds... (Attempt $i/10)"
+            sleep 20
           done
+
           if [ ! -f ~/.kube/config ]; then
-            echo "Error: Failed to download kubeconfig"
+            echo "::error::Failed to download kubeconfig after multiple retries."
+            # extra VM logs for debug 
+            # gcloud compute instances get-serial-port-output k3s-control-plane --zone ${{ secrets.GCP_ZONE }}
             exit 1
           fi
-          sed -i "s/127.0.0.1/$CONTROL_PLANE_IP/g" ~/.kube/config
 
-          # Verify cluster
+          # echo "Updating kubeconfig with public IP: $CONTROL_PLANE_IP"
+          # sed -i "s/127.0.0.1/$CONTROL_PLANE_IP/g" ~/.kube/config
+          
+          # time for cluster start properly
+          sleep 15 
+          
+          echo "Verifying cluster connection..."
           kubectl get nodes
 
       - name: Deploy applications with Helm

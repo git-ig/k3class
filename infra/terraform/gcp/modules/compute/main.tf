@@ -50,6 +50,11 @@ done
 
 TOKEN=$(sudo cat /var/lib/rancher/k3s/server/node-token)
 
+# Get public IP from metadata server and update kubeconfig before uploading
+echo "Updating kubeconfig with the public IP..."
+PUBLIC_IP=$(curl -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/network-interfaces/0/access-configs/0/external-ip)
+sed -i "s/127.0.0.1/$PUBLIC_IP/g" /etc/rancher/k3s/k3s.yaml
+
 # Upload kubeconfig to GCS
 echo "Uploading kubeconfig..."
 gcloud storage cp /etc/rancher/k3s/k3s.yaml gs://${var.bucket_name}/k3s-kubeconfig
