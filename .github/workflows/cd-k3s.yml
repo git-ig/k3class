@@ -117,13 +117,13 @@ jobs:
   
       - name: Debug Permissions
         run: |
-          # Показати активний акаунт
+          # show active account
           gcloud auth list
           
-          # Перевірити IAM політики для сервіс-акаунта
+          # check IAM policies
           gcloud projects get-iam-policy ${{ secrets.GCP_PROJECT_ID }} --filter="bindings.members:serviceAccount:${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}"
           
-          # Тест на дозвіл створення бакета (спроба створення тестового, потім видалення)
+          # testing bucket creation, then delete
           TEST_BUCKET="test-bucket-$(date +%s)"
           gcloud storage buckets create gs://$TEST_BUCKET --location=${{ secrets.GCP_REGION }} && gcloud storage buckets delete gs://$TEST_BUCKET --force || echo "Failed to create test bucket - permission issue"
 
@@ -190,7 +190,7 @@ jobs:
           WORKER_IPS=$(terraform output -json k3s_worker_private_ips | jq -r '.[]')
 
           # Wait for cluster to be ready (installation via startup scripts in Terraform)
-          sleep 300  # Increased for reliability; adjust based on tests
+          sleep 90  # Increased for reliability; adjust based on tests
 
           # Download kubeconfig from GCS with retry
           for i in {1..5}; do

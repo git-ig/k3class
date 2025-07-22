@@ -50,6 +50,7 @@ module "compute" {
   ssh_user               = var.ssh_user
   ssh_public_key_content = var.ssh_public_key_content
   bucket_name            = var.bucket_name
+  service_account_email  = var.service_account_email
 }
 
 # Create GCS bucket for database backups

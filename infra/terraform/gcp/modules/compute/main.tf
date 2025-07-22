@@ -13,24 +13,52 @@ resource "google_compute_instance" "k3s_control_plane" {
     }
   }
 
-  metadata = {
-    ssh-keys = "${var.ssh_user}:${var.ssh_public_key_content}"  # SSH только на control plane
+  # Service account for GCS access - CRITICAL FIX
+  service_account {
+    email  = var.service_account_email
+    scopes = ["https://www.googleapis.com/auth/cloud-platform"]
   }
 
+  metadata = {
+    ssh-keys = "${var.ssh_user}:${var.ssh_public_key_content}"
+  }
+
+  # Improved startup script with error handling and logging
   metadata_startup_script = <<-EOF
-  #!/bin/bash
-  # Install k3s on control plane
-  curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
-  
-  # Wait for token to be available
-  sleep 30
-  TOKEN=$(sudo cat /var/lib/rancher/k3s/server/node-token)
-  
-  # Upload kubeconfig to GCS
-  gcloud storage cp /etc/rancher/k3s/k3s.yaml gs://${var.bucket_name}/k3s-kubeconfig
-  
-  # Upload token to GCS for workers to use
-  echo $TOKEN | gcloud storage cp - gs://${var.bucket_name}/k3s-token
+#!/bin/bash
+set -e
+
+# Setup logging
+exec > >(tee -a /var/log/k3s-startup.log) 2>&1
+echo "Starting k3s installation at $(date)"
+
+# Install k3s on control plane
+echo "Installing k3s..."
+curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
+
+# Wait for k3s to start
+echo "Waiting for k3s service..."
+while ! systemctl is-active --quiet k3s; do
+  sleep 5
+done
+
+# Wait for token to be available
+echo "Getting node token..."
+while [ ! -f /var/lib/rancher/k3s/server/node-token ]; do
+  sleep 5
+done
+
+TOKEN=$(sudo cat /var/lib/rancher/k3s/server/node-token)
+
+# Upload kubeconfig to GCS
+echo "Uploading kubeconfig..."
+gcloud storage cp /etc/rancher/k3s/k3s.yaml gs://${var.bucket_name}/k3s-kubeconfig
+
+# Upload token to GCS for workers
+echo "Uploading token..."
+echo "$TOKEN" | gcloud storage cp - gs://${var.bucket_name}/k3s-token
+
+echo "k3s installation completed at $(date)"
 EOF
 
   network_interface {
@@ -58,21 +86,38 @@ resource "google_compute_instance" "k3s_worker" {
     }
   }
 
+  # Service account for GCS access - CRITICAL FIX
+  service_account {
+    email  = var.service_account_email
+    scopes = ["https://www.googleapis.com/auth/cloud-platform"]
+  }
+
   # No SSH keys on workers for security
   metadata = {}
 
+  # Improved startup script with consistent gcloud commands
   metadata_startup_script = <<-EOF
-  #!/bin/bash
-  # Poll for token from GCS
-  until gsutil cp gs://${var.bucket_name}/k3s-token /tmp/k3s-token; do
-    sleep 10
-  done
-  TOKEN=$(cat /tmp/k3s-token)
-  
-  # Install k3s as worker
-  curl -sfL https://get.k3s.io | K3S_URL=https://${google_compute_instance.k3s_control_plane.network_interface[0].network_ip}:6443 K3S_TOKEN=$TOKEN sh -
-EOF
+#!/bin/bash
+set -e
 
+# Setup logging
+exec > >(tee -a /var/log/k3s-worker-startup.log) 2>&1
+echo "Starting k3s worker installation at $(date)"
+
+# Wait for token from control plane
+echo "Waiting for token from control plane..."
+while ! gcloud storage cp gs://${var.bucket_name}/k3s-token /tmp/k3s-token; do
+  sleep 10
+done
+
+TOKEN=$(cat /tmp/k3s-token)
+
+# Install k3s as worker
+echo "Joining k3s cluster..."
+curl -sfL https://get.k3s.io | K3S_URL=<https://${google_compute_instance.k3s_control_plane.network_interface>[0].network_ip}:6443 K3S_TOKEN=$TOKEN sh -
+
+echo "k3s worker installation completed at $(date)"
+EOF
 
   network_interface {
     network    = var.network_name
