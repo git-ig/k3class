@@ -213,8 +213,8 @@ jobs:
             exit 1
           fi
 
-          # echo "Updating kubeconfig with public IP: $CONTROL_PLANE_IP"
-          # sed -i "s/127.0.0.1/$CONTROL_PLANE_IP/g" ~/.kube/config
+          echo "Updating kubeconfig with public IP: $CONTROL_PLANE_IP"
+          sed -i "s/127.0.0.1/$CONTROL_PLANE_IP/g" ~/.kube/config
           
           # time for cluster start properly
           sleep 15 
