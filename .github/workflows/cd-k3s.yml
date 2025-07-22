@@ -192,10 +192,22 @@ jobs:
       - name: Setup k3s cluster
         working-directory: infra/terraform/gcp
         run: |
+          # set working dir
+          TERRAFORM_DIR="${{ github.workspace }}/infra/terraform/gcp"
+          echo "Terraform directory is set to: $TERRAFORM_DIR"
+
+          # check if directory exists
+          if [ ! -d "$TERRAFORM_DIR" ]; then
+            echo "::error::Terraform directory not found at $TERRAFORM_DIR"
+            echo "Current directory is $(pwd)"
+            echo "Workspace contents:"
+            ls -la ${{ github.workspace }}
+            exit 1
+          fi
         
-          # Clean up any previous kubeconfig to ensure a fresh state
-          rm -f ~/.kube/config
-          # --------------------
+          # # Clean up any previous kubeconfig to ensure a fresh state
+          # rm -f ~/.kube/config
+          # # --------------------
 
           # Get IPs from Terraform
           cd infra/terraform/gcp
