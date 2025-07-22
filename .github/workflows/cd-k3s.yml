@@ -28,6 +28,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Display Location Variables
+        run: |
+          echo "::notice title=Location Check::Using REGION: ${{ secrets.GCP_REGION }}"
+          echo "::notice title=Location Check::Using ZONE: ${{ secrets.GCP_ZONE }}"
+
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
         with:
