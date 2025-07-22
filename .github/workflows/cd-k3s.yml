@@ -196,16 +196,18 @@ jobs:
 
       - name: Setup k3s cluster
         working-directory: infra/terraform/gcp
+        # Increase the step timeout so it doesn't fail before we can get the logs
+        timeout-minutes: 10 
         run: |
-            # 1. delete old kubeconfig
+            # 1. Clean up any previous kubeconfig to ensure a fresh state
             rm -f ~/.kube/config
             
-            # 2. 
+            # 2. Get the public IP from Terraform output
             CONTROL_PLANE_IP=$(terraform output -raw k3s_control_plane_public_ip)
             
-            # 3. download new kubeconfig.
+            # 3. Wait for and download the new kubeconfig
             echo "Waiting for the new kubeconfig file to be uploaded by the control plane..."
-            for i in {1..15}; do # Увеличим время ожидания до 5 минут на всякий случай
+            for i in {1..15}; do
               if gcloud storage cp gs://${{ secrets.GCS_BUCKET_NAME }}/k3s-kubeconfig ~/.kube/config; then
                 echo "Kubeconfig downloaded successfully."
                 break
@@ -214,17 +216,23 @@ jobs:
               sleep 20
             done
   
-            # 4. check kubeconfig 
+            # 4. Check if the file was downloaded. IF NOT - DUMP THE LOGS!
             if [ ! -f ~/.kube/config ]; then
               echo "::error::Failed to download kubeconfig after multiple retries."
               echo "This likely means the startup script on the k3s-control-plane VM failed."
-              echo "::group::Serial Port Logs for k3s-control-plane"
-              gcloud compute instances get-serial-port-output k3s-control-plane --zone ${{ secrets.GCP_ZONE }}
+              
+              # --- THE MOST IMPORTANT DEBUG BLOCK ---
+              echo "::group::Fetching Serial Port Logs for k3s-control-plane"
+              # Give the VM a little extra time just in case, so logs can be written
+              sleep 30 
+              gcloud compute instances get-serial-port-output k3s-control-plane --zone ${{ secrets.GCP_ZONE }} --project ${{ secrets.GCP_PROJECT_ID }}
               echo "::endgroup::"
+              # ------------------------------------
+              
               exit 1
             fi
             
-            # 5. wait for API & check cluster.
+            # 5. Wait for the API to stabilize and verify the cluster
             echo "Waiting a bit for the cluster API to stabilize..."
             sleep 15 
             
