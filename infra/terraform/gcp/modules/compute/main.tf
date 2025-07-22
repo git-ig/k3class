@@ -114,7 +114,7 @@ TOKEN=$(cat /tmp/k3s-token)
 
 # Install k3s as worker
 echo "Joining k3s cluster..."
-curl -sfL https://get.k3s.io | K3S_URL=<https://${google_compute_instance.k3s_control_plane.network_interface>[0].network_ip}:6443 K3S_TOKEN=$TOKEN sh -
+curl -sfL https://get.k3s.io | K3S_URL=https://${google_compute_instance.k3s_control_plane.network_interface[0].network_ip}:6443 K3S_TOKEN=$TOKEN sh -
 
 echo "k3s worker installation completed at $(date)"
 EOF
