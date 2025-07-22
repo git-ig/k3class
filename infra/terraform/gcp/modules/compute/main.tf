@@ -66,6 +66,7 @@ while [ ! -f /var/lib/rancher/k3s/server/node-token ]; do
   sleep 5
 done
 
+# ИЗМЕНЕНИЕ: Убран лишний sudo. Скрипт и так выполняется от root.
 TOKEN=$(cat /var/lib/rancher/k3s/server/node-token)
 
 # Get public IP from metadata server and update kubeconfig before uploading
@@ -114,7 +115,6 @@ resource "google_compute_instance" "k3s_worker" {
 
   metadata = {}
 
-  # ИСПРАВЛЕННЫЙ БЛОК: СКРИПТ ВНУТРИ РЕСУРСА
   metadata_startup_script = <<-EOF
 #!/bin/bash
 set -e
