@@ -40,7 +40,7 @@ PUBLIC_IP=$(curl -s -H "Metadata-Flavor: Google" \
 #   --tls-san <IP> forces k3s to put that address into the certificate SAN list
 ###############################################################################
 curl -sfL https://get.k3s.io \
-  | INSTALL_K3S_EXEC="--tls-san ${PUBLIC_IP}" \
+  | INSTALL_K3S_EXEC="--tls-san $${PUBLIC_IP}" \
     sh -s - --write-kubeconfig-mode 644   # kubeconfig readable by all users
 
 ###############################################################################
@@ -58,7 +58,7 @@ TOKEN=$(cat /var/lib/rancher/k3s/server/node-token)
 ###############################################################################
 # Replace default server endpoint with the external IP
 KUBECONFIG=/etc/rancher/k3s/k3s.yaml \
-  kubectl config set-cluster default --server="https://${PUBLIC_IP}:6443"
+  kubectl config set-cluster default --server="https://$${PUBLIC_IP}:6443"
 
 # Flatten embeds certificates/keys → makes the kubeconfig portable
 KUBECONFIG=/etc/rancher/k3s/k3s.yaml \
