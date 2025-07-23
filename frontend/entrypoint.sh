@@ -1,7 +1,8 @@
 #!/bin/sh
 set -e
 
-find /usr/share/nginx/html/static/js/ -name "main.*.js" -exec sed -i 's|REACT_APP_API_BASE_URL|https://api.dock.ink/|g' {} \;
+find /usr/share/nginx/html/static/js/ -name "*.js" -exec sed -i 's|http://localhost:8080|https://api.dock.ink|g' {} \;
+find /usr/share/nginx/html/static/js/ -name "*.js" -exec sed -i 's|localhost:8080|api.dock.ink|g' {} \;
 
-echo "Replacement completed. Starting nginx..."
+echo "API URL replacement completed. Starting nginx..."
 exec nginx -g "daemon off;"
