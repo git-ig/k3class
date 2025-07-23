@@ -138,7 +138,7 @@ jobs:
             echo "::error::Failed to download kubeconfig"; exit 1
           fi
 
-          # 👉 використовуємо локальний файл
+          # 👉use local kubeconfig
           export KUBECONFIG="$HOME/.kube/config"
           echo "KUBECONFIG=$KUBECONFIG" >>"$GITHUB_ENV"
 
