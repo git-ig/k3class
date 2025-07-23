@@ -5,7 +5,7 @@ data "google_project" "project" {
 
 # KMS key ring
 resource "google_kms_key_ring" "database" {
-  name     = "database-keyring-2"
+  name     = "database-keyring-${random_id.suffix.hex}"
   location = var.region
   project  = var.project_id
 }
