@@ -133,9 +133,13 @@ done
 echo "--- WORKER STEP 2 COMPLETE ---"
 TOKEN=$(cat /tmp/k3s-token)
 
-# Install k3s worker
 echo "--- WORKER STEP 3: JOINING CLUSTER ---"
-curl -sfL https://get.k3s.io | K3S_URL=https://${google_compute_instance.k3s_control_plane.network_interface[0].network_ip}:6443 K3S_TOKEN=$TOKEN sh -
+SHORT_HOST="k3s-worker-${count.index + 1}"
+
+curl -sfL https://get.k3s.io | \
+  K3S_URL=https://${google_compute_instance.k3s_control_plane.network_interface[0].network_ip}:6443 \
+  K3S_TOKEN=$TOKEN \
+  sh -s - --node-name=$${SHORT_HOST}   # double $$
 echo "--- WORKER STEP 3 COMPLETE ---"
 
 echo "--- WORKER SCRIPT FINISHED SUCCESSFULLY ---"
