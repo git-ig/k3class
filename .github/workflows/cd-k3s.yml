@@ -139,8 +139,12 @@ jobs:
           fi
 
           # 👉use local kubeconfig
+          # export KUBECONFIG="$HOME/.kube/config"
+          # echo "KUBECONFIG=$KUBECONFIG" >>"$GITHUB_ENV"
+
           export KUBECONFIG="$HOME/.kube/config"
-          echo "KUBECONFIG=$KUBECONFIG" >>"$GITHUB_ENV"
+          CLUSTER=$(kubectl config get-clusters --no-headers | head -n1)
+          kubectl config set-cluster "$CLUSTER" --insecure-skip-tls-verify=true
 
           echo "Waiting for API to become ready…"
 
@@ -215,6 +219,8 @@ jobs:
           helm upgrade --install frontend ./helm/frontend \
             --namespace "$NS" \
             --values "environments/$ENV/frontend-values.yaml" \
+            --set image.repository="ghcr.io/${{ github.repository }}-frontend" \
+            --set image.tag="latest" \
             --wait --timeout 5m0s --atomic
 
           # ─── overall condition ───────────────────────────────────
