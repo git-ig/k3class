@@ -194,9 +194,9 @@ jobs:
             --namespace "$NS" \
             --values "environments/$ENV/database-values.yaml" \
             --set persistence.storageClass=database-storage \
-            --set postgresql.database="$DB_NAME" \
-            --set postgresql.username="$DB_USER" \
-            --set postgresql.password="$DB_PASSWORD" \
+            --set postgresql.database="${{ secrets.DATABASE_NAME }}" \
+            --set postgresql.username="${{ secrets.DATABASE_USERNAME }}" \
+            --set postgresql.password="${{ secrets.DATABASE_PASSWORD }}" \
             --wait --timeout 7m0s --atomic
 
           # ─── BACKEND ───────────────────────────────────────────────
