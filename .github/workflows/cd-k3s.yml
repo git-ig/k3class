@@ -25,11 +25,11 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' || github.event_name == 'push' }}
 
     steps:
-      # ─────────────────────────── РЕПО ────────────────────────────
+      # ─────────────────────────── repo checkout ────────────────────────────
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ──────────────────── ЛОГІКА / ІНСТРУМЕНТИ ───────────────────
+      # ──────────────────── logics / tools ───────────────────
       - name: Display Location Variables
         run: |
           echo "::notice title=Location Check::Using REGION: ${{ secrets.GCP_REGION }}"
@@ -80,7 +80,7 @@ jobs:
         with:
           install_components: 'gke-gcloud-auth-plugin'
 
-      # ─────────────────── GCS bucket для backend ──────────────────
+      # ─────────────────── GCS bucket for backend ──────────────────
       - name: Create or Verify GCS State Bucket
         run: |
           BUCKET="${{ secrets.GCS_BUCKET_NAME }}"
@@ -123,7 +123,7 @@ jobs:
           terraform init -backend-config=backend.conf
           terraform apply -auto-approve -var-file="terraform.tfvars"
 
-      # ──────────────── Завантажуємо kubeconfig ────────────────────
+      # ──────────────── download & apply kubeconfig ────────────────────
       - name: Setup k3s cluster
         working-directory: infra/terraform/gcp
         timeout-minutes: 15
@@ -186,7 +186,9 @@ jobs:
           helm upgrade --install backend ./helm/backend \
             --namespace "$NS" \
             --values "environments/$ENV/backend-values.yaml" \
-            --wait --timeout 5m0s --atomic
+            --set image.repository="$BACKEND_REPO" \
+            --set image.tag="$BACKEND_TAG" \
+            --wait --timeout 7m --atomic
 
           # ─── FRONTEND ──────────────────────────────────────────────
           helm upgrade --install frontend ./helm/frontend \
