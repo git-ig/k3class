@@ -20,7 +20,7 @@ postgresql:
 persistence:
   enabled: true
   size: 8Gi
-  storageClass: "standard"
+  storageClass: "local-path"
 
 resources:
   limits:
