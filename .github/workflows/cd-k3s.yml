@@ -143,7 +143,7 @@ jobs:
           # echo "KUBECONFIG=$KUBECONFIG" >>"$GITHUB_ENV"
 
           export KUBECONFIG="$HOME/.kube/config"
-          CLUSTER=$(kubectl config get-clusters --no-headers | head -n1)
+          CLUSTER=$(kubectl config get-clusters | sed '1d' | head -n1)
           kubectl config set-cluster "$CLUSTER" --insecure-skip-tls-verify=true
 
           echo "Waiting for API to become ready…"
