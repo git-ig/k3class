@@ -3,6 +3,10 @@ data "google_project" "project" {
   project_id = var.project_id
 }
 
+resource "random_id" "suffix" {
+  byte_length = 4
+}
+
 # KMS key ring
 resource "google_kms_key_ring" "database" {
   name     = "database-keyring-${random_id.suffix.hex}"
