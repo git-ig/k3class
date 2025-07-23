@@ -1,14 +1,14 @@
 ###############################################################################
 # GCP Persistent-Disk CSI-driver 
 ###############################################################################
-resource "helm_release" "gcp_pd_csi" {
-  name       = "gcp-pd-csi-driver"
-#   repository = "https://raw.githubusercontent.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver/v1.20.0/deploy/kubernetes/manifest.yaml"
-  chart      = "https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver/releases/download/v1.20.0/gcp-pd-csi-driver-1.20.0.tgz"
-#   version    = "1.10.0"
-  namespace  = "kube-system"
-  create_namespace = false
-}
+# resource "helm_release" "gcp_pd_csi" {
+#   name             = "gcp-pd-csi-driver"
+#   repository       = "oci://registry.k8s.io/csi-driver/gcp-pd-csi-driver"
+#   chart            = "gcp-pd-csi-driver"
+#   version          = "v1.10.0"
+#   namespace        = "kube-system"
+#   create_namespace = false
+# }
 
 ###############################################################################
 # StorageClass dynamic creating of PD-volumes up to 1 GiB
