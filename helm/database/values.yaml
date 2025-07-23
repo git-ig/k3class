@@ -19,8 +19,8 @@ postgresql:
 
 persistence:
   enabled: true
-  size: 1Gi
-  storageClass: "pd-1g"
+  size: 3Gi
+  storageClass: "database-storage"
 
 resources:
   limits:

@@ -176,11 +176,11 @@ jobs:
           helm upgrade --install database ./helm/database \
             --namespace "$NS" \
             --values "environments/$ENV/database-values.yaml" \
-            --set persistence.storageClass=local-path \
+            --set persistence.storageClass=database-storage \
             --set postgresql.database="$DB_NAME" \
             --set postgresql.username="$DB_USER" \
             --set postgresql.password="$DB_PASSWORD" \
-            --wait --timeout 10m0s --atomic
+            --wait --timeout 7m0s --atomic
 
           # ─── BACKEND ───────────────────────────────────────────────
           helm upgrade --install backend ./helm/backend \

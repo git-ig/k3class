@@ -23,5 +23,5 @@ postgresql:
 
 persistence:
   enabled: true
-  size: 1Gi
-  storageClass: "standard"
+  size: 3Gi
+  storageClass: "database-storage"
