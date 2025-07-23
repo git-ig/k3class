@@ -3,9 +3,9 @@
 ###############################################################################
 resource "helm_release" "gcp_pd_csi" {
   name       = "gcp-pd-csi-driver"
-  repository = "https://kubernetes-sigs.github.io/gcp-compute-persistent-disk-csi-driver/helm-charts"
-  chart      = "gcp-pd-csi-driver"
-  version    = "1.10.0"
+#   repository = "https://raw.githubusercontent.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver/v1.20.0/deploy/kubernetes/manifest.yaml"
+  chart      = "https://github.com/kubernetes-sigs/gcp-compute-persistent-disk-csi-driver/releases/download/v1.20.0/gcp-pd-csi-driver-1.20.0.tgz"
+#   version    = "1.10.0"
   namespace  = "kube-system"
   create_namespace = false
 }
