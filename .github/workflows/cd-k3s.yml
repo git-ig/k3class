@@ -155,28 +155,52 @@ jobs:
       # ─────────────────────── Helm deploy ─────────────────────────
       - name: Deploy applications with Helm
         env:
+          # images from local DHCR
           FRONTEND_IMAGE: "ghcr.io/${{ github.repository }}-frontend:${{ github.event.workflow_run.head_sha || github.sha }}"
           BACKEND_IMAGE:  "ghcr.io/${{ github.repository }}:${{ github.event.workflow_run.head_sha || github.sha }}"
+          # → from repo secrets
+          DB_NAME:     ${{ secrets.DATABASE_NAME }}
+          DB_USER:     ${{ secrets.DATABASE_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
         run: |
+          # ─── set namespace by branch ────────────────────────────
           if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             NS="prod"; ENV="prod"
           else
             NS="dev";  ENV="dev"
           fi
 
-          kubectl create namespace $NS --dry-run=client -o yaml | kubectl apply -f -
+          kubectl create namespace "$NS" --dry-run=client -o yaml | kubectl apply -f -
 
+          # ─── DATABASE ──────────────────────────────────────────────
           helm upgrade --install database ./helm/database \
-            --namespace $NS --values environments/$ENV/database-values.yaml --wait
+            --namespace "$NS" \
+            --values "environments/$ENV/database-values.yaml" \
+            --set persistence.storageClass=local-path \
+            --set postgresql.database="$DB_NAME" \
+            --set postgresql.username="$DB_USER" \
+            --set postgresql.password="$DB_PASSWORD" \
+            --wait --timeout 10m0s --atomic
 
+          # ─── BACKEND ───────────────────────────────────────────────
           helm upgrade --install backend ./helm/backend \
-            --namespace $NS --values environments/$ENV/backend-values.yaml  --wait
+            --namespace "$NS" \
+            --values "environments/$ENV/backend-values.yaml" \
+            --wait --timeout 5m0s --atomic
 
+          # ─── FRONTEND ──────────────────────────────────────────────
           helm upgrade --install frontend ./helm/frontend \
-            --namespace $NS --values environments/$ENV/frontend-values.yaml --wait
+            --namespace "$NS" \
+            --values "environments/$ENV/frontend-values.yaml" \
+            --wait --timeout 5m0s --atomic
 
-          kubectl get all -n $NS
-          kubectl get ingress -n $NS
+          # ─── overall condition ───────────────────────────────────
+          kubectl rollout status deploy/database  -n "$NS" --timeout=5m
+          kubectl rollout status deploy/backend   -n "$NS" --timeout=5m
+          kubectl rollout status deploy/frontend  -n "$NS" --timeout=5m
+
+          kubectl get all -n "$NS"
+          kubectl get ingress -n "$NS"
 
       # ───────────────────── Argo CD (GitOps) ───────────────────────
       - name: Setup ArgoCD
@@ -186,7 +210,7 @@ jobs:
           kubectl wait --for=condition=available --timeout=300s deployment/argocd-server -n argocd
           echo "ArgoCD admin password: $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d)"
 
-      # ──────────────── Тригер GitOps workflow ─────────────────────
+      # ──────────────── trigger GitOps workflow ─────────────────────
       - name: Trigger GitOps Workflow
         uses: actions/github-script@v6
         with:
