@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/your/repo
+    repoURL: https://github.com/git-ig/k3class
     targetRevision: main
     path: helm/frontend
     helm:

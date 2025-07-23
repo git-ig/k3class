@@ -7,7 +7,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/your-username/your-repo
+    repoURL: https://github.com/git-ig/k3class
     targetRevision: main
     path: argocd/applications
   destination:

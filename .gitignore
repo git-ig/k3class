@@ -31,3 +31,8 @@ debug-local.sh
 
 .github/workflows/._cd-gitops.yml
 .github/workflows/._cd-k3s.yml
+.github/workflows/._ci-backend.yml 
+.github/workflows/._terraform-destroy.yml
+*_*.yml
+*_*.yaml
+*_*.tf

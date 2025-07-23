@@ -185,10 +185,13 @@ jobs:
           # ─── BACKEND ───────────────────────────────────────────────
           helm upgrade --install backend ./helm/backend \
             --namespace "$NS" \
-            --values "environments/$ENV/backend-values.yaml" \
-            --set image.repository="$BACKEND_REPO" \
-            --set image.tag="$BACKEND_TAG" \
-            --wait --timeout 7m --atomic
+            --values "environments/$NS/backend-values.yaml" \
+            --set image.repository="ghcr.io/${{ github.repository }}" \
+            --set image.tag="${{ github.sha }}" \
+            --set database.name="${{ secrets.DATABASE_NAME }}" \
+            --set database.username="${{ secrets.DATABASE_USERNAME }}" \
+            --set database.password="${{ secrets.DATABASE_PASSWORD }}" \
+            --wait --timeout 8m --atomic
 
           # ─── FRONTEND ──────────────────────────────────────────────
           helm upgrade --install frontend ./helm/frontend \

@@ -1,9 +1,9 @@
 # Backend values for dev
-namespace: dev
+#namespace: dev
 
 image:
-  repository: ghcr.io/${{ github.repository }}
-  tag: "${{ env.IMAGE_TAG }}"
+  repository: ""
+  tag: ""
   pullPolicy: IfNotPresent
 
 replicaCount: 1
@@ -19,9 +19,9 @@ resources:
 database:
   host: database-service
   port: 5432
-  name: ${{ secrets.DATABASE_NAME }}
-  username: ${{ secrets.DATABASE_USERNAME }}
-  password: ${{ secrets.DATABASE_PASSWORD }}
+  name: ""
+  username: ""
+  password: ""
 
 spring:
   profiles:
