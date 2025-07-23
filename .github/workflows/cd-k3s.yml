@@ -152,6 +152,23 @@ jobs:
           echo "Verifying cluster connectivity…"
           kubectl get nodes
 
+        # ──────────────── Create StorageClass ────────────────────
+      - name: Create Database StorageClass
+        run: |
+          kubectl apply -f - <<EOF
+          apiVersion: storage.k8s.io/v1
+          kind: StorageClass
+          metadata:
+            name: database-storage
+          provisioner: rancher.io/local-path
+          reclaimPolicy: Retain
+          volumeBindingMode: WaitForFirstConsumer
+          allowVolumeExpansion: true
+          EOF
+          
+          echo "✅ StorageClass created successfully"
+          kubectl get storageclass database-storage
+
       # ─────────────────────── Helm deploy ─────────────────────────
       - name: Deploy applications with Helm
         env:
