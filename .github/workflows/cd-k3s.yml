@@ -257,7 +257,7 @@ jobs:
             --namespace "$NS" \
             --values "environments/$ENV/frontend-values.yaml" \
             --set image.repository="ghcr.io/${{ github.repository }}-frontend" \
-            --set image.tag="${{ github.event.workflow_run.head_sha || github.sha }}" \
+            --set image.tag="latest" \
             --wait --timeout 5m0s --atomic
 
           # ─── overall condition ───────────────────────────────────
