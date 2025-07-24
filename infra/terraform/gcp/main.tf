@@ -117,22 +117,22 @@ resource "cloudflare_record" "api" {
 }
 
 # DNS record for grafana subdomain  
-resource "cloudflare_record" "grafana" {
-  zone_id         = var.cloudflare_zone_id
-  name            = "grafana"
-  content         = module.compute.k3s_control_plane_public_ip
-  type            = "A"
-  proxied         = false
-  allow_overwrite = true
-}
+# resource "cloudflare_record" "grafana" {
+#   zone_id         = var.cloudflare_zone_id
+#   name            = "grafana"
+#   content         = module.compute.k3s_control_plane_public_ip
+#   type            = "A"
+#   proxied         = true
+#   allow_overwrite = true
+# }
 
-# DNS record for prometheus subdomain
-resource "cloudflare_record" "prometheus" {
-  zone_id         = var.cloudflare_zone_id
-  name            = "prometheus"
-  content         = module.compute.k3s_control_plane_public_ip
-  type            = "A"
-  proxied         = false
-  allow_overwrite = true
-}
+# # DNS record for prometheus subdomain
+# resource "cloudflare_record" "prometheus" {
+#   zone_id         = var.cloudflare_zone_id
+#   name            = "prometheus"
+#   content         = module.compute.k3s_control_plane_public_ip
+#   type            = "A"
+#   proxied         = false
+#   allow_overwrite = true
+# }
 
