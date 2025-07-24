@@ -224,14 +224,14 @@ jobs:
 
           echo "[V] Restoring database..."
           kubectl exec deployment/database -n "$NS" -- sh -c "
-            PGPASSWORD=${{ secrets.DATABASE_PASSWORD }} pg_restore \
+            PGPASSWORD=${{ secrets.DATABASE_PASSWORD }} psql \
               -h localhost -U ${{ secrets.DATABASE_USERNAME }} -d ${{ secrets.DATABASE_NAME }} \
-              --clean --no-owner --verbose < /dev/stdin
+              -f /dev/stdin
           " < /tmp/database.dump
 
           rm -f /tmp/database.dump
           echo "✅ Database restore completed!"
-          
+
           # ─── BACKEND ───────────────────────────────────────────────
           helm upgrade --install backend ./helm/backend \
             --namespace "$NS" \
