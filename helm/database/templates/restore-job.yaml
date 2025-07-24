@@ -1,0 +1,27 @@
+{{- if .Values.restore.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "database.fullname" . }}-restore
+  namespace: {{ .Values.namespace | default "default" }}
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: restore
+        image: google/cloud-sdk:alpine
+        command: ["/bin/sh", "-c"]
+        args:
+        - |
+          apk add --no-cache postgresql-client
+          gcloud storage cp {{ .Values.restore.dumpUrl }} /tmp/dump.sql
+          pg_restore -h {{ include "database.fullname" . }}-service -U $POSTGRES_USER -d $POSTGRES_DB --clean /tmp/dump.sql
+        env:
+        - name: POSTGRES_USER
+          value: {{ .Values.postgresql.username }}
+        - name: POSTGRES_DB
+          value: {{ .Values.postgresql.database }}
+        - name: PGPASSWORD
+          value: {{ .Values.postgresql.password }}
+{{- end }}

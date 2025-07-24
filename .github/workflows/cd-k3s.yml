@@ -172,7 +172,7 @@ jobs:
           
           echo "✅ StorageClass created successfully"
           kubectl get storageclass database-storage
-          
+
 
       # ──────────────── Upload Database Dumps ────────────────────
       - name: Upload Database Dumps to GCS
@@ -213,6 +213,18 @@ jobs:
             --set postgresql.password="${{ secrets.DATABASE_PASSWORD }}" \
             --wait --timeout 7m0s --atomic
 
+            # ─── DATABASE RESTORE ──────────────────────────────────────
+          echo "🗄️ Starting database restore..."
+          helm upgrade database ./helm/database \
+            --namespace "$NS" \
+            --reuse-values \
+            --set restore.enabled=true \
+            --set restore.dumpUrl="gs://${{ secrets.GCS_BUCKET_NAME }}/dumps/2024-08-19.dump"
+
+          echo "⏳ Waiting for restore job to complete..."
+          kubectl wait --for=condition=complete job/database-restore -n "$NS" --timeout=10m
+
+          echo "✅ Database restore completed!"
           # ─── BACKEND ───────────────────────────────────────────────
           helm upgrade --install backend ./helm/backend \
             --namespace "$NS" \
