@@ -233,9 +233,9 @@ jobs:
           echo "✅ Database restore completed!"
 
           # ─── REDIS (cashe) ───────────────────────────────
-          echo "🔥 Deploying Redis cache..."
           helm upgrade --install redis ./helm/redis \
             --namespace "$NS" \
+            --values "environments/$ENV/redis-values.yaml" \
             --wait --timeout 3m0s --atomic
 
           echo "✅ Redis deployed successfully!"
