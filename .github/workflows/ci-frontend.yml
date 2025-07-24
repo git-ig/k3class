@@ -62,7 +62,18 @@ jobs:
     
       - name: Build
         working-directory: ./frontend
+        env:
+          REACT_APP_API_BASE_URL: ${{ secrets.PROD_API_URL }}
         run: npm run build
+
+      - name: Debug environment
+        working-directory: ./frontend
+        run: |
+          echo "PROD_API_URL from secret: ${{ secrets.PROD_API_URL }}"
+          echo "Contents of .env.production:"
+          cat .env.production
+          echo "Environment during build:"
+          env | grep REACT_APP || echo "No REACT_APP vars found"
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
