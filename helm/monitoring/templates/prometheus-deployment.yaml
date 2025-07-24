@@ -18,6 +18,7 @@ spec:
         {{- include "monitoring.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: prometheus
     spec:
+      serviceAccountName: {{ include "monitoring.fullname" . }}-prometheus
       containers:
       - name: prometheus
         image: "{{ .Values.prometheus.image.repository }}:{{ .Values.prometheus.image.tag }}"
@@ -32,6 +33,7 @@ spec:
         - '--web.console.templates=/etc/prometheus/consoles'
         - '--storage.tsdb.retention.time={{ .Values.prometheus.retention }}'
         - '--web.enable-lifecycle'
+        - '--web.route-prefix=/'
         resources:
           {{- toYaml .Values.prometheus.resources | nindent 12 }}
         volumeMounts:
