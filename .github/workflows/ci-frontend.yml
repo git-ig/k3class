@@ -46,9 +46,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      # - name: Create .env file
-      #   working-directory: ./frontend
-      #   run: echo "REACT_APP_API_BASE_URL=http://localhost:8080/" > .env
+      - name: Create .env.production file
+        working-directory: ./frontend
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "REACT_APP_API_BASE_URL=${{ secrets.PROD_API_URL }}" > .env.production
+          else
+            echo "REACT_APP_API_BASE_URL=${{ secrets.DEV_API_URL }}" > .env.production
+          fi
 
       - name: Install Dependencies
         working-directory: ./frontend
@@ -70,6 +75,8 @@ jobs:
         with:
           context: ./frontend
           push: true
+          build-args: |
+            REACT_APP_API_BASE_URL=${{ secrets.PROD_API_URL }}
           tags: |
               ghcr.io/${{ github.repository }}-frontend:${{ github.sha }}
               ghcr.io/${{ github.repository }}-frontend:latest

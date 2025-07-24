@@ -1,13 +1,18 @@
+FROM node:14-alpine as builder
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY . .
+ARG REACT_APP_API_BASE_URL
+ENV REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL
+
+RUN npm run build
 
 FROM nginx:alpine
-
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-COPY build/ /usr/share/nginx/html
+COPY --from=builder /app/build/ /usr/share/nginx/html
 
 EXPOSE 80
-
-ENTRYPOINT ["/entrypoint.sh"]
+CMD ["nginx", "-g", "daemon off;"]
