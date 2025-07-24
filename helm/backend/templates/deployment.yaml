@@ -69,6 +69,10 @@ spec:
             secretKeyRef:
               name: {{ include "backend.fullname" . }}-secret
               key: database-password
+        - name: REDIS_HOST
+          value: "redis-service"
+        - name: REDIS_PORT
+          value: "6379"
         # livenessProbe:
         #   httpGet:
         #     path: /actuator/health

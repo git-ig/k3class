@@ -232,6 +232,14 @@ jobs:
           rm -f /tmp/database.dump
           echo "✅ Database restore completed!"
 
+          # ─── REDIS (cashe) ───────────────────────────────
+          echo "🔥 Deploying Redis cache..."
+          helm upgrade --install redis ./helm/redis \
+            --namespace "$NS" \
+            --wait --timeout 3m0s --atomic
+
+          echo "✅ Redis deployed successfully!"
+
           # ─── BACKEND ───────────────────────────────────────────────
           helm upgrade --install backend ./helm/backend \
             --namespace "$NS" \
