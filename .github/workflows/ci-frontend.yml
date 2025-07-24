@@ -38,6 +38,11 @@ jobs:
         with:
           node-version: "14"
 
+      - name: Check versions
+        run: |
+          node --version
+          npm --version
+
       - name: Cache npm dependencies
         uses: actions/cache@v4
         with:
@@ -49,16 +54,12 @@ jobs:
       - name: Create .env.production file
         working-directory: ./frontend
         run: |
-          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
-            echo "REACT_APP_API_BASE_URL=${{ secrets.PROD_API_URL }}" > .env.production
-          else
-            echo "REACT_APP_API_BASE_URL=${{ secrets.DEV_API_URL }}" > .env.production
-          fi
-
+          echo "REACT_APP_API_BASE_URL=${{ secrets.PROD_API_URL }}" > .env.production
+    
       - name: Install Dependencies
         working-directory: ./frontend
         run: npm ci
-
+    
       - name: Build
         working-directory: ./frontend
         run: npm run build
@@ -75,9 +76,6 @@ jobs:
         with:
           context: ./frontend
           push: true
-          build-args: |
-            REACT_APP_API_BASE_URL=${{ secrets.PROD_API_URL }}
           tags: |
-              ghcr.io/${{ github.repository }}-frontend:${{ github.sha }}
-              ghcr.io/${{ github.repository }}-frontend:latest
-          
+            ghcr.io/${{ github.repository }}-frontend:${{ github.sha }}
+            ghcr.io/${{ github.repository }}-frontend:latest
