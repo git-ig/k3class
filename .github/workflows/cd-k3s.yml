@@ -215,31 +215,32 @@ jobs:
 
           # ─── DATABASE RESTORE ──────────────────────────────────────
 
-          echo "[R] Restoring database from dump..."
-          echo "[W] Waiting for PostgreSQL to be ready..."
-          kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=database -n "$NS" --timeout=5m
+            echo "[R] Restoring database from dump..."
+            kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=database -n "$NS" --timeout=5m
 
-          echo "-> Downloading database dump..."
-          gcloud storage cp gs://${{ secrets.GCS_BUCKET_NAME }}/dumps/2024-08-19.dump /tmp/database.dump
+            echo "-> Downloading database dump..."
+            gcloud storage cp gs://${{ secrets.GCS_BUCKET_NAME }}/dumps/2024-08-19.dump /tmp/db.dump
 
-          echo "[V] Restoring database with psql..."
-          kubectl exec -i deployment/database -n "$NS" -- \
-            env PGOPTIONS='--client-min-messages=warning' \
-            psql -v ON_ERROR_STOP=1 \
-              -U ${{ secrets.DATABASE_USERNAME }} \
-              -d ${{ secrets.DATABASE_NAME }} \
-              < /tmp/database.dump
+            echo "[V] Restoring database..."
+            kubectl exec -i deployment/database -n "$NS" -- sh -c "
+              PGPASSWORD=${{ secrets.DATABASE_PASSWORD }} psql \
+                -U ${{ secrets.DATABASE_USERNAME }} \
+                -d ${{ secrets.DATABASE_NAME }} \
+                -v ON_ERROR_STOP=1 \
+                -f /dev/stdin
+            " < /tmp/db.dump
 
-          # restoration check
-          echo "[C] Checking restored data..."
-          kubectl exec deployment/database -n "$NS" -- \
-            psql -U ${{ secrets.DATABASE_USERNAME }} -d ${{ secrets.DATABASE_NAME }} -c "SELECT 'Students count: ' || COUNT(*) FROM students;"
-          kubectl exec deployment/database -n "$NS" -- \
-            psql -U ${{ secrets.DATABASE_USERNAME }} -d ${{ secrets.DATABASE_NAME }} -c "SELECT 'Schedules count: ' || COUNT(*) FROM schedules;"
-          kubectl exec deployment/database -n "$NS" -- \
-            psql -U ${{ secrets.DATABASE_USERNAME }} -d ${{ secrets.DATABASE_NAME }} -c "SELECT 'Groups count: ' || COUNT(*) FROM groups;"
+            echo "[C] Validating restored data..."
+            kubectl exec deployment/database -n "$NS" -- sh -c "
+              PGPASSWORD=${{ secrets.DATABASE_PASSWORD }} psql \
+                -U ${{ secrets.DATABASE_USERNAME }} \
+                -d ${{ secrets.DATABASE_NAME }} \
+                -c \"SELECT 'semesters: ' || COUNT(*) FROM semesters 
+                    UNION ALL SELECT 'students: ' || COUNT(*) FROM students 
+                    UNION ALL SELECT 'schedules: ' || COUNT(*) FROM schedules;\"
+            "
 
-          rm -f /tmp/database.dump
+            rm -f /tmp/db.dump
           echo "✅ Database restore completed!"
 
 
