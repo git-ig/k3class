@@ -213,18 +213,25 @@ jobs:
             --set postgresql.password="${{ secrets.DATABASE_PASSWORD }}" \
             --wait --timeout 7m0s --atomic
 
-            # ─── DATABASE RESTORE ──────────────────────────────────────
-          echo "🗄️ Starting database restore..."
-          helm upgrade database ./helm/database \
-            --namespace "$NS" \
-            --reuse-values \
-            --set restore.enabled=true \
-            --set restore.dumpUrl="gs://${{ secrets.GCS_BUCKET_NAME }}/dumps/2024-08-19.dump"
+          # ─── DATABASE RESTORE ──────────────────────────────────────
 
-          echo "⏳ Waiting for restore job to complete..."
-          kubectl wait --for=condition=complete job/database-restore -n "$NS" --timeout=10m
+          echo "[R] Restoring database from dump..."
+          echo "[W] Waiting for PostgreSQL to be ready..."
+          kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=database -n "$NS" --timeout=5m
 
+          echo "-> Downloading database dump..."
+          gcloud storage cp gs://${{ secrets.GCS_BUCKET_NAME }}/dumps/2024-08-19.dump /tmp/database.dump
+
+          echo "[V] Restoring database..."
+          kubectl exec deployment/database -n "$NS" -- sh -c "
+            PGPASSWORD=${{ secrets.DATABASE_PASSWORD }} pg_restore \
+              -h localhost -U ${{ secrets.DATABASE_USERNAME }} -d ${{ secrets.DATABASE_NAME }} \
+              --clean --no-owner --verbose < /dev/stdin
+          " < /tmp/database.dump
+
+          rm -f /tmp/database.dump
           echo "✅ Database restore completed!"
+          
           # ─── BACKEND ───────────────────────────────────────────────
           helm upgrade --install backend ./helm/backend \
             --namespace "$NS" \
