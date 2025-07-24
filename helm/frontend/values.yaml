@@ -40,9 +40,9 @@ resources:
     memory: 128Mi
 
 # React app environment variables
-env:
-  REACT_APP_API_BASE_URL: "http://localhost:8080"
-  NODE_ENV: "prod"
+# env:
+#   REACT_APP_API_BASE_URL: "http://localhost:8080"
+#   NODE_ENV: "prod"
 
 nodeSelector: {}
 tolerations: []
