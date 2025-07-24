@@ -46,9 +46,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Create .env file
-        working-directory: ./frontend
-        run: echo "REACT_APP_API_BASE_URL=http://localhost:8080/" > .env
+      # - name: Create .env file
+      #   working-directory: ./frontend
+      #   run: echo "REACT_APP_API_BASE_URL=http://localhost:8080/" > .env
 
       - name: Install Dependencies
         working-directory: ./frontend
