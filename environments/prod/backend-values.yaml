@@ -32,5 +32,5 @@ ingress:
   hosts:
     - host: api.dock.ink
       paths:
-        - path: /api
+        - path: /
           pathType: Prefix
