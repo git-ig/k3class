@@ -297,10 +297,21 @@ jobs:
             --set image.tag="latest" \
             --wait --timeout 5m0s --atomic
 
+          # ─── MONITORING ──────────────────────────────────────────────
+          helm upgrade --install monitoring ./helm/monitoring \
+            --namespace "$NS" \
+            --values "environments/$ENV/monitoring-values.yaml" \
+            --set grafana.adminPassword="${{ secrets.GRAFANA_ADMIN_PASSWORD }}" \
+            --wait --timeout 5m --atomic
+
+          echo "✅ Monitoring deployed successfully!"
+
           # ─── overall condition ───────────────────────────────────
           kubectl rollout status deploy/database  -n "$NS" --timeout=5m
           kubectl rollout status deploy/backend   -n "$NS" --timeout=5m
           kubectl rollout status deploy/frontend  -n "$NS" --timeout=5m
+          kubectl rollout status deploy/monitoring-prometheus -n "$NS" --timeout=5m  # ← Добавили
+          kubectl rollout status deploy/monitoring-grafana -n "$NS" --timeout=5m     # ← Добавили
 
           kubectl get all -n "$NS"
           kubectl get ingress -n "$NS"

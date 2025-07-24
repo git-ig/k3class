@@ -1,0 +1,38 @@
+replicaCount:
+  prometheus: 1
+  grafana: 1
+
+prometheus:
+  retention: "7d"
+  resources:
+    limits:
+      cpu: 300m
+      memory: 512Mi
+    requests:
+      cpu: 150m
+      memory: 384Mi
+
+grafana:
+  resources:
+    limits:
+      cpu: 150m
+      memory: 192Mi
+    requests:
+      cpu: 75m
+      memory: 96Mi
+
+nodeExporter:
+  resources:
+    limits:
+      cpu: 50m
+      memory: 32Mi
+    requests:
+      cpu: 25m
+      memory: 16Mi
+
+ingress:
+  enabled: true
+  grafana:
+    host: grafana.dock.ink
+  prometheus:
+    host: prometheus.dock.ink
