@@ -23,11 +23,11 @@ spec:
         - name: http
           containerPort: {{ .Values.service.targetPort }}
           protocol: TCP
-        env:
-        - name: REACT_APP_API_BASE_URL
-          value: {{ .Values.env.REACT_APP_API_BASE_URL }}
-        - name: NODE_ENV
-          value: {{ .Values.env.NODE_ENV }}
+        # env:
+        # - name: REACT_APP_API_BASE_URL
+        #   value: {{ .Values.env.REACT_APP_API_BASE_URL }}
+        # - name: NODE_ENV
+        #   value: {{ .Values.env.NODE_ENV }}
         livenessProbe:
           httpGet:
             path: /
