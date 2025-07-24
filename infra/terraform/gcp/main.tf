@@ -122,7 +122,7 @@ resource "cloudflare_record" "grafana" {
   name            = "grafana"
   content         = module.compute.k3s_control_plane_public_ip
   type            = "A"
-  proxied         = true
+  proxied         = false
   allow_overwrite = true
 }
 
@@ -132,7 +132,7 @@ resource "cloudflare_record" "prometheus" {
   name            = "prometheus"
   content         = module.compute.k3s_control_plane_public_ip
   type            = "A"
-  proxied         = true
+  proxied         = false
   allow_overwrite = true
 }
 
