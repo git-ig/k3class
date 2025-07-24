@@ -56,15 +56,12 @@ jobs:
         run: |
           echo "REACT_APP_API_BASE_URL=${{ secrets.PROD_API_URL }}" > .env.production
     
-      - name: Install Dependencies
+      - name: Install & Build Frontend
         working-directory: ./frontend
-        run: npm ci
-    
-      - name: Build
-        working-directory: ./frontend
-        env:
-          REACT_APP_API_BASE_URL: ${{ secrets.PROD_API_URL }}
-        run: npm run build
+        run: |
+          echo "REACT_APP_API_BASE_URL=${{ secrets.PROD_API_URL }}" > .env.production
+          npm ci
+          npm run build
 
       - name: Debug environment
         working-directory: ./frontend
