@@ -172,6 +172,16 @@ jobs:
           
           echo "✅ StorageClass created successfully"
           kubectl get storageclass database-storage
+          
+
+      # ──────────────── Upload Database Dumps ────────────────────
+      - name: Upload Database Dumps to GCS
+        run: |
+          if [ -d "database" ]; then
+            echo "Uploading database dumps..."
+            gcloud storage cp database/*.dump gs://${{ secrets.GCS_BUCKET_NAME }}/dumps/
+            echo "Done!"
+          fi
 
       # ─────────────────────── Helm deploy ─────────────────────────
       - name: Deploy applications with Helm
