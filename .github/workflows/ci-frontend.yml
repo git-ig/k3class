@@ -86,4 +86,3 @@ jobs:
           push: true
           tags: |
             ghcr.io/${{ github.repository }}-frontend:${{ github.sha }}
-            ghcr.io/${{ github.repository }}-frontend:latest
