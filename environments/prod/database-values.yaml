@@ -10,24 +10,18 @@ replicaCount: 1
 
 resources:
   limits:
-    cpu: 300m  # 0.3 CPU
+    cpu: 300m
     memory: 256Mi
   requests:
-<<<<<<< HEAD
-    cpu: 150m  # 50% от limits
-    memory: 128Mi  # 50% от limits
-    
-=======
     cpu: 150m
     memory: 128Mi
 
->>>>>>> dc60a4b (Update terraform and workflows)
 postgresql:
-  database: database
-  username: postgres
-  password: mypassword1
+  database: ${{ secrets.DATABASE_NAME }}
+  username: ${{ secrets.DATABASE_USERNAME }}
+  password: ${{ secrets.DATABASE_PASSWORD }}
   
 persistence:
   enabled: true
-  size: 1Gi
-  storageClass: "standard"
+  size: 3Gi
+  storageClass: "database-storage"
