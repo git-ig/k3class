@@ -11,7 +11,7 @@ spec:
     path: helm/frontend
     helm:
       valueFiles:
-        - ../../environments/prod/frontend-values.yaml  #  prod
+        - ../../environments/prod/frontend-values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: prod

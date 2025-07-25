@@ -3,7 +3,7 @@ replicaCount:
   grafana: 1
 
 prometheus:
-  retention: "7d"
+  retention: "14d"
   resources:
     limits:
       cpu: 300m

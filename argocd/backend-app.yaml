@@ -9,18 +9,18 @@ spec:
   source:
     repoURL: https://github.com/git-ig/k3class
     targetRevision: main
-    path: helm-charts/backend
+    path: helm/backend
     helm:
       valueFiles:
-        - values.yaml
+        - ../../environments/prod/backend-values.yaml
       parameters:
         - name: image.tag
           value: "latest"
         - name: namespace
-          value: "production"
+          value: "prod"
   destination:
     server: https://kubernetes.default.svc
-    namespace: production
+    namespace: prod
   syncPolicy:
     automated:
       prune: true

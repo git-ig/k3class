@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/git-ig/k3class
     targetRevision: main
-    path: argocd/applications
+    path: argocd
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
