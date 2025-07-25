@@ -5,7 +5,7 @@ image:
   repository: postgres
   tag: "13-alpine"
   pullPolicy: IfNotPresent
-
+  
 replicaCount: 1
 
 resources:
@@ -13,15 +13,15 @@ resources:
     cpu: 300m  # 0.3 CPU
     memory: 256Mi
   requests:
-    cpu: 150m  # 50% limits
-    memory: 128Mi  # 50% limits
-
+    cpu: 150m  # 50% от limits
+    memory: 128Mi  # 50% от limits
+    
 postgresql:
-  database: ${{ secrets.DATABASE_NAME }}
-  username: ${{ secrets.DATABASE_USERNAME }}
-  password: ${{ secrets.DATABASE_PASSWORD }}
-
+  database: database
+  username: postgres
+  password: mypassword1
+  
 persistence:
   enabled: true
-  size: 3Gi
-  storageClass: "database-storage"
+  size: 1Gi
+  storageClass: "standard"

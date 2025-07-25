@@ -2,10 +2,10 @@
 namespace: prod
 
 image:
-  repository: ghcr.io/${{ github.repository }}-frontend
-  tag: "${{ env.IMAGE_TAG }}"
+  repository: ghcr.io/git-ig/k3class-frontend
+  tag: "d3dc18357dd51c42f0fcf5281a6d6592b4112f7d"
   pullPolicy: IfNotPresent
-
+  
 replicaCount: 2
 
 resources:
@@ -15,11 +15,11 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
-
-# env:
-#   REACT_APP_API_BASE_URL: "http://localhost:8080"
-#   NODE_ENV: prod
-
+    
+env:
+  REACT_APP_API_BASE_URL: "http://localhost:8080"
+  NODE_ENV: prod
+  
 ingress:
   enabled: true
   hosts:

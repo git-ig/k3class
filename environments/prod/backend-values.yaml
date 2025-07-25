@@ -1,11 +1,11 @@
 # Backend values for prod
-# namespace: prod
+namespace: prod
 
 image:
-  repository: ""
-  tag: ""
+  repository: ghcr.io/git-ig/k3class
+  tag: "d3dc18357dd51c42f0fcf5281a6d6592b4112f7d"
   pullPolicy: IfNotPresent
-
+  
 replicaCount: 3
 
 resources:
@@ -14,23 +14,23 @@ resources:
     memory: 512Mi
   requests:
     cpu: 250m
-    memory: 386Mi
-
+    memory: 256Mi
+    
 database:
   host: database-service
   port: 5432
-  name: ""
-  username: ""
-  password: ""
-
+  name: database
+  username: postgres
+  password: mypassword1
+  
 spring:
   profiles:
     active: prod
-
+    
 ingress:
   enabled: true
   hosts:
     - host: api.dock.ink
       paths:
-        - path: /
+        - path: /api
           pathType: Prefix
