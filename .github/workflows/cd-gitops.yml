@@ -205,71 +205,71 @@ jobs:
                     pathType: Prefix
           EOF
           
-      - name: Update database values for prod
-        if: env.ENVIRONMENT == 'prod'
-        run: |
-          cat > environments/prod/database-values.yaml << 'EOF'
-          # Database values for prod
-          namespace: prod
-          
-          image:
-            repository: postgres
-            tag: "13-alpine"
-            pullPolicy: IfNotPresent
+          - name: Update database values for prod
+          if: env.ENVIRONMENT == 'prod'
+          run: |
+            cat > environments/prod/database-values.yaml << 'EOF'
+            # Database values for prod
+            namespace: prod
             
-          replicaCount: 1
-          
-          resources:
-            limits:
-              cpu: 300m
-              memory: 256Mi
-            requests:
-              cpu: 150m
-              memory: 128Mi
+            image:
+              repository: postgres
+              tag: "15-alpine"
+              pullPolicy: IfNotPresent
               
-          postgresql:
-            database: ${{ secrets.DATABASE_NAME }}
-            username: ${{ secrets.DATABASE_USERNAME }}
-            password: ${{ secrets.DATABASE_PASSWORD }}
+            replicaCount: 1
             
-          persistence:
-            enabled: true
-            size: 1Gi
-            storageClass: "standard"
-          EOF
-          
-      - name: Update database values for dev
-        if: env.ENVIRONMENT == 'dev'
-        run: |
-          cat > environments/dev/database-values.yaml << 'EOF'
-          # Database values for dev
-          namespace: dev
-          
-          image:
-            repository: postgres
-            tag: "15-alpine"
-            pullPolicy: IfNotPresent
-            
-          replicaCount: 1
-          
-          resources:
-            limits:
-              cpu: 250m
-              memory: 256Mi
-            requests:
-              cpu: 125m
-              memory: 128Mi
+            resources:
+              limits:
+                cpu: 300m
+                memory: 256Mi
+              requests:
+                cpu: 150m
+                memory: 128Mi
+                
+            postgresql:
+              database: \${{ secrets.DATABASE_NAME }}
+              username: \${{ secrets.DATABASE_USERNAME }}
+              password: \${{ secrets.DATABASE_PASSWORD }}
               
-          postgresql:
-            database: ${{ secrets.DATABASE_NAME }}
-            username: ${{ secrets.DATABASE_USERNAME }}
-            password: ${{ secrets.DATABASE_PASSWORD }}
-            
-          persistence:
-            enabled: true
-            size: 1Gi
-            storageClass: "standard"
-          EOF
+            persistence:
+              enabled: true
+              size: 3Gi
+              storageClass: "database-storage"
+            EOF
+          
+            - name: Update database values for dev
+            if: env.ENVIRONMENT == 'dev'
+            run: |
+              cat > environments/dev/database-values.yaml << 'EOF'
+              # Database values for dev
+              namespace: dev
+              
+              image:
+                repository: postgres
+                tag: "15-alpine"
+                pullPolicy: IfNotPresent
+                
+              replicaCount: 1
+              
+              resources:
+                limits:
+                  cpu: 250m
+                  memory: 256Mi
+                requests:
+                  cpu: 125m
+                  memory: 128Mi
+                  
+              postgresql:
+                database: \${{ secrets.DATABASE_NAME }}
+                username: \${{ secrets.DATABASE_USERNAME }}
+                password: \${{ secrets.DATABASE_PASSWORD }}
+                
+              persistence:
+                enabled: true
+                size: 1Gi
+                storageClass: "standard"
+              EOF
           
       - name: Commit and push changes
         run: |
