@@ -150,7 +150,7 @@ jobs:
               memory: 128Mi
               
           env:
-            REACT_APP_API_BASE_URL: "http://localhost:8080"
+            REACT_APP_API_BASE_URL: "${{ secrets.PROD_API_URL }}"
             NODE_ENV: prod
             
           ingress:
@@ -189,7 +189,7 @@ jobs:
               memory: 64Mi
               
           env:
-            REACT_APP_API_BASE_URL: "http://localhost:8080"
+            REACT_APP_API_BASE_URL: "${{ secrets.DEV_API_URL }}"
             NODE_ENV: dev
             
           ingress:
@@ -221,11 +221,11 @@ jobs:
           
           resources:
             limits:
-              cpu: 300m  # 0.3 CPU
+              cpu: 300m
               memory: 256Mi
             requests:
-              cpu: 150m  # 50% от limits
-              memory: 128Mi  # 50% от limits
+              cpu: 150m
+              memory: 128Mi
               
           postgresql:
             database: ${{ secrets.DATABASE_NAME }}
@@ -247,18 +247,18 @@ jobs:
           
           image:
             repository: postgres
-            tag: "13-alpine"
+            tag: "15-alpine"
             pullPolicy: IfNotPresent
             
           replicaCount: 1
           
           resources:
             limits:
-              cpu: 250m  # 0.25 CPU
+              cpu: 250m
               memory: 256Mi
             requests:
-              cpu: 125m  # 50% от limits
-              memory: 128Mi  # 50% от limits
+              cpu: 125m
+              memory: 128Mi
               
           postgresql:
             database: ${{ secrets.DATABASE_NAME }}
