@@ -81,7 +81,7 @@ jobs:
             hosts:
               - host: api.dock.ink
                 paths:
-                  - path: /api
+                  - path: /
                     pathType: Prefix
           EOF
           
@@ -121,9 +121,9 @@ jobs:
           ingress:
             enabled: true
             hosts:
-              - host: dev-api.dock.ink
+              - host: api.dock.ink
                 paths:
-                  - path: /api
+                  - path: /
                     pathType: Prefix
           EOF
           

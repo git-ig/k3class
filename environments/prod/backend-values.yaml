@@ -19,9 +19,9 @@ resources:
 database:
   host: database-service
   port: 5432
-  name: database
-  username: postgres
-  password: mypassword1
+  name: \${{ secrets.DATABASE_NAME }}
+  username: \${{ secrets.DATABASE_USERNAME }}
+  password: \${{ secrets.DATABASE_PASSWORD }}
   
 spring:
   profiles:
@@ -30,7 +30,7 @@ spring:
 ingress:
   enabled: true
   hosts:
-    - host: api.dock.ink
+    - host: "${{ secrets.PROD_API_URL }}"
       paths:
-        - path: /api
+        - path: /
           pathType: Prefix

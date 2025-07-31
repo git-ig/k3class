@@ -17,7 +17,7 @@ resources:
     memory: 128Mi
     
 env:
-  REACT_APP_API_BASE_URL: "http://localhost:8080"
+  REACT_APP_API_BASE_URL: "${{ secrets.PROD_API_URL }}"
   NODE_ENV: prod
   
 ingress:
